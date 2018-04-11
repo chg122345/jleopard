@@ -34,8 +34,8 @@
       <file leaf-file-name="PageInfo.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/page/PageInfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="209">
+              <caret line="25" column="45" lean-forward="true" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -779,18 +779,18 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98642000" />
+    <option name="totallyTimeSpent" value="99386000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="10" sideWeight="0.5033512" side_tool="true" visible="true" weight="0.3281027" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="10" sideWeight="0.5033512" side_tool="true" visible="true" weight="0.32763532" />
       <window_info anchor="right" id="Maven Projects" order="7" weight="0.3297587" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49865952" weight="0.32905984" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" sideWeight="0.49865952" weight="0.32905984" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4966488" weight="0.3281027" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" weight="0.32952926" />
       <window_info id="Designer" order="6" />
@@ -837,6 +837,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <MESSAGE value="1.02" />
     <MESSAGE value="Third Day" />
     <MESSAGE value="Fourth Day" />
@@ -1200,8 +1204,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/page/PageInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="209">
+          <caret line="25" column="45" lean-forward="true" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -1233,7 +1237,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited />
+          <last-edited>No facets are configured</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1245,7 +1249,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited />
+          <last-edited>Python 3.6 interpreter library</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1292,7 +1296,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited />
+          <last-edited>Maven: com.mchange:c3p0:0.9.5.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
