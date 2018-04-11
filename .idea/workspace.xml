@@ -35,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/page/PageInfo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
-              <caret line="25" column="45" lean-forward="true" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+              <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -208,6 +208,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -254,6 +255,16 @@
               <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
               <item name="leopard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="leopardframework" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="session" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="leopard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -293,7 +304,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
@@ -700,6 +710,7 @@
       <workItem from="1523319196907" duration="10479000" />
       <workItem from="1523348965256" duration="8440000" />
       <workItem from="1523406094275" duration="6714000" />
+      <workItem from="1523417622887" duration="11000" />
     </task>
     <task id="LOCAL-00001" summary="1.02">
       <created>1523268823798</created>
@@ -779,7 +790,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99386000" />
+    <option name="totallyTimeSpent" value="99397000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -787,47 +798,31 @@
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="10" sideWeight="0.5033512" side_tool="true" visible="true" weight="0.32763532" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5033512" side_tool="true" weight="0.3281027" />
       <window_info anchor="right" id="Maven Projects" order="7" weight="0.3297587" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" sideWeight="0.49865952" weight="0.32905984" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4966488" weight="0.3281027" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" weight="0.32952926" />
       <window_info id="Designer" order="6" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28619304" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28619304" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39942938" />
-      <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39942938" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" weight="0.32952926" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3281027" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49865952" weight="0.32905984" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4966488" weight="0.3281027" />
-      <window_info id="Designer" order="6" />
       <window_info id="Image Layers" order="3" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="5" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5033512" side_tool="true" weight="0.3281027" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="Capture Tool" order="4" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32952926" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.3281027" />
-      <window_info anchor="right" id="Maven Projects" order="7" weight="0.3297587" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28217158" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1095,9 +1090,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
           <caret line="198" lean-forward="true" selection-start-line="198" selection-end-line="198" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1179,9 +1171,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="50" column="71" lean-forward="true" selection-start-line="50" selection-start-column="71" selection-end-line="50" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1205,7 +1194,7 @@
     <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/page/PageInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
-          <caret line="25" column="45" lean-forward="true" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
         </state>
       </provider>
     </entry>
