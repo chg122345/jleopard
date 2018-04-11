@@ -26,7 +26,7 @@ public class DeleteSqlMore implements Sql {
 
     public DeleteSqlMore(Class<?> cls){
         this.tableName =TableUtil.getTableName(cls);
-        this.primaryKeyName=FieldUtil.getPrimaryKey(cls).get(0);
+        this.primaryKeyName=FieldUtil.getPrimaryKeys(cls).get(0);
     }
     @Override
     public List<String> getColumnNames() {

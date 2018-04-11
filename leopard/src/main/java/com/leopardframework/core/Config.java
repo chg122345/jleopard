@@ -14,8 +14,10 @@ import java.util.Properties;
  * A novice on the road, please give me a suggestion.
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
+ *
+ *  与外部信息关联 获取开发人员配置信息
  */
-public class Config {
+public final class Config {
     public static Connection getConnection(){
         Properties pros=PropsUtil.loadProps("config.properties");
         String driver=pros.getProperty(Constant.JDBCDRIVER);
@@ -27,5 +29,9 @@ public class Config {
     }
     public static boolean getDevModel(){
         return Constant.DEV;
+    }
+
+    public static String getEntityPackage(){
+        return Constant.ENTITY_PACKAGE;
     }
 }

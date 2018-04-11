@@ -2,7 +2,7 @@ package com.leopardframework.core;
 
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.annotation.Table;
-import com.leopardframework.core.get.ColumnName;
+import com.leopardframework.core.get.ColumnNameHelper;
 import com.leopardframework.core.get.FieldValue;
 import com.leopardframework.core.get.PrimaryKeyName;
 import com.leopardframework.core.get.TableName;
@@ -64,7 +64,7 @@ public final class SqlBuilder {
             if(!fexist){
                continue;
             }
-            columnName=ColumnName.getColumnName(field);
+            columnName=ColumnNameHelper.getColumnName(field);
             Object value=FieldValue.getFieldValue(object,field);
             if(value!=null||"".equals(value)){
                 fieldValues.add(value);
@@ -137,7 +137,7 @@ public final class SqlBuilder {
             if(!fexist){
                 continue;
             }
-            columnName=ColumnName.getColumnName(fields[i]);
+            columnName=ColumnNameHelper.getColumnName(fields[i]);
             Object value=FieldValue.getFieldValue(object,fields[i]);
             if(value!=null||"".equals(value)){
                 fieldValues.add(value);
@@ -184,7 +184,7 @@ public final class SqlBuilder {
             if(!fexist){
                 continue;
             }
-            columnName=ColumnName.getColumnName(fields[i]);
+            columnName=ColumnNameHelper.getColumnName(fields[i]);
             Object value=FieldValue.getFieldValue(object,fields[i]);
             if(value!=null||"".equals(value)){
                 fieldValues.add(value);

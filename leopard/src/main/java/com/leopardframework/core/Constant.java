@@ -16,4 +16,5 @@ public interface Constant {
     String JDBCUSER="jdbc.User";
     String JDBCPASSWORD="jdbc.Password";
     boolean DEV=true;
+    String ENTITY_PACKAGE="";
 }

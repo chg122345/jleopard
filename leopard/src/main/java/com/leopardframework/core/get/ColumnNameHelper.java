@@ -13,8 +13,9 @@ import java.lang.reflect.Field;
  * A novice on the road, please give me a suggestion.
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
+ *  获取字段名辅助类
  */
-public class ColumnName {
+public class ColumnNameHelper {
 
     public static String getColumnName(Field field){
         Column column=field.getDeclaredAnnotation(Column.class);

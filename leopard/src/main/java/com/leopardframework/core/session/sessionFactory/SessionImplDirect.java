@@ -26,7 +26,7 @@ import java.util.Map;
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
  *
- * @see DoArrays
+ * @see ArraysHelper
  * @   会话的直接实现类 操作数据库，进行数据操作
  *                          并返回对应的对象
  */
@@ -146,7 +146,7 @@ class SessionImplDirect implements Session {
         String sql=null;
         SQL.append(SqlBuilder.getDeleteSql(cls.newInstance())).append(" \n").append(" where").append(" ")
                 .append(PrimaryKeyName.getPrimaryKeyName(cls)).append(" ");
-           String dosql=DoArrays.getSql(primaryKeys);
+           String dosql=ArraysHelper.getSql(primaryKeys);
                 sql=SQL.append(dosql).toString();
                 pstm=conn.prepareStatement(sql);
                 for(int i=0;i<primaryKeys.length;++i){

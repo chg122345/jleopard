@@ -149,7 +149,7 @@ final class SessionDirectImpl implements Session {
         this.init();
         Sql deletesql=new DeleteSqlMore(cls);
         StringBuilder SQL=new StringBuilder();
-        SQL.append(deletesql.getSql()).append(" ").append(DoArrays.getSql(primaryKeys));
+        SQL.append(deletesql.getSql()).append(" ").append(ArraysHelper.getSql(primaryKeys));
         String sql=SQL.toString().toUpperCase();
         LOG.info("当前执行的sql语句: \n" +sql);
         pstm=conn.prepareStatement(sql);
@@ -184,7 +184,7 @@ final class SessionDirectImpl implements Session {
     public int Update(Object entity, Object primaryKey) throws SQLException {
         this.init();
         Sql updatesql=new UpdateSql(entity);
-        List pks=FieldUtil.getPrimaryKey(entity.getClass());
+        List pks=FieldUtil.getPrimaryKeys(entity.getClass());
         if (CollectionUtil.isEmpty(pks)){
             LOG.error(entity+ " 没有找到唯一标识主键...");
             throw new NotfoundFieldException(entity+ " 没有找到唯一标识主键...");
@@ -295,13 +295,13 @@ final class SessionDirectImpl implements Session {
         this.init();
         Sql selectsql=new SelectSqlMore(cls);
         StringBuilder SQL=new StringBuilder();
-        List pks=FieldUtil.getPrimaryKey(cls);
+        List pks=FieldUtil.getPrimaryKeys(cls);
         if (CollectionUtil.isEmpty(pks)){
             LOG.error(cls+ " 没有找到唯一标识主键...");
             throw new NotfoundFieldException(cls+ " 没有找到唯一标识主键...");
         }
         SQL.append( selectsql.getSql()).append("\n").append(" where").append(" ")
-                .append(pks.get(0)).append(" ").append( DoArrays.getSql(primaryKeys));
+                .append(pks.get(0)).append(" ").append( ArraysHelper.getSql(primaryKeys));
         String sql=SQL.toString().toUpperCase();
         LOG.info("当前执行的sql语句: \n" +sql);
         pstm=conn.prepareStatement(sql);
@@ -344,6 +344,15 @@ final class SessionDirectImpl implements Session {
         return EntityHelper.invoke(res,cls,C_F);
     }
 
+    /**
+     *  主流的分页查询 (仅支持mysql)
+     *
+     * @param cls  要查询的对象的实体类
+     * @param page     查询第几页 start 1
+     * @param pagesize   每页显示多少条数据
+     * @return      PageInfo类(分页信息)
+     * @throws Exception
+     */
     @Override
     public PageInfo Get(Class<?> cls, int page, int pagesize) throws Exception {
         this.init();

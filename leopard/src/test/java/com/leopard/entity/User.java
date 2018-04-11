@@ -17,7 +17,7 @@ import com.leopardframework.core.enums.Primary;
 @Table
 public class User{
 
-    @Column(isPrimary = Primary.AUTOINCREMENT,unique = true)
+    @Column(isPrimary = Primary.YSE,unique = true)
     private long id;
     @Column("name")
     private String name;
@@ -52,7 +52,6 @@ public class User{
     }
 
     public String getName() {
-        System.out.println("User getName Method");
         return name;
     }
 

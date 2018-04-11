@@ -31,7 +31,7 @@ public class SelectSqlMore implements Sql{
     public SelectSqlMore(Class<?> cls) {
         List<String> allcolumns=new ArrayList<>();
         this.tableName =TableUtil.getTableName(cls);
-        this.primaryKeyName=FieldUtil.getPrimaryKey(cls).get(0);
+        this.primaryKeyName=FieldUtil.getPrimaryKeys(cls).get(0);
         Set<String> set=FieldUtil.getAllColumnName(cls);
         for(String column:set){
             allcolumns.add(column);

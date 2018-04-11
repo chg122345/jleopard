@@ -1,7 +1,7 @@
 package com.leopardframework.core.util;
 
 import com.leopardframework.core.annotation.Column;
-import com.leopardframework.core.get.ColumnName;
+import com.leopardframework.core.get.ColumnNameHelper;
 import com.leopardframework.exception.NotfoundFieldException;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
@@ -51,7 +51,7 @@ public class FieldUtil {
                         || (fieldValue instanceof Long && (Long) fieldValue == 0) || (fieldValue instanceof Double && (Double) fieldValue == 0.0)) {
                     continue;    //空值 不是我们所要的对象  ignore
                 }
-                columnName=ColumnName.getColumnName(field);
+                columnName=ColumnNameHelper.getColumnName(field);
            //     System.out.println(columnName+" ");
                 c_v.put(columnName,fieldValue);             //取到我们需要的打包
             } catch (Exception e) {
@@ -94,7 +94,7 @@ public class FieldUtil {
                 if(fieldValue==null||"".equals(fieldValue)){
                     continue;    //空值 不是我们所要的对象  ignore
                 }
-                columnName=column.value().toUpperCase();//ColumnName.getColumnName(field);
+                columnName=column.value().toUpperCase();//ColumnNameHelper.getColumnName(field);
                 if(StringUtil.isEmpty(columnName)){
                     columnName=field.getName().toUpperCase();
                 }
@@ -121,7 +121,7 @@ public class FieldUtil {
             if (!field.isAnnotationPresent(Column.class)) {
                 continue;   //没有注解 不是我们要的对象  ignore
             }
-            columns.add(ColumnName.getColumnName(field));
+            columns.add(ColumnNameHelper.getColumnName(field));
         }
 
         return columns;
@@ -134,11 +134,29 @@ public class FieldUtil {
 
 
     /**
+     *  获取对应的数据库字段名 对应的Java类型
+     * @param cls
+     * @return   Map ( key : 对应的数据库字段名  value : 对应的Java类型 )
+     */
+    public static Map<String,Object> getAllColumnName_JavaType(Class<?> cls){
+        Map<String,Object> colName_Type=new LinkedHashMap<>();
+        Field[] fields=cls.getDeclaredFields();
+        for (Field field :fields) {
+            if (!field.isAnnotationPresent(Column.class)) {
+                continue;   //没有注解 不是我们要的对象  ignore
+            }
+            colName_Type.put(ColumnNameHelper.getColumnName(field),field.getType());
+        }
+
+        return colName_Type;
+    }
+
+    /**
      *   主要用于select
      *    对对象变量赋予数据库查出的值
      * @param cls 实体对象类
      * @return
-     *   Map  key=数据库的字段名(@Column注解上的的值)，value=实体对象的字段名
+     *   Map  key=数据库的字段名(@Column注解上的的值)，value=实体对象的成员变量名
      */
     public static Map<String,String> getColumnFieldName(Class<?> cls){
         Map<String,String> colnames=new HashMap<>();
@@ -152,7 +170,7 @@ public class FieldUtil {
                 continue;
             }
             String fieldName=field.getName();
-            String colname=ColumnName.getColumnName(field);
+            String colname=ColumnNameHelper.getColumnName(field);
             colnames.put(colname,fieldName);
 
         }
@@ -164,17 +182,18 @@ public class FieldUtil {
      * @param cls
      * @return list
      */
-    public static List getPrimaryKey(Class<?> cls){
+    public static List getPrimaryKeys(Class<?> cls){
         List pks =new ArrayList() ;
         Field[] fields=cls.getDeclaredFields();
         for (Field field :fields){
            Column column=field.getDeclaredAnnotation(Column.class);
            if(isPrimaryKey(column)>0){
-               pks.add(ColumnName.getColumnName(field));
+               pks.add(ColumnNameHelper.getColumnName(field));
            }
         }
           return pks;
     }
+
 
     /**
      *  判断是否为主键  返回类型

@@ -31,7 +31,7 @@ public class PrimaryKeyName {
             }
             Column column=field.getDeclaredAnnotation(Column.class);
             if(column.isPrimary()==Primary.AUTOINCREMENT||column.isPrimary()==Primary.YSE){
-                primaryKeyName=ColumnName.getColumnName(field).toUpperCase();
+                primaryKeyName=ColumnNameHelper.getColumnName(field).toUpperCase();
             }
         }
         return primaryKeyName;

@@ -46,6 +46,8 @@ public class UserTest {
             boolean un;
             Field[] fields =cls.getDeclaredFields();
             for(Field field:fields){
+                System.out.println(field.getName()+" 变量类型： "+field.getType());
+                System.out.println(field.getType() == long.class);
                 Column column=field.getDeclaredAnnotation(Column.class);
                 columnName=column.value().toUpperCase();
                 pk=column.isPrimary();
@@ -55,8 +57,8 @@ public class UserTest {
                 }if(pk==Primary.NO){
                       //  continue;
                 }
-                System.out.println(field.getType()==Long.class);
-                System.out.println(columnName+"   "+ pk + " "+un);
+              //  System.out.println(field.getType()==Long.class);
+               // System.out.println(columnName+"   "+ pk + " "+un);
             }
 
         } catch (ClassNotFoundException e) {
@@ -152,7 +154,7 @@ public class UserTest {
         user.setName("leopard");
       //  user.setAddress("China");
        // System.out.println("Sql value："+FieldUtil.getAllColumnName_Value(user));
-        Sql insert=new SelectSql(user);
+        Sql insert=new CreateTableSql(User.class);
 
         System.out.println("Sql 语句："+insert.getSql());
         System.out.println("Sql value："+insert.getValues());
