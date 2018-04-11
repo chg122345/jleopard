@@ -1,0 +1,1002 @@
+
+2018-04-09 19:28:13
+[INFO]-[Thread: main]-[com.leopardframework.core.SqlBuilder.getDeleteSqlValues()]: 生成的Sql语句：delete from USER
+  where ID=? and NAME=? and PHONE=? 
+
+2018-04-09 19:35:30
+[INFO]-[Thread: main]-[com.leopardframework.core.SqlBuilder.getDeleteSqlValues()]: 生成的Sql语句：delete from USER
+  where ID=? and NAME=? and PHONE=? 
+
+2018-04-09 19:44:14
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getInsertSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE,ADDRESS) 
+    VALUES(?,?,?,?)
+
+2018-04-09 19:50:56
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getInsertSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE,ADDRESS) 
+    VALUES(?,?,?,?)
+
+2018-04-09 19:52:11
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getInsertSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE,ADDRESS) 
+    VALUES(?,?,?,?)
+
+2018-04-09 20:03:47
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getInsertSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE,ADDRESS) 
+    VALUES(?,?,?,?)
+
+2018-04-09 20:04:29
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSql.getInsertSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID=? ANDNAME=?ANDPHONE=?ANDADDRESS=?
+
+2018-04-09 20:05:02
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSql.getInsertSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID=? AND NAME=?AND PHONE=?AND ADDRESS=?
+
+2018-04-09 20:05:31
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSql.getInsertSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID=? AND NAME=? AND PHONE=? AND ADDRESS=? 
+
+2018-04-09 21:14:55
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getInsertSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?, SET PHONE=?, SET ADDRESS=?
+   WHERE 
+
+2018-04-09 21:15:47
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getInsertSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?, PHONE=?, ADDRESS=?
+   WHERE 
+
+2018-04-09 21:20:04
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getInsertSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?,PHONE=?,ADDRESS=?
+   WHERE 
+
+2018-04-09 21:20:31
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getInsertSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE 
+
+2018-04-09 21:43:36
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getInsertSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROMUSER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-09 21:44:10
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getInsertSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-09 21:44:44
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getInsertSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-09 21:50:55
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getInsertSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE NAME=? AND PHONE=? 
+
+2018-04-09 21:53:55
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE NAME=? AND PHONE=? 
+
+2018-04-09 22:03:43
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-09 22:06:59
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-09 22:07:23
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-09 22:13:12
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE [ID]
+
+2018-04-09 22:13:46
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID
+
+2018-04-09 22:24:23
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID
+
+2018-04-09 22:24:47
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-10 08:15:11
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-10 08:16:02
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 10:07:10
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:07:10
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:08:38
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSql.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 10:08:38
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Delete()]: 当前执行的sql语句: 
+DELETE FROM USER
+ WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 10:09:27
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:09:27
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:09:37
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:09:37
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:09:45
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:09:45
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:09:56
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:09:56
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-10 10:10:41
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-10 10:10:41
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Delete()]: 当前执行的sql语句: 
+DELETE FROM USER
+ WHERE ID=?
+
+2018-04-10 10:11:12
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-10 10:11:12
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Delete()]: 当前执行的sql语句: 
+DELETE FROM USER
+ WHERE IDIN(?,?,?)
+
+2018-04-10 10:12:06
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-10 10:12:06
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Delete()]: 当前执行的sql语句: 
+DELETE FROM USER
+ WHERE ID IN(?,?,?)
+
+2018-04-10 10:12:38
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSqlMore.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID
+
+2018-04-10 10:12:38
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Delete()]: 当前执行的sql语句: 
+DELETE FROM USER
+ WHERE ID IN(?,?,?)
+
+2018-04-10 10:13:59
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.MySql()]: 当前执行的sql语句: 
+insert into user (id,phone,name) values(?,?,?)
+
+2018-04-10 10:15:43
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.MySql()]: 当前执行的sql语句: 
+insert into user (id,phone,name) values(?,?,?) goinsert into user (id,phone,name) values(?,?,?)go
+
+2018-04-10 10:18:16
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.MySql()]: 当前执行的sql语句: 
+update user set name=?,address=? where id=?
+
+2018-04-10 10:19:16
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.MySql()]: 当前执行的sql语句: 
+delete from user where id=? and name=?
+
+2018-04-10 10:19:32
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.MySql()]: 当前执行的sql语句: 
+delete from user where id=? and name=?
+
+2018-04-10 10:19:46
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.MySql()]: 当前执行的sql语句: 
+delete from user where id=? and name=?
+
+2018-04-10 10:21:11
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.DeleteSql.getSql()]:  生成的sql语句: DELETE FROM USER
+ WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 10:21:11
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Update()]: 当前执行的sql语句: 
+DELETE FROM USER
+ WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 10:22:25
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE 
+
+2018-04-10 10:22:25
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Update()]: 当前执行的sql语句: 
+UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE 
+
+2018-04-10 10:23:17
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE 
+
+2018-04-10 10:23:17
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Update()]: 当前执行的sql语句: 
+UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE [ID]?
+
+2018-04-10 10:26:02
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE 
+
+2018-04-10 10:26:02
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Update()]: 当前执行的sql语句: 
+UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE ID=?
+
+2018-04-10 10:27:02
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE 
+
+2018-04-10 10:27:02
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Update()]: 当前执行的sql语句: 
+UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE ID=?
+
+2018-04-10 10:27:19
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.UpdateSql.getSql()]:  生成的sql语句: UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE 
+
+2018-04-10 10:27:19
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Update()]: 当前执行的sql语句: 
+UPDATE USER 
+ SET NAME=?,PHONE=?
+   WHERE ID=?
+
+2018-04-10 10:29:17
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 10:29:17
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 10:30:05
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 10:30:05
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 10:30:53
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 10:30:53
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 16:45:42
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 17:28:06
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE NAME=? AND PHONE=? 
+
+2018-04-10 17:28:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE NAME=? AND PHONE=? 
+
+2018-04-10 17:29:27
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 17:29:27
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 17:30:29
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:30:29
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:32:18
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:32:18
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:33:21
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:33:21
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:37:15
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:37:15
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:37:43
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:37:43
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:37:59
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? 
+
+2018-04-10 17:37:59
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? 
+
+2018-04-10 17:38:17
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:38:17
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? 
+
+2018-04-10 17:38:29
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? AND ADDRESS=? 
+
+2018-04-10 17:38:29
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? AND ADDRESS=? 
+
+2018-04-10 17:50:29
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? AND ADDRESS=? 
+
+2018-04-10 17:50:29
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND NAME=? AND PHONE=? AND ADDRESS=? 
+
+2018-04-10 17:50:45
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND PHONE=? 
+
+2018-04-10 17:50:45
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE ID=? AND PHONE=? 
+
+2018-04-10 17:50:58
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSql.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE PHONE=? 
+
+2018-04-10 17:50:58
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+   WHERE PHONE=? 
+
+2018-04-10 18:14:26
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:14:26
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE ID IN(?,?,?)
+
+2018-04-10 18:15:56
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:15:56
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE ID IN(?,?,?)
+
+2018-04-10 18:16:09
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:16:09
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE ID IN(?,?,?)
+
+2018-04-10 18:25:47
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:25:47
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE PHOEN='15770549440'
+
+2018-04-10 18:26:39
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:26:39
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE PHOEN="15770549440"
+
+2018-04-10 18:27:04
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:27:04
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE PHOEN=15770549440
+
+2018-04-10 18:29:07
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:29:07
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE PHOEN=15770549440
+
+2018-04-10 18:29:36
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:29:36
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE PHONE=15770549440
+
+2018-04-10 18:30:08
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:30:08
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE PHONE=15770549440
+
+2018-04-10 18:30:39
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:30:39
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE PHONE='15770549440'
+
+2018-04-10 18:31:03
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:31:03
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE PHONE=15770549440
+
+2018-04-10 18:31:21
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:31:21
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE PHONE="15770549440"
+
+2018-04-10 18:31:44
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:31:44
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+WHERE ID>10086
+
+2018-04-10 18:32:00
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:32:00
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE ID>10086
+
+2018-04-10 18:33:08
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:33:08
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE ID>10086 AND ID<10089
+
+2018-04-10 18:33:46
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-10 18:33:46
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+ WHERE ID>10086 AND ID<10089 ORDER BY ID DESC
+
+2018-04-11 09:20:35
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:20:35
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,2
+
+2018-04-11 09:20:56
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:20:56
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT -2,2
+
+2018-04-11 09:21:53
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:21:53
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,2
+
+2018-04-11 09:25:58
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:25:58
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,2
+
+2018-04-11 09:28:45
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:28:45
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,2
+
+2018-04-11 09:28:58
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:28:58
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 2,2
+
+2018-04-11 09:29:10
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:29:10
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 4,2
+
+2018-04-11 09:29:20
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:29:20
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 4,2
+
+2018-04-11 09:29:29
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:29:29
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,2
+
+2018-04-11 09:29:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:29:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,3
+
+2018-04-11 09:29:51
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:29:51
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:30:10
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:30:10
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:31:02
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:31:02
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:31:27
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:31:27
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:32:21
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:32:21
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:33:11
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:33:11
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,3
+
+2018-04-11 09:34:49
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:34:49
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 0,3
+
+2018-04-11 09:35:01
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:35:01
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:43:08
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:43:08
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:46:15
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:46:15
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:46:48
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:46:48
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:47:58
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:47:58
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:50:43
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:50:43
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:51:41
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(PHONE) 
+    VALUES(?)
+
+2018-04-11 09:51:41
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(PHONE) 
+    VALUES(?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:18
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:40
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:41
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:41
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:41
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:41
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:41
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.InsertSql.getSql()]:  生成的sql语句: INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:41
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Save()]: 当前执行的sql语句: 
+INSERT INTO USER(ID,NAME,PHONE) 
+    VALUES(?,?,?)
+
+2018-04-11 09:52:49
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:52:49
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:54:01
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:54:01
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:54:29
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:54:30
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:55:56
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:55:56
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 3,3
+
+2018-04-11 09:56:32
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:56:32
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 6,3
+
+2018-04-11 09:56:47
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:56:47
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 16,8
+
+2018-04-11 09:59:06
+[INFO]-[Thread: main]-[com.leopardframework.core.sql.SelectSqlMore.getSql()]:  生成的sql语句: SELECT ID,NAME,PHONE,ADDRESS FROM USER
+
+
+2018-04-11 09:59:06
+[INFO]-[Thread: main]-[com.leopardframework.core.session.sessionFactory.SessionDirectImpl.Get()]: 当前执行的sql语句: 
+SELECT ID,NAME,PHONE,ADDRESS FROM USER
+ LIMIT 16,8
