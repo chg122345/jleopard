@@ -8,6 +8,8 @@ package com.leopardframework.core;
  * A novice on the road, please give me a suggestion.
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
+ *
+ *  数据常量
  */
 public interface Constant {
 
@@ -16,5 +18,5 @@ public interface Constant {
     String JDBCUSER="jdbc.User";
     String JDBCPASSWORD="jdbc.Password";
     boolean DEV=true;
-    String ENTITY_PACKAGE="";
+    String ENTITY_PACKAGE="com.leopardframework.test.entity";
 }

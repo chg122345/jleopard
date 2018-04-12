@@ -4,8 +4,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.leopardframework.logging.log.Log;
+import com.leopardframework.logging.log.LogFactory;
+
 /**
  * 对象实例化
  *
@@ -19,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class ReflectionUtil {
 
-	private static final Logger LOGGER=LoggerFactory.getLogger(ReflectionUtil.class);
+	private static final Log LOGGER=LogFactory.getLog(ReflectionUtil.class);
 	
 	public static Object newInstance(Class<?> cls) {
 		Object obj;

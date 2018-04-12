@@ -11,7 +11,7 @@ import com.leopardframework.core.session.Session;
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
  *
- * @see SessionImplDirect
+ * @see SessionDirectImpl
  * @ session管理   获取session
  */
 public class SessionFactory {

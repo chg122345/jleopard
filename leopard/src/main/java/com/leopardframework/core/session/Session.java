@@ -15,7 +15,7 @@ import java.util.List;
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
  *
- * @see  com.leopardframework.core.session.sessionFactory.SessionImplDirect
+ * @see  com.leopardframework.core.session.sessionFactory.SessionDirectImpl
  *   管理与数据库操作的方法接口
  */
 public interface Session {

@@ -1,24 +1,30 @@
 package com.leopard.test;
 
-import com.leopard.entity.User;
-import com.leopardframework.core.SqlBuilder;
+import com.leopardframework.core.Config;
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
-import com.leopardframework.core.get.PrimaryKeyName;
 import com.leopardframework.core.session.Session;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
-import com.leopardframework.core.sql.*;
+import com.leopardframework.core.sql.CreateTableSql;
+import com.leopardframework.core.sql.Sql;
+import com.leopardframework.core.util.FieldUtil;
 import com.leopardframework.core.util.TableUtil;
+import com.leopardframework.loadxml.XmlContext;
+import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.page.PageInfo;
+import com.leopardframework.test.entity.Student;
+import com.leopardframework.test.entity.User;
+import com.leopardframework.util.ClassUtil;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -66,14 +72,14 @@ public class UserTest {
         }
     }
 
-    @Test
-    public void sqlTest(){
+    /* @Test
+   public void sqlTest(){
         User user=new User();
         user.setId(111);
         user.setName("AAAAA");
         user.setPhone("15770549440");
        // SqlBuilder SS=new SqlBuilder();
-        Map<String,List<Object>> sqlv= SqlBuilder.getSaveSqlValues(user);
+       // Map<String,List<Object>> sqlv= SqlBuilder.getSaveSqlValues(user);
         List<Object> values=null;
         for (Map.Entry<String,List<Object>> sql : sqlv.entrySet()) {
             System.out.println(sql.getKey());
@@ -84,7 +90,7 @@ public class UserTest {
         }
      //   String sql=sqlv.
        // System.out.println(sql);
-    }
+    }*/
 
     @Test
     public void SaveUserTest(){
@@ -128,7 +134,7 @@ public class UserTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(PrimaryKeyName.getPrimaryKeyName(User.class));
+        System.out.println(FieldUtil.getPrimaryKeys(User.class).get(0));
     }
 
     @Test
@@ -209,5 +215,33 @@ public class UserTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void createTableTest(){
+        Session session=SessionFactory.openSession();
+        Student su=new Student();
+        su.setName("GXF");
+        su.setCreated(new java.sql.Date(12));
+        try {
+            session.Save(su);
+            session.closeSession();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void TableTest(){
+       Set set=ClassUtil.getClassSetByPackagename(Config.getEntityPackage());
+       System.out.println(set);
+       System.out.println(new Date());
+    }
+    @Test
+    public void xmlTest(){
+        XmlFactoryBuilder builder=new XmlFactoryBuilder(ClassLoader.getSystemResource("config.xml").getPath());
+        XmlFactoryBuilder.XmlFactory factory=builder.getFactory();
+        Student db=(Student) factory.getBean("student");
+       System.out.println(db.toString());
+       System.out.println(factory.getEntityPackage());
+    }
+
 
 }

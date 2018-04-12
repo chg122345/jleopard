@@ -1,7 +1,7 @@
 package com.leopardframework.core.sql;
 
 import com.leopardframework.core.annotation.Column;
-import com.leopardframework.core.get.ColumnNameHelper;
+import com.leopardframework.core.session.sessionFactory.ColumnNameHelper;
 import com.leopardframework.core.util.FieldUtil;
 import com.leopardframework.core.util.JavaTypeUtil;
 import com.leopardframework.core.util.TableUtil;

@@ -1,4 +1,4 @@
-package com.leopard.entity;
+package com.leopardframework.test.entity;
 
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.annotation.Table;

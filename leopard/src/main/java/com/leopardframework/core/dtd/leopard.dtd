@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!ELEMENT leopard-config (bean*,entity-package*)>
+        <!ELEMENT bean (property*)>
+        <!ATTLIST bean
+                id ID #IMPLIED
+                class CDATA #REQUIRED
+                >
+        <!ELEMENT property (#PCDATA)>
+        <!ATTLIST property
+                name CDATA #REQUIRED
+                value CDATA #IMPLIED
+                >
+        <!ELEMENT entity-package (#PCDATA)>
+        <!ATTLIST entity-package
+                value CDATA #IMPLIED
+                >

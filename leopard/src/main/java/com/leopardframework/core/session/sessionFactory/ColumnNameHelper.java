@@ -1,4 +1,4 @@
-package com.leopardframework.core.get;
+package com.leopardframework.core.session.sessionFactory;
 
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.util.StringUtil;

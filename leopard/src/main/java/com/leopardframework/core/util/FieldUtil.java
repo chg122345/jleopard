@@ -1,7 +1,7 @@
 package com.leopardframework.core.util;
 
 import com.leopardframework.core.annotation.Column;
-import com.leopardframework.core.get.ColumnNameHelper;
+import com.leopardframework.core.session.sessionFactory.ColumnNameHelper;
 import com.leopardframework.exception.NotfoundFieldException;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
@@ -202,6 +202,9 @@ public class FieldUtil {
      */
     public static int isPrimaryKey( Column column){
 
+        if(column==null||"".equals(column)){
+            throw new NotfoundFieldException("没有找到@Column注解...");
+        }
         switch (column.isPrimary()) {
             case NO:
                 return 0;

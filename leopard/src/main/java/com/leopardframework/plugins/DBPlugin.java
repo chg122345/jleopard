@@ -26,7 +26,10 @@ public class DBPlugin {
 	private String password;
 	private Connection conn;
 
-	public DBPlugin(String Driver,String Url,String Username,String Password) {
+	public DBPlugin() {
+	}
+
+	public DBPlugin(String Driver, String Url, String Username, String Password) {
 		this.driver = Driver != null ? Driver : this.driver;
 		this.url=Url;
 		this.username=Username;
@@ -66,5 +69,15 @@ public class DBPlugin {
 	  }
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "DBPlugin{" +
+				"driver='" + driver + '\'' +
+				", url='" + url + '\'' +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", conn=" + conn +
+				'}';
+	}
 }

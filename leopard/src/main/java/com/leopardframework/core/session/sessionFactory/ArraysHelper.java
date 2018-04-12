@@ -4,6 +4,9 @@ import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.util.ArrayUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
  * <p>
@@ -38,5 +41,12 @@ private static final Log LOG=LogFactory.getLog(SessionDirectImpl.class);
                 sql = SQL.toString();
             }
         return sql;
+    }
+    public static List toUpperCase(List<String> list){
+        List ls=new ArrayList();
+        for (String obj:list){
+            ls.add(obj.toUpperCase());
+        }
+        return ls;
     }
 }

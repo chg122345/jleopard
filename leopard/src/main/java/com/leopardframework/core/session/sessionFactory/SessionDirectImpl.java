@@ -7,15 +7,16 @@ import com.leopardframework.core.util.FieldUtil;
 import com.leopardframework.core.util.TableUtil;
 import com.leopardframework.exception.NotfoundFieldException;
 import com.leopardframework.exception.SessionException;
-
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.page.PageInfo;
+import com.leopardframework.util.ClassUtil;
 import com.leopardframework.util.CollectionUtil;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -48,7 +49,34 @@ final class SessionDirectImpl implements Session {
         }
     }
 
+    /**
+     * 初始化时建立实体对象对应的数据库表
+     *    当前表名在数据库中已存在时 不会新建表
+     */
     public SessionDirectImpl() {
+        this.init();
+        Set<Class<?>> set=ClassUtil.getClassSetByPackagename(Config.getEntityPackage());
+        List<String> list=ArraysHelper.toUpperCase(TableUtil.showAllTableName(conn));
+        //System.out.println("对比："+ArraysHelper.toUpperCase(list));
+        if(CollectionUtil.isEmpty(set)){
+            LOG.error("获取到的实体类为空...");
+            throw new SessionException("获取到的实体类为空...");
+        }
+        for(Class<?> cls:set) {
+            if (list.contains(TableUtil.getTableName(cls))) {
+              continue;
+            }
+            Sql create = new CreateTableSql(cls);
+            String sql = create.getSql();
+            try {
+                stm = conn.createStatement();
+                stm.executeUpdate(sql);
+            } catch (SQLException e) {
+                    LOG.error(cls + "创建表时出错...", e);
+                    e.printStackTrace();
+            }
+            DevModelHelper.outParameter(DevModel, sql, "");
+        }
     }
 
     /**

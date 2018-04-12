@@ -1,11 +1,12 @@
 package com.leopardframework.util;
 
+import com.leopardframework.logging.log.Log;
+import com.leopardframework.logging.log.LogFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *  文件流操作
@@ -20,7 +21,7 @@ import org.slf4j.LoggerFactory;
  */
 public class StreamUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(StreamUtil.class);
+    private static final Log logger = LogFactory.getLog(StreamUtil.class);
 
     /**
      * 将输入流复制到输出流

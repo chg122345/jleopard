@@ -4,6 +4,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.leopardframework.logging.log.Log;
+import com.leopardframework.logging.log.LogFactory;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ObjectUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(ObjectUtil.class);
+    private static final Log logger = LogFactory.getLog(ObjectUtil.class);
 
     /**
      * 设置成员变量
@@ -75,11 +78,10 @@ public class ObjectUtil {
      * 通过反射创建实例
      */
     @SuppressWarnings("unchecked")
-    public static <T> T newInstance(String className) {
+    public static <T> T newInstance(Class<T> cls) {
         T instance;
         try {
-            Class<?> commandClass = ClassUtil.loadClass(className);
-            instance = (T) commandClass.newInstance();
+            instance = (T) cls.newInstance();
         } catch (Exception e) {
             logger.error("创建实例出错", e);
             throw new RuntimeException(e);
