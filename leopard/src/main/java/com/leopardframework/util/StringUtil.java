@@ -23,21 +23,21 @@ public class StringUtil {
     public static final String SEPARATOR = String.valueOf((char) 29);
 
     /**
-     * 判断字符串是否非�?
+     * 判断字符串是否非空
      */
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
 
     /**
-     * 判断字符串是否为�?
+     * 判断字符串是否为空
      */
     public static boolean isEmpty(String str) {
         return (str==null||str.isEmpty()||"".equals(str));
     }
 
     /**
-     * 替换固定格式的字符串（支持正则表达式�?
+     * 替换固定格式的字符串（支持正则表达式）
      */
     public static String replaceAll(String str, String regex, String replacement) {
         Pattern p = Pattern.compile(regex);
@@ -51,7 +51,7 @@ public class StringUtil {
     }
 
     /**
-     * 将驼峰风格替换为下划线风�?
+     * 将驼峰风格替换为下划线风格
      */
     public static String camelhumpToUnderline(String str) {
         Matcher matcher = Pattern.compile("[A-Z]").matcher(str);
@@ -66,7 +66,7 @@ public class StringUtil {
     }
 
     /**
-     * 将下划线风格替换为驼峰风�?
+     * 将下划线风格替换为驼峰风格
      */
     public static String underlineToCamelhump(String str) {
         Matcher matcher = Pattern.compile("_[a-z]").matcher(str);
@@ -81,35 +81,35 @@ public class StringUtil {
     }
 
     /**
-     * 将字符串首字母大�?
+     * 将字符串首字母大写
      */
     public static String firstToUpper(String str) {
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
     }
 
     /**
-     * 将字符串首字母小�?
+     * 将字符串首字母小写
      */
     public static String firstToLower(String str) {
         return Character.toLowerCase(str.charAt(0)) + str.substring(1);
     }
 
     /**
-     * 转为帕斯卡命名方式（如：FooBar�?
+     * 转为帕斯卡命名方式（如：FooBar）
      */
     public static String toPascalStyle(String str, String seperator) {
         return StringUtil.firstToUpper(toCamelhumpStyle(str, seperator));
     }
 
     /**
-     * 转为驼峰命令方式（如：fooBar�?
+     * 转为驼峰命令方式（如：fooBar）
      */
     public static String toCamelhumpStyle(String str, String seperator) {
         return StringUtil.underlineToCamelhump(toUnderlineStyle(str, seperator));
     }
 
     /**
-     * 转为下划线命名方式（如：foo_bar�?
+     * 转为下划线命名方式（如：foo_bar）
      */
     public static String toUnderlineStyle(String str, String seperator) {
         str = str.trim().toLowerCase();
@@ -119,10 +119,10 @@ public class StringUtil {
         return str;
     }
 
-    /**
-     * 转为显示命名方式（如：Foo Bar�?
-     */
-    /*public static String toDisplayStyle(String str, String seperator) {
+   /* *//**
+     * 转为显示命名方式（如：Foo Bar）
+     *//*
+    public static String toDisplayStyle(String str, String seperator) {
         String displayName = "";
         str = str.trim().toLowerCase();
         if (str.contains(seperator)) {

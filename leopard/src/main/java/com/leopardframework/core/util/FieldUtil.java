@@ -2,7 +2,7 @@ package com.leopardframework.core.util;
 
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.session.sessionFactory.ColumnNameHelper;
-import com.leopardframework.exception.NotfoundFieldException;
+import com.leopardframework.exception.NotFoundFieldException;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.util.ArrayUtil;
@@ -163,7 +163,7 @@ public class FieldUtil {
         Field[] fields=cls.getDeclaredFields();
         if(ArrayUtil.isEmpty(fields)) {
             log.error(cls.getName()+"没有成员变量...");
-            throw new NotfoundFieldException(cls+"没有成员变量...");
+            throw new NotFoundFieldException(cls+"没有成员变量...");
         }
         for(Field field:fields) {
             if(!field.isAnnotationPresent(Column.class)){
@@ -203,7 +203,7 @@ public class FieldUtil {
     public static int isPrimaryKey( Column column){
 
         if(column==null||"".equals(column)){
-            throw new NotfoundFieldException("没有找到@Column注解...");
+            throw new NotFoundFieldException("没有找到@Column注解...");
         }
         switch (column.isPrimary()) {
             case NO:

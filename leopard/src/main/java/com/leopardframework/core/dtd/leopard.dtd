@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <!ELEMENT leopard-config (bean*,entity-package*)>
+        <!ELEMENT leopard-config (bean*,entity-package*,generator*)>
         <!ELEMENT bean (property*)>
         <!ATTLIST bean
                 id ID #IMPLIED
@@ -13,4 +13,9 @@
         <!ELEMENT entity-package (#PCDATA)>
         <!ATTLIST entity-package
                 value CDATA #IMPLIED
+                >
+        <!ELEMENT generator (target)>
+        <!ELEMENT target (#PCDATA)>
+        <!ATTLIST target
+                package CDATA #REQUIRED
                 >

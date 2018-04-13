@@ -36,7 +36,9 @@ public class XmlFactoryBuilder {
 
     private Map<String,BeanInfo> beansMap; // 存放所有bean标签的信息
 
-    private String entityPackage;  //上下文信息
+    private String entityPackage;  // 上下文信息 实体对象类所在包
+
+    private String generatorPackage; //逆向工程生成JavaBean 包
 
     public XmlFactory getFactory(){
         return new XmlFactory();
@@ -72,6 +74,8 @@ public class XmlFactoryBuilder {
                                 attrs.getValue("value")));
                     }else if ("entity-package".equals(qName)){
                         entityPackage=attrs.getValue("value");
+                    }else if ("target".equals(qName)){
+                        generatorPackage=attrs.getValue("package");
                     }
                 }
 
@@ -125,5 +129,10 @@ public class XmlFactoryBuilder {
         public String getEntityPackage(){
             return entityPackage;
         }
+
+        public String getGeneratorPackage(){
+            return generatorPackage;
+        }
+
     }
 }

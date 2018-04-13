@@ -1,7 +1,9 @@
 package com.leopardframework.core;
 
+import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.util.PropsUtil;
+import com.sun.org.apache.xml.internal.security.Init;
 
 import java.sql.Connection;
 import java.util.Properties;
@@ -18,6 +20,10 @@ import java.util.Properties;
  *  与外部信息关联 获取开发人员配置信息
  */
 public final class Config {
+
+    private  static XmlFactoryBuilder builder = new XmlFactoryBuilder(ClassLoader.getSystemResource(Constant.XMLPATH).getPath());
+    private static  XmlFactoryBuilder.XmlFactory factory = builder.getFactory();
+
     public static Connection getConnection(){
         Properties pros=PropsUtil.loadProps("config.properties");
         String driver=pros.getProperty(Constant.JDBCDRIVER);
@@ -31,7 +37,14 @@ public final class Config {
         return Constant.DEV;
     }
 
+
     public static String getEntityPackage(){
-        return Constant.ENTITY_PACKAGE;
+
+        return factory.getEntityPackage();
+    }
+
+    public static String getGeneratorPackage(){
+
+        return factory.getGeneratorPackage();
     }
 }

@@ -5,7 +5,7 @@ import com.leopardframework.core.session.Session;
 import com.leopardframework.core.sql.*;
 import com.leopardframework.core.util.FieldUtil;
 import com.leopardframework.core.util.TableUtil;
-import com.leopardframework.exception.NotfoundFieldException;
+import com.leopardframework.exception.NotFoundFieldException;
 import com.leopardframework.exception.SessionException;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
@@ -215,7 +215,7 @@ final class SessionDirectImpl implements Session {
         List pks=FieldUtil.getPrimaryKeys(entity.getClass());
         if (CollectionUtil.isEmpty(pks)){
             LOG.error(entity+ " 没有找到唯一标识主键...");
-            throw new NotfoundFieldException(entity+ " 没有找到唯一标识主键...");
+            throw new NotFoundFieldException(entity+ " 没有找到唯一标识主键...");
         }
         StringBuilder SQL=new StringBuilder();
         SQL.append( updatesql.getSql()).append(pks.get(0)).append("=").append("?");
@@ -326,7 +326,7 @@ final class SessionDirectImpl implements Session {
         List pks=FieldUtil.getPrimaryKeys(cls);
         if (CollectionUtil.isEmpty(pks)){
             LOG.error(cls+ " 没有找到唯一标识主键...");
-            throw new NotfoundFieldException(cls+ " 没有找到唯一标识主键...");
+            throw new NotFoundFieldException(cls+ " 没有找到唯一标识主键...");
         }
         SQL.append( selectsql.getSql()).append("\n").append(" where").append(" ")
                 .append(pks.get(0)).append(" ").append( ArraysHelper.getSql(primaryKeys));

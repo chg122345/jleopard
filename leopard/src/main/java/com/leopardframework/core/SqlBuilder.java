@@ -41,7 +41,7 @@ public final class SqlBuilder {
         Field[] fields=cls.getDeclaredFields();
         if(ArrayUtil.isEmpty(fields)){
             log.error(object+"没有成员变量");
-            throw new NotfoundFieldException(object+" 没有成员变量...");
+            throw new NotFoundFieldException(object+" 没有成员变量...");
         }
         String columnName=null;
         for(Field field:fields){
@@ -114,7 +114,7 @@ public final class SqlBuilder {
         Field[] fields=cls.getDeclaredFields();
         if(ArrayUtil.isEmpty(fields)){
             log.error(object+"没有成员变量");
-            throw new NotfoundFieldException(object+" 没有成员变量...");
+            throw new NotFoundFieldException(object+" 没有成员变量...");
         }
         String columnName=null;
         for(int i=0;i<fields.length;++i*//*Field field:fields*//*){
@@ -160,7 +160,7 @@ public final class SqlBuilder {
         Field[] fields=cls.getDeclaredFields();
         if(ArrayUtil.isEmpty(fields)){
             log.error(object+"没有成员变量");
-            throw new NotfoundFieldException(object+" 没有成员变量...");
+            throw new NotFoundFieldException(object+" 没有成员变量...");
         }
         String columnName=null;
         String primaryKeyName=PrimaryKeyName.getPrimaryKeyName(cls);

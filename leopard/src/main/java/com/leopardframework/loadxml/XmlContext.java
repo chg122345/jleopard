@@ -15,7 +15,14 @@ public  class XmlContext {
 
     public String entityPackage;  //实体对象类所在包
 
+    public String generatorPackage;  //逆向工程生成JavaBean 包
+
     public XmlContext() {
+    }
+
+    public XmlContext(String entityPackage, String generatorPackage) {
+        this.entityPackage = entityPackage;
+        this.generatorPackage = generatorPackage;
     }
 
     public String getEntityPackage() {
@@ -26,4 +33,11 @@ public  class XmlContext {
         this.entityPackage = entityPackage;
     }
 
+    public String getGeneratorPackage() {
+        return generatorPackage;
+    }
+
+    public void setGeneratorPackage(String generatorPackage) {
+        this.generatorPackage = generatorPackage;
+    }
 }

@@ -13,10 +13,11 @@ package com.leopardframework.core;
  */
 public interface Constant {
 
+    String XMLPATH="config.xml";
     String JDBCDRIVER="jdbc.DriverClass";
     String JDBCURL="jdbc.Url";
     String JDBCUSER="jdbc.User";
     String JDBCPASSWORD="jdbc.Password";
     boolean DEV=true;
-    String ENTITY_PACKAGE="com.leopardframework.test.entity";
+//    String ENTITY_PACKAGE="com.leopardframework.test.entity";
 }

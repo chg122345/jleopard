@@ -10,9 +10,12 @@ import com.leopardframework.core.sql.CreateTableSql;
 import com.leopardframework.core.sql.Sql;
 import com.leopardframework.core.util.FieldUtil;
 import com.leopardframework.core.util.TableUtil;
+import com.leopardframework.generator.GeneratorFactory;
+import com.leopardframework.generator.TableToJavaBean;
 import com.leopardframework.loadxml.XmlContext;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.page.PageInfo;
+import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.test.entity.Student;
 import com.leopardframework.test.entity.User;
 import com.leopardframework.util.ClassUtil;
@@ -20,11 +23,16 @@ import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
+
+import static java.lang.Boolean.TRUE;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -220,7 +228,6 @@ public class UserTest {
         Session session=SessionFactory.openSession();
         Student su=new Student();
         su.setName("GXF");
-        su.setCreated(new java.sql.Date(12));
         try {
             session.Save(su);
             session.closeSession();
@@ -232,7 +239,7 @@ public class UserTest {
     public void TableTest(){
        Set set=ClassUtil.getClassSetByPackagename(Config.getEntityPackage());
        System.out.println(set);
-       System.out.println(new Date());
+       System.out.println(new Date(12));
     }
     @Test
     public void xmlTest(){
@@ -241,7 +248,31 @@ public class UserTest {
         Student db=(Student) factory.getBean("student");
        System.out.println(db.toString());
        System.out.println(factory.getEntityPackage());
+       System.out.println(" 路径："+System.getProperty("user.dir"));
     }
 
+    @Test
+    public void generatorTest() throws SQLException {
+
+        XmlFactoryBuilder builder=new XmlFactoryBuilder(ClassLoader.getSystemResource("config.xml").getPath());
+        XmlFactoryBuilder.XmlFactory factory=builder.getFactory();
+        DBPlugin db=(DBPlugin) factory.getBean("db");
+        GeneratorFactory.openGenerator(db.getConn());
+    }
+
+    @Test
+    public void GenTest(){
+        System.out.println(Config.getEntityPackage());
+        System.out.println(Config.getGeneratorPackage());
+       /* Jqubian jj=new Jqubian();
+        jj.setGxfId(111);
+        jj.setGxfLong(5454);
+        jj.setGxfName("GGG");
+        jj.setGxfPrice(2.5);
+        jj.setGxfPrice2(2.5f);
+        jj.getGxfStatus(TRUE.equals(true));
+        jj.setGxfCreate(new Date(2018,02,05));
+        System.out.println(jj);*/
+    }
 
 }

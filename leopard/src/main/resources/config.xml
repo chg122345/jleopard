@@ -14,5 +14,8 @@
         <property name="created" value="2018-1-1"/>
 
     </bean>
-    <entity-package value="com.leopardframework.test.entity"/>
+    <entity-package value="com.leopardframework.generator.test.entity"/>
+<generator>
+    <target package="src.main.java.com.leopardframework.generator.test.entity"/>
+</generator>
 </leopard-config>
