@@ -1,38 +1,24 @@
 package com.leopard.test;
 
-import com.leopardframework.core.Config;
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
 import com.leopardframework.core.session.Session;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
-import com.leopardframework.core.sql.CreateTableSql;
-import com.leopardframework.core.sql.Sql;
-import com.leopardframework.core.util.FieldUtil;
-import com.leopardframework.core.util.TableUtil;
 import com.leopardframework.generator.GeneratorFactory;
-import com.leopardframework.generator.TableToJavaBean;
-import com.leopardframework.loadxml.XmlContext;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
-import com.leopardframework.page.PageInfo;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.test.entity.Student;
 import com.leopardframework.test.entity.User;
 import com.leopardframework.util.ClassUtil;
 import org.junit.Test;
 
+import java.beans.IntrospectionException;
 import java.lang.reflect.Field;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
-
-import static java.lang.Boolean.TRUE;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -65,7 +51,6 @@ public class UserTest {
                 Column column=field.getDeclaredAnnotation(Column.class);
                 columnName=column.value().toUpperCase();
                 pk=column.isPrimary();
-                un=column.unique();
                 if(columnName==null||"".equals(columnName)){
                     columnName=field.getName().toUpperCase();
                 }if(pk==Primary.NO){
@@ -100,7 +85,7 @@ public class UserTest {
        // System.out.println(sql);
     }*/
 
-    @Test
+    /*@Test
     public void SaveUserTest(){
         Session session=SessionFactory.openSession();
         User u=new User();
@@ -172,10 +157,10 @@ public class UserTest {
 
         System.out.println("Sql 语句："+insert.getSql());
         System.out.println("Sql value："+insert.getValues());
-       /* for(int i=0;i<insert.getValues().size();++i){
+       *//* for(int i=0;i<insert.getValues().size();++i){
 
             System.out.print(insert.getValues().get(i)+" ");
-        }*/
+        }*//*
 
 
     }
@@ -198,9 +183,9 @@ public class UserTest {
       //  user.setAddress("GXF");
         try {
             int temp=session.Save(user);
-           /* for (User u :temp){
+           *//* for (User u :temp){
                 System.out.println(u.toString());
-            }*/
+            }*//*
             System.out.println(" 结果："+temp);
             session.closeSession();
         } catch (Exception e) {
@@ -222,22 +207,34 @@ public class UserTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
     @Test
     public void createTableTest(){
-        Session session=SessionFactory.openSession();
-        Student su=new Student();
-        su.setName("GXF");
+
         try {
-            session.Save(su);
-            session.closeSession();
+            Session session=SessionFactory.openSession("classpath:config.xml");
+            User u=new User();
+            u.setId(10086);
+            System.out.println("第二次"+session.Get(u));
+            session.Stop();
+            System.out.println(session.Get(User.class));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     @Test
     public void TableTest(){
-       Set set=ClassUtil.getClassSetByPackagename(Config.getEntityPackage());
+       Set set=ClassUtil.getClassSetByPackagename(SessionFactory.Config.getEntityPackage());
        System.out.println(set);
        System.out.println(new Date(12));
     }
@@ -253,17 +250,17 @@ public class UserTest {
 
     @Test
     public void generatorTest() throws SQLException {
-
-        XmlFactoryBuilder builder=new XmlFactoryBuilder(ClassLoader.getSystemResource("config.xml").getPath());
-        XmlFactoryBuilder.XmlFactory factory=builder.getFactory();
-        DBPlugin db=(DBPlugin) factory.getBean("db");
-        GeneratorFactory.openGenerator(db.getConn());
+        Session session=SessionFactory.openSession("classpath:config.xml");
+        GeneratorFactory.openGenerator(SessionFactory.Config.getConnection());
     }
 
     @Test
     public void GenTest(){
-        System.out.println(Config.getEntityPackage());
-        System.out.println(Config.getGeneratorPackage());
+        Session session=SessionFactory.openSession("classpath:config.xml");
+        System.out.println(SessionFactory.Config.getConnection());
+        System.out.println(SessionFactory.Config.getEntityPackage());
+        System.out.println(SessionFactory.Config.getGeneratorPackage());
+        System.out.println(DBPlugin.class.getName());
        /* Jqubian jj=new Jqubian();
         jj.setGxfId(111);
         jj.setGxfLong(5454);

@@ -50,6 +50,11 @@ public class CreateTableSql implements Sql{
         return null;
     }
 
+    /**
+     *   自动建表sql语句
+     *
+     * @return
+     */
     @Override
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
@@ -58,8 +63,13 @@ public class CreateTableSql implements Sql{
         for (Field field:fields){
           Column column=field.getDeclaredAnnotation(Column.class);
           if (FieldUtil.isPrimaryKey(column)==0){
-              SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
+              if(column.allowNull()){
+                  SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
+                          .append(",").append("\n");
+              }else{
+                  SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
                       .append(" ").append("not null").append(",").append("\n");
+              }
           }else if (FieldUtil.isPrimaryKey(column)==1){
               SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
                       .append(" ").append("primary key").append(" ").append("not null").append(",").append("\n");

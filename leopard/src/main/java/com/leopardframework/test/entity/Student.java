@@ -4,7 +4,7 @@ import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -17,11 +17,11 @@ import java.util.Date;
  */
 @Table
 public class Student {
-    @Column(isPrimary = Primary.AUTOINCREMENT)
+    @Column(isPrimary = Primary.AUTOINCREMENT,allowNull = false)
     private Long id;
-    @Column
+    @Column(allowNull = true)
     private String name;
-    @Column
+    @Column(allowNull = true)
     private Date created;
 
     public Student() {

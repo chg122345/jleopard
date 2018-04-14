@@ -2,6 +2,8 @@ package com.leopardframework.core.session;
 
 import com.leopardframework.page.PageInfo;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,7 +44,7 @@ public interface Session {
 
     List Get(Class<?> cls,String where,Object...args) throws  Exception;
 
-    <T> T Get(T entity) throws  Exception;
+    <T> T Get(T entity) throws SQLException, InvocationTargetException, IntrospectionException, InstantiationException, IllegalAccessException;
 
     List Get(Class<?> cls,Object... primaryKeys) throws Exception;
 
@@ -54,7 +56,8 @@ public interface Session {
 
     /** -----------------------Close--------------------------------- **/
 
-    void closeSession() throws SQLException;
+    void Stop() throws SQLException;
 
+    void Close() throws SQLException;
 
 }

@@ -1,6 +1,5 @@
 package com.leopardframework.core.session.sessionFactory;
 
-import com.leopardframework.core.Config;
 import com.leopardframework.core.session.Session;
 import com.leopardframework.core.sql.*;
 import com.leopardframework.core.util.FieldUtil;
@@ -13,6 +12,8 @@ import com.leopardframework.page.PageInfo;
 import com.leopardframework.util.ClassUtil;
 import com.leopardframework.util.CollectionUtil;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.List;
 import java.util.Map;
@@ -38,14 +39,13 @@ final class SessionDirectImpl implements Session {
     private PreparedStatement pstm;
     private Statement stm;
     private ResultSet res;
-    private final boolean DevModel=Config.getDevModel();
+    private final boolean DevModel=SessionFactory.Config.getDevModel();
 
 
-    private void init(){
-        this.conn=Config.getConnection();
+    private void open(){
         if(conn==null){
             LOG.error(" 获取数据库连接失败....");
-            throw new SessionException("获取数据库连接失败...");
+            throw new SessionException("获取数据库连接失败... or session 已经关闭...");
         }
     }
 
@@ -53,9 +53,9 @@ final class SessionDirectImpl implements Session {
      * 初始化时建立实体对象对应的数据库表
      *    当前表名在数据库中已存在时 不会新建表
      */
-    public SessionDirectImpl() {
-        this.init();
-        Set<Class<?>> set=ClassUtil.getClassSetByPackagename(Config.getEntityPackage());
+    public SessionDirectImpl(String packagePath) {
+        this.conn=SessionFactory.Config.getConnection();
+        Set<Class<?>> set=ClassUtil.getClassSetByPackagename(packagePath);
         List<String> list=ArraysHelper.toUpperCase(TableUtil.showAllTableName(conn));
         //System.out.println("对比："+ArraysHelper.toUpperCase(list));
         if(CollectionUtil.isEmpty(set)){
@@ -88,7 +88,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public int Save(Object entity) throws SQLException {
-        this.init();
+        this.open();
         Sql insertsql =new InsertSql(entity);
         String sql=insertsql.getSql();
         LOG.info("当前执行的sql语句: \n" +sql);
@@ -135,7 +135,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public int MySql(String sql, Object... args) throws SQLException {
-        this.init();
+        this.open();
         LOG.info("当前执行的sql语句: \n" +sql);
         pstm=conn.prepareStatement(sql);
         pstmSetArrayValues(pstm,args);
@@ -153,7 +153,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public int Delete(Object entity) throws SQLException {
-        this.init();
+        this.open();
         Sql deletesql=new DeleteSql(entity);
         List values=deletesql.getValues();
         String sql=deletesql.getSql();
@@ -174,7 +174,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public int Delete(Class<?> cls, Object... primaryKeys) throws Exception {
-        this.init();
+        this.open();
         Sql deletesql=new DeleteSqlMore(cls);
         StringBuilder SQL=new StringBuilder();
         SQL.append(deletesql.getSql()).append(" ").append(ArraysHelper.getSql(primaryKeys));
@@ -188,7 +188,7 @@ final class SessionDirectImpl implements Session {
 
    /* @Override
     public int Update(Object entity) throws SQLException {
-        this.init();
+        this.open();
         Sql updatesql=new UpdateSql(entity);
         String sql=updatesql.getSql();
         List values=updatesql.getValues();
@@ -210,7 +210,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public int Update(Object entity, Object primaryKey) throws SQLException {
-        this.init();
+        this.open();
         Sql updatesql=new UpdateSql(entity);
         List pks=FieldUtil.getPrimaryKeys(entity.getClass());
         if (CollectionUtil.isEmpty(pks)){
@@ -239,7 +239,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public ResultSet Get(String sql, Object... args) throws Exception {
-        this.init();
+        this.open();
         pstm=conn.prepareStatement(sql);
         pstmSetArrayValues(pstm,args);
         res=pstm.executeQuery();
@@ -261,7 +261,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public List Get(Class<?> cls, String where,Object... args) throws Exception {
-        this.init();
+        this.open();
         Sql selectsql=new SelectSqlMore(cls);
         StringBuilder SQL=new StringBuilder();
         if(where.startsWith("where")){
@@ -289,8 +289,8 @@ final class SessionDirectImpl implements Session {
      * @throws Exception
      */
     @Override
-    public <T> T Get(T entity) throws Exception{
-        this.init();
+    public <T> T Get(T entity) throws SQLException, InvocationTargetException, IntrospectionException, InstantiationException, IllegalAccessException {
+        this.open();
         Sql selectsql=new SelectSql(entity);
         String sql=selectsql.getSql();
         LOG.info("当前执行的sql语句: \n" +sql);
@@ -320,7 +320,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public List Get(Class<?> cls, Object... primaryKeys) throws Exception {
-        this.init();
+        this.open();
         Sql selectsql=new SelectSqlMore(cls);
         StringBuilder SQL=new StringBuilder();
         List pks=FieldUtil.getPrimaryKeys(cls);
@@ -350,7 +350,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public List Get(Class<?> cls) throws Exception {
-        this.init();
+        this.open();
         Sql selectsql=new SelectSqlMore(cls);
         Map<String,String> C_F= FieldUtil.getColumnFieldName(cls);
      //   List entitys=new ArrayList();
@@ -383,7 +383,7 @@ final class SessionDirectImpl implements Session {
      */
     @Override
     public PageInfo Get(Class<?> cls, int page, int pagesize) throws Exception {
-        this.init();
+        this.open();
         Sql selectsql=new SelectSqlMore(cls);
         Map<String,String> C_F= FieldUtil.getColumnFieldName(cls);
         stm=conn.createStatement();
@@ -418,7 +418,7 @@ final class SessionDirectImpl implements Session {
      * @throws SQLException
      */
     @Override
-    public void closeSession() throws SQLException {
+    public void Stop() throws SQLException {
         if(res!=null){
             res.close();
         }
@@ -430,7 +430,25 @@ final class SessionDirectImpl implements Session {
         }
 
     }
-/**------------------------处理动态参数的方法--------------------------------------------**/
+
+    @Override
+    public void Close() throws SQLException {
+        if(res!=null){
+            res.close();
+        }
+        if(stm!=null){
+            stm.close();
+        }
+        if(pstm!=null){
+            pstm.close();
+        }if (conn!=null){
+            conn.close();
+            this.conn=null;
+        }
+        System.out.println("数据库连接：:"+conn);
+    }
+
+    /**------------------------处理动态参数的方法--------------------------------------------**/
     private void pstmSetListValues(PreparedStatement pstm,List values) throws SQLException {
         for(int i=0;i<values.size();++i){
             pstm.setObject(i+1,values.get(i));

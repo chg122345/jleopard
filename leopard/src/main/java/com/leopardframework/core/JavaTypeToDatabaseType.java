@@ -32,7 +32,7 @@ public class JavaTypeToDatabaseType {
             this.put("java.sql.Timestamp", Timestamp.class);
             this.put("java.math.BigDecimal", BigDecimal.class);
             this.put("java.math.BigInteger", BigInteger.class);
-            this.put("[B", byte[].class);
+            this.put("B", byte[].class);
         }
     };
 

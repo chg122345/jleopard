@@ -2,19 +2,20 @@
 <!DOCTYPE leopard-config  PUBLIC "-//leopard.com//DTD Config 1.0//EN"
         "http://leopard.com/leopard/config/leopard.dtd">
 <leopard-config>
-   <bean class="com.leopardframework.plugins.DBPlugin" id="db">
+   <bean class="com.leopardframework.plugins.DBPlugin" id="dataSource">
         <property name="driver" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/myshop?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
         <property name="password" value="chg122345"/>
+       <!--<property name="maxPoolSize" value="100"/>
+       <property name="minPoolSize" value="20"/>-->
     </bean>
     <bean id="student" class="com.leopardframework.test.entity.Student">
         <property name="id" value="10086"/>
         <property name="name" value="GXFFFF"/>
         <property name="created" value="2018-1-1"/>
-
     </bean>
-    <entity-package value="com.leopardframework.generator.test.entity"/>
+    <entity-package value="com.leopardframework.test.entity"/>
 <generator>
     <target package="src.main.java.com.leopardframework.generator.test.entity"/>
 </generator>

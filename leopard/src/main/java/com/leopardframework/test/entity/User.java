@@ -17,9 +17,9 @@ import com.leopardframework.core.enums.Primary;
 @Table
 public class User{
 
-    @Column(isPrimary = Primary.YSE,unique = true)
+    @Column(isPrimary = Primary.YSE)
     private long id;
-    @Column("name")
+    @Column(value = "name",allowNull = true)
     private String name;
     @Column
     private String phone;

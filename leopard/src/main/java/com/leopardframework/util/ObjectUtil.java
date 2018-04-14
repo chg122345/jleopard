@@ -1,15 +1,13 @@
 package com.leopardframework.util;
 
+import com.leopardframework.logging.log.Log;
+import com.leopardframework.logging.log.LogFactory;
+import org.apache.commons.beanutils.PropertyUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.leopardframework.logging.log.Log;
-import com.leopardframework.logging.log.LogFactory;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *  设置成员变量及赋值

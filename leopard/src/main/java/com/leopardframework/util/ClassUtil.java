@@ -68,38 +68,39 @@ public class ClassUtil {
     public static Set<Class<?>> getClassSetByPackagename(String packagename){
 		Set<Class<?>> scls=new HashSet<>();
 		if(StringUtil.isEmpty(packagename)){
-			//url=this.getClass().getClassLoader().getResource("");
-			throw new RuntimeException(" 实体类的位置没有找到...");
-		}
-		URL url=getClassLoader().getResource(packagename.replace(".", "/"));
-		//System.out.println("URL : "+url);
-		
-			if(url!=null) {
-				String protocol=url.getProtocol();
-			//	System.out.println("protocol : "+protocol);
-				if(protocol.equals("file")) {
-					String packagePath=url.getPath().replaceAll("%20", "");
-				//	System.out.println("packagePath : "+packagePath);
-					addClass(scls,packagePath,packagename);	
-			}else if(protocol.equals("jar")) {
-				try {
-					JarURLConnection jco=(JarURLConnection) url.openConnection();
-					if(jco!=null) {
-						JarFile jf=jco.getJarFile();
-						if(jf!=null) {
-							Enumeration<JarEntry> jes=jf.entries();
-							while(jes.hasMoreElements()) {
-								JarEntry je=jes.nextElement();
-								String jen=je.getName();
-								if(jen.endsWith(".class")) {
-									String classname=jen.substring(0,jen.lastIndexOf(".")).replaceAll("/", ".");
-									doAddClass(scls,classname);
+			String packagePath=System.getProperty("user.dir")+"\\src";
+			addClass(scls, packagePath, packagename);
+			//throw new RuntimeException(" 实体类的位置没有找到...");
+		}else {
+			URL url = getClassLoader().getResource(packagename.replace(".", "/"));
+
+			if (url != null) {
+				String protocol = url.getProtocol();
+				//	System.out.println("protocol : "+protocol);
+				if (protocol.equals("file")) {
+					String packagePath = url.getPath().replaceAll("%20", "");
+					//	System.out.println("packagePath : "+packagePath);
+					addClass(scls, packagePath, packagename);
+				} else if (protocol.equals("jar")) {
+					try {
+						JarURLConnection jco = (JarURLConnection) url.openConnection();
+						if (jco != null) {
+							JarFile jf = jco.getJarFile();
+							if (jf != null) {
+								Enumeration<JarEntry> jes = jf.entries();
+								while (jes.hasMoreElements()) {
+									JarEntry je = jes.nextElement();
+									String jen = je.getName();
+									if (jen.endsWith(".class")) {
+										String classname = jen.substring(0, jen.lastIndexOf(".")).replaceAll("/", ".");
+										doAddClass(scls, classname);
+									}
 								}
 							}
 						}
+					} catch (IOException e) {
+						throw new RuntimeException(e);
 					}
-				} catch (IOException e) {				
-					throw new RuntimeException(e); 
 				}
 			}
 		}

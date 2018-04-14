@@ -29,5 +29,7 @@ public @interface Column {
 
     Primary isPrimary() default Primary.NO;
 
-    boolean unique() default false;
+   boolean allowNull() default false;
+
+   boolean isForeginKey() default false;
 }

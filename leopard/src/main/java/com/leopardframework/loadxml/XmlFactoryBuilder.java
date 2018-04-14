@@ -125,6 +125,15 @@ public class XmlFactoryBuilder {
             }
             return null;
         }
+        public boolean hasBean(String className){
+            BeanInfo bean=beansMap.get("dataSource");
+
+            if(bean==null){
+              throw new RuntimeException("配置文件中没有配置 dataSource...");
+            }
+            String cname=bean.getClassName();
+          return className.equals(cname);
+        }
 
         public String getEntityPackage(){
             return entityPackage;

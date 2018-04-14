@@ -1,6 +1,6 @@
 package com.leopardframework.generator;
 
-import com.leopardframework.core.Config;
+import com.leopardframework.core.session.sessionFactory.SessionFactory;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.util.DateUtil;
@@ -29,9 +29,9 @@ public class TableToJavaBean {
 
     private static final String TAB ="\t";
 
-    private static final String ENTITYPACKAGE=Config.getEntityPackage();
+    private static final String ENTITY_PACKAGE=SessionFactory.Config.getEntityPackage();
 
-    private static final String PACKAGE=Config.getGeneratorPackage();
+    private static final String PACKAGE=SessionFactory.Config.getGeneratorPackage();
 
 
     public void tableToBean(Connection connection, String tableName) throws SQLException {
@@ -44,7 +44,7 @@ public class TableToJavaBean {
         int columnCount = md.getColumnCount();
         StringBuffer sb = new StringBuffer();
         tableName = StringUtil.firstToUpper(StringUtil.underlineToCamelhump(tableName));  //下划线转大驼峰  首字母大写
-        sb.append("package " + ENTITYPACKAGE + " ;");
+        sb.append("package " + ENTITY_PACKAGE + " ;");
         sb.append(LINE);
         sb.append(LINE);
         importPackage(md, columnCount, sb);
@@ -141,8 +141,8 @@ public class TableToJavaBean {
             sb.append(TAB);
             String pojoType = JavaTypeHelper.getPojoType(md.getColumnTypeName(i));
             String columnName =StringUtil.underlineToCamelhump(md.getColumnName(i).toLowerCase());
-            String getName = null;
-            String setName = null;
+            String getName;
+            String setName;
             if (columnName.length() > 1) {
                 getName = "public " + pojoType + " get" + StringUtil.firstToUpper(columnName) + "() {";
                 setName = "public void set" + StringUtil.firstToUpper(columnName) + "(" + pojoType + " " + columnName + ") {";
