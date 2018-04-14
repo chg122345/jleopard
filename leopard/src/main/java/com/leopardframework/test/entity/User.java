@@ -14,15 +14,18 @@ import com.leopardframework.core.enums.Primary;
  * Find a way for success and not make excuses for failure.
  */
 
-@Table
+@Table("user")
 public class User{
 
     @Column(isPrimary = Primary.YSE)
     private long id;
+
     @Column(value = "name",allowNull = true)
     private String name;
+
     @Column
     private String phone;
+
     @Column
     private String address;
 

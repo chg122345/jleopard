@@ -7,6 +7,7 @@ import com.leopardframework.core.session.Session;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
 import com.leopardframework.generator.GeneratorFactory;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
+import com.leopardframework.page.PageInfo;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.test.entity.Student;
 import com.leopardframework.test.entity.User;
@@ -18,6 +19,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -249,9 +252,34 @@ public class UserTest {
     }
 
     @Test
-    public void generatorTest() throws SQLException {
-        Session session=SessionFactory.openSession("classpath:config.xml");
-        GeneratorFactory.openGenerator(SessionFactory.Config.getConnection());
+    public void Test(){
+        Session session=SessionFactory.openSession("classpath:config.xml");  //获取session  传入我们的配置文件
+            User user=new User();
+            user.setId(10086);
+            user.setName("Leopard");
+            user.setPhone("10010");
+            user.setAddress("China");
+            List list=new ArrayList();
+            list.add(user);
+        try {
+            session.Save(user);  //传一个具体的对象
+            session.SaveMore(list);  //多个对象放入list 好比批量操作，实际上并没有用到批量
+            session.Delete(user); //删除条件即为对象的数据
+            session.Delete(User.class, 10086, 10010, 10000); //根据唯一主键删除数据 ,传一个或多个主键值
+            session.Update(user,10086);//根据主键修改数据  目标数据是该对象里的数据
+            session.Get(User.class); // 查询所有数据
+            session.Get(user);   //查询单条数据 查询条件即为对象的数据  如果匹配到多条数据，则只返回第一条
+            session.Get(User.class,10000,10086);// 一样按主键查找
+            session.Get(User.class,"where id=? order by id desc",10086);  //自定义条件查询 动态sql
+            session.Get(User.class,1,5);  //分页查询  查询第一页数据  每页显示5 条数据 PageInfo来接收（下次再介绍）
+            session.Get("","");  //自定义动态sql 返回的是结果集
+            session.Stop();  //每执行完一次都要将其暂停
+            session.Close();  // 关闭此次Session 下次要用时要重新获取
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
