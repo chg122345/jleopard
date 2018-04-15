@@ -14,11 +14,6 @@ package com.leopardframework.exception;
  * Find a way for success and not make excuses for failure.
  */
 public class NotFoundFieldException extends IllegalArgumentException {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	 public NotFoundFieldException() {
 	        super();

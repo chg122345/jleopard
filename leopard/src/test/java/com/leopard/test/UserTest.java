@@ -1,5 +1,6 @@
 package com.leopard.test;
 
+import com.leopardframework.core.Factory;
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
@@ -9,16 +10,14 @@ import com.leopardframework.generator.GeneratorFactory;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.page.PageInfo;
 import com.leopardframework.plugins.DBPlugin;
-import com.leopardframework.test.entity.Student;
-import com.leopardframework.test.entity.User;
+import com.leopardframework.test.entity.*;
 import com.leopardframework.util.ClassUtil;
 import org.junit.Test;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-import java.sql.Date;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -211,7 +210,7 @@ public class UserTest {
             e.printStackTrace();
         }
     }*/
-    @Test
+   /* @Test
     public void createTableTest(){
 
         try {
@@ -240,22 +239,34 @@ public class UserTest {
        Set set=ClassUtil.getClassSetByPackagename(SessionFactory.Config.getEntityPackage());
        System.out.println(set);
        System.out.println(new Date(12));
-    }
+    }*/
     @Test
     public void xmlTest(){
         XmlFactoryBuilder builder=new XmlFactoryBuilder(ClassLoader.getSystemResource("config.xml").getPath());
         XmlFactoryBuilder.XmlFactory factory=builder.getFactory();
-        Student db=(Student) factory.getBean("student");
-       System.out.println(db.toString());
-       System.out.println(factory.getEntityPackage());
-       System.out.println(" 路径："+System.getProperty("user.dir"));
+        DBPlugin db=(DBPlugin) factory.getBean("dataSource");
+        Connection conn=db.getConn();
+        String sql="select k.column_name FROM information_schema.table_constraints t\n" +
+                "JOIN information_schema.key_column_usage k\n" +
+                "USING (constraint_name,table_name)\n" +
+                "WHERE t.constraint_type='PRIMARY KEY'\n" +
+                "  AND t.table_name='student'";
+        try {
+            Statement stm=conn.createStatement();
+            ResultSet res=stm.executeQuery(sql);
+            while (res.next()){
+                System.out.println(res.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Test
+   /* @Test
     public void Test(){
         Session session=SessionFactory.openSession("classpath:config.xml");  //获取session  传入我们的配置文件
             User user=new User();
-            user.setId(10086);
+            user.setId(100868);
             user.setName("Leopard");
             user.setPhone("10010");
             user.setAddress("China");
@@ -280,15 +291,17 @@ public class UserTest {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     @Test
     public void GenTest(){
-        Session session=SessionFactory.openSession("classpath:config.xml");
-        System.out.println(SessionFactory.Config.getConnection());
-        System.out.println(SessionFactory.Config.getEntityPackage());
-        System.out.println(SessionFactory.Config.getGeneratorPackage());
-        System.out.println(DBPlugin.class.getName());
+        Factory factory=new SessionFactory("classpath:config.xml");
+        Session session=factory.openSession();
+        try {
+            System.out.println(session.Get(User.class).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
        /* Jqubian jj=new Jqubian();
         jj.setGxfId(111);
         jj.setGxfLong(5454);
@@ -300,4 +313,13 @@ public class UserTest {
         System.out.println(jj);*/
     }
 
+    @Test
+    public void GeneratorTest(){
+        Factory factory=new GeneratorFactory("classpath:config.xml");
+        try {
+           factory.openGenerator();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

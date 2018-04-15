@@ -1,12 +1,14 @@
 package com.leopardframework.core.session.sessionFactory;
 
 import com.leopardframework.core.Constant;
+import com.leopardframework.core.Factory;
 import com.leopardframework.core.session.Session;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.plugins.c3p0.C3p0Plugin;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -21,23 +23,35 @@ import java.sql.Connection;
  * @ session管理   获取session
  *   加载全局配置
  */
-public class SessionFactory {
+public class SessionFactory implements Factory {
 
 private static XmlFactoryBuilder.XmlFactory factory;
 
-    public static Session openSession(String xmlpath){
+private String xmlpath;
+
+    public SessionFactory(String xmlPath) {
+        this.xmlpath=xmlPath;
+    }
+
+    public Session openSession(){
         if(xmlpath.startsWith("classpath:")){
           xmlpath= xmlpath.replace("classpath:","").trim();
         }
        xmlpath=ClassLoader.getSystemResource(xmlpath).getPath();
         XmlFactoryBuilder builder = new XmlFactoryBuilder(xmlpath);
-       /* XmlFactoryBuilder.XmlFactory */ factory = builder.getFactory();
+         factory = builder.getFactory();
          String packagePath=factory.getEntityPackage();
         return new SessionDirectImpl(packagePath);
     }
 
-    public static class Config{
-        public  static Connection getConnection(){
+    @Override
+    public void openGenerator() throws SQLException {
+
+    }
+
+
+     static class Config{
+         static Connection getConnection(){
             if(factory.hasBean(DBPlugin.class.getName())){
                 DBPlugin db=(DBPlugin)factory.getBean("dataSource");
                 return db.getConn();
@@ -48,19 +62,15 @@ private static XmlFactoryBuilder.XmlFactory factory;
             return null;
         }
 
-        public static boolean getDevModel(){
+         static boolean getDevModel(){
             return Constant.DEV;
         }
 
-        public static String getEntityPackage(){
+        /* static String getEntityPackage(){
 
             return factory.getEntityPackage();
-        }
+        }*/
 
-        public static String getGeneratorPackage(){
-
-            return factory.getGeneratorPackage();
-        }
     }
 
 }

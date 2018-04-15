@@ -75,7 +75,8 @@ public class User{
 
     @Test
     public void Test(){
-        Session session=SessionFactory.openSession("classpath:config.xml");  //获取session  传入我们的配置文件
+        Factory factory=new SessionFactory("classpath:config.xml");  //获取session  传入我们的配置文件
+        Session session=factory.openSession();
             User user=new User();
             user.setId(10086);
             user.setName("Leopard");
@@ -103,6 +104,17 @@ public class User{
         }
 
     }
+
+    逆向工程生成JavaBean   简单两行代码解决
+    @Test
+        public void GeneratorTest(){
+            Factory factory=new GeneratorFactory("classpath:config.xml");  // 开启Generator工厂
+            try {
+               factory.openGenerator();    //执行逆向工程
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
  
 
 

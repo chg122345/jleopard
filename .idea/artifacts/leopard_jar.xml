@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="leopard:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/leopard-orm1.1</output-path>
+    <root id="archive" name="leopard.jar">
+      <element id="module-output" name="leopard" />
+    </root>
+  </artifact>
+</component>

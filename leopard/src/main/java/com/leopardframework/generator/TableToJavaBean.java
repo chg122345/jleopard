@@ -29,12 +29,39 @@ public class TableToJavaBean {
 
     private static final String TAB ="\t";
 
-    private static final String ENTITY_PACKAGE=SessionFactory.Config.getEntityPackage();
+    /**
+     *  获取数据库的表主键名 全转换为小写
+     * @param conn
+     * @param tableName
+     * @return
+     */
+    private String getPrimaryKey(Connection conn,String tableName){
+        String sql="select k.column_name FROM information_schema.table_constraints t\n" +
+                "JOIN information_schema.key_column_usage k\n" +
+                "USING (constraint_name,table_name)\n" +
+                "WHERE t.constraint_type='PRIMARY KEY'\n" +
+                "  AND t.table_name='"+tableName+"'";
+        try {
+            Statement stm=conn.createStatement();
+            ResultSet res=stm.executeQuery(sql);
+            while (res.next()){
+               return res.getString(1).toLowerCase();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-    private static final String PACKAGE=SessionFactory.Config.getGeneratorPackage();
-
-
-    public void tableToBean(Connection connection, String tableName) throws SQLException {
+    /**
+     *   转换为JavaBean
+     * @param connection
+     * @param tableName
+     * @param entityPackage
+     * @param srcPackage
+     * @throws SQLException
+     */
+    public void tableToBean(Connection connection, String tableName,String entityPackage,String srcPackage) throws SQLException {
         String sql = "select * from " + tableName + " where 1 <> 1";
         PreparedStatement ps;
         ResultSet rs;
@@ -42,13 +69,16 @@ public class TableToJavaBean {
         rs = ps.executeQuery();
         ResultSetMetaData md = rs.getMetaData();
         int columnCount = md.getColumnCount();
+        String primaryKeyName=getPrimaryKey(connection,tableName);
         StringBuffer sb = new StringBuffer();
         tableName = StringUtil.firstToUpper(StringUtil.underlineToCamelhump(tableName));  //下划线转大驼峰  首字母大写
-        sb.append("package " + ENTITY_PACKAGE + " ;");
+        sb.append("package " + entityPackage + " ;");
         sb.append(LINE);
         sb.append(LINE);
         importPackage(md, columnCount, sb);
         sb.append("import com.leopardframework.core.annotation.*;");
+        sb.append(LINE);
+        sb.append("import com.leopardframework.core.enums.Primary;");
         sb.append(LINE);
         sb.append(LINE);
         sb.append(LINE);
@@ -69,12 +99,12 @@ public class TableToJavaBean {
         sb.append("public class " + tableName + " {");
         sb.append(LINE);
         sb.append(LINE);
-        defProperty(md, columnCount, sb);
+        defProperty(md, columnCount, sb,primaryKeyName);
         constructor(tableName,sb);
         genSetGet(md, columnCount, sb);
         sb.append("}");
         String paths = System.getProperty("user.dir");  //工程路径
-        String endPath = paths/* + "\\src\\main\\java\\"*/ +"\\"+ (PACKAGE.replace("/", "\\")).replace(".", "\\");
+        String endPath = paths/* + "\\src\\main\\java\\"*/ +"\\"+ (srcPackage.replace("/", "\\")).replace(".", "\\");
         FileUtil.writeFile(endPath + "\\" + tableName + ".java", sb.toString());
     }
 
@@ -102,12 +132,16 @@ public class TableToJavaBean {
      * @param sb
      * @throws SQLException
      */
-    private void defProperty(ResultSetMetaData md, int columnCount, StringBuffer sb) throws SQLException {
+    private void defProperty(ResultSetMetaData md, int columnCount, StringBuffer sb,String primaryKeyName) throws SQLException {
 
         for (int i = 1; i <= columnCount; i++) {
             sb.append(TAB);
             String columnName = StringUtil.underlineToCamelhump(md.getColumnName(i).toLowerCase());
-            sb.append("@Column");
+            if(columnName.equals(primaryKeyName)){
+                sb.append("@Column").append("(").append("isPrimary = Primary.YSE").append(")");
+            }else{
+                sb.append("@Column");
+            }
             sb.append(LINE);
             sb.append(TAB);
             sb.append("private " + JavaTypeHelper.getPojoType(md.getColumnTypeName(i)) + " " + columnName + ";");

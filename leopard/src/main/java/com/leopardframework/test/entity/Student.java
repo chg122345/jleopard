@@ -1,68 +1,50 @@
-package com.leopardframework.test.entity;
+package com.leopardframework.test.entity ;
 
-import com.leopardframework.core.annotation.Column;
-import com.leopardframework.core.annotation.Table;
+import java.sql.Timestamp;
+import com.leopardframework.core.annotation.*;
 import com.leopardframework.core.enums.Primary;
 
-import java.sql.Date;
 
 /**
- * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
- * <p>
- * DateTime 2018/4/11
- * <p>
- * A novice on the road, please give me a suggestion.
- * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
- * Find a way for success and not make excuses for failure.
+ *
+ * @Copyright  (c) by Chen_9g (80588183@qq.com).
+ * @Author  Leopard Generator
+ * @DateTime  2018-04-15 14:04:19
  */
 @Table
 public class Student {
-    @Column(isPrimary = Primary.AUTOINCREMENT,allowNull = false)
-    private Long id;
-    @Column(allowNull = true)
-    private String name;
-    @Column(allowNull = true)
-    private Date created;
 
-    public Student() {
-    }
+	@Column(isPrimary = Primary.YSE)
+	private Integer id;
+	@Column
+	private String name;
+	@Column
+	private Timestamp created;
 
-    public Student(Long id, String name, Date created) {
-        this.id = id;
-        this.name = name;
-        this.created = created;
-    }
+	public Student() {
+	}
+	
+	public Integer getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public Timestamp getCreated() {
+		return created;
+	}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", created=" + created +
-                '}';
-    }
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
 }
