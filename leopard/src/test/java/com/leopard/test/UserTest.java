@@ -4,23 +4,17 @@ import com.leopardframework.core.Factory;
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
-import com.leopardframework.core.session.Session;
+import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
+import com.leopardframework.exception.SqlSessionException;
 import com.leopardframework.generator.GeneratorFactory;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
-import com.leopardframework.page.PageInfo;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.test.entity.*;
-import com.leopardframework.util.ClassUtil;
 import org.junit.Test;
 
-import java.beans.IntrospectionException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -89,7 +83,7 @@ public class UserTest {
 
     /*@Test
     public void SaveUserTest(){
-        Session session=SessionFactory.openSession();
+        SqlSession session=SessionFactory.openSession();
         User u=new User();
         u.setId(6);
         u.setName("leopard");
@@ -105,7 +99,7 @@ public class UserTest {
     }
     @Test
     public void SaveUserTest2(){
-        Session session=SessionFactory.openSession();
+        SqlSession session=SessionFactory.openSession();
         List<User> users=new ArrayList<>();
         for(int id=10;id<20;id++){
             users.add(new User(id,"leopard","15770549440"));
@@ -121,7 +115,7 @@ public class UserTest {
     }
     @Test
     public void getPK(){
-        Session session=SessionFactory.openSession();
+        SqlSession session=SessionFactory.openSession();
         try {
            int temp=session.Delete(User.class,1,2,3,4,5,6,10085);
            System.out.println(" 结果："+temp);
@@ -134,7 +128,7 @@ public class UserTest {
 
     @Test
     public void Delobj(){
-        Session session=SessionFactory.openSession();
+        SqlSession session=SessionFactory.openSession();
         User user=new User();
         user.setId(9);
        user.setPhone("15770549440");
@@ -177,7 +171,7 @@ public class UserTest {
 
     @Test
     public void newTest(){
-        Session session=SessionFactory.openSession();
+        SqlSession session=SessionFactory.openSession();
         User user=new User();
       //  user.setId(100);
         user.setPhone("15770549440");
@@ -196,7 +190,7 @@ public class UserTest {
     }
     @Test
     public void pageTest(){
-        Session session=SessionFactory.openSession();
+        SqlSession session=SessionFactory.openSession();
         try {
             PageInfo temp=session.Get(User.class,3,8);
             List <User>users=temp.getList();
@@ -214,7 +208,7 @@ public class UserTest {
     public void createTableTest(){
 
         try {
-            Session session=SessionFactory.openSession("classpath:config.xml");
+            SqlSession session=SessionFactory.openSession("classpath:config.xml");
             User u=new User();
             u.setId(10086);
             System.out.println("第二次"+session.Get(u));
@@ -264,7 +258,7 @@ public class UserTest {
 
    /* @Test
     public void Test(){
-        Session session=SessionFactory.openSession("classpath:config.xml");  //获取session  传入我们的配置文件
+        SqlSession session=SessionFactory.openSession("classpath:config.xml");  //获取session  传入我们的配置文件
             User user=new User();
             user.setId(100868);
             user.setName("Leopard");
@@ -296,7 +290,7 @@ public class UserTest {
     @Test
     public void GenTest(){
         Factory factory=new SessionFactory("classpath:config.xml");
-        Session session=factory.openSession();
+        SqlSession session=factory.openSession();
         try {
             System.out.println(session.Get(User.class).toString());
         } catch (Exception e) {
@@ -320,6 +314,24 @@ public class UserTest {
            factory.openGenerator();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void Add(int a,int b) throws SqlSessionException {
+        if(a<b){
+            throw new SqlSessionException("a<b");
+        }else if(a<0){
+            throw new SqlSessionException("a<0");
+        }
+        System.out.println(a-b);
+    }
+
+    @Test
+    public void AddTest(){
+        try {
+            Add(3,2);
+        } catch (SqlSessionException e) {e.printStackTrace();
+
         }
     }
 }

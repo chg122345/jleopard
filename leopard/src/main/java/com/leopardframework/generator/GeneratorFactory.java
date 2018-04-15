@@ -1,7 +1,7 @@
 package com.leopardframework.generator;
 
 import com.leopardframework.core.Factory;
-import com.leopardframework.core.session.Session;
+import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.plugins.c3p0.C3p0Plugin;
@@ -19,6 +19,8 @@ import java.sql.SQLException;
  * A novice on the road, please give me a suggestion.
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
+ *
+ *   运作逆向工程的工厂
  */
 public class GeneratorFactory implements Factory {
 
@@ -30,10 +32,14 @@ public class GeneratorFactory implements Factory {
     }
 
     @Override
-    public Session openSession() {
+    public SqlSession openSession() {
         return null;
     }
 
+    /**
+     *   执行逆向工程
+     * @throws SQLException
+     */
     public void openGenerator() throws SQLException {
         if(xmlPath.startsWith("classpath:")){
             xmlPath= xmlPath.replace("classpath:","").trim();

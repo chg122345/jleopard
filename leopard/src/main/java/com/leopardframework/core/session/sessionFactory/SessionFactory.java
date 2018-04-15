@@ -2,7 +2,7 @@ package com.leopardframework.core.session.sessionFactory;
 
 import com.leopardframework.core.Constant;
 import com.leopardframework.core.Factory;
-import com.leopardframework.core.session.Session;
+import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.plugins.c3p0.C3p0Plugin;
@@ -33,7 +33,7 @@ private String xmlpath;
         this.xmlpath=xmlPath;
     }
 
-    public Session openSession(){
+    public SqlSession openSession(){
         if(xmlpath.startsWith("classpath:")){
           xmlpath= xmlpath.replace("classpath:","").trim();
         }

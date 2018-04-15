@@ -1,6 +1,6 @@
 package com.leopardframework.core;
 
-import com.leopardframework.core.session.Session;
+import com.leopardframework.core.session.SqlSession;
 
 import java.sql.SQLException;
 
@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public interface Factory {
 
-    Session openSession();
+    SqlSession openSession();
 
     void openGenerator()throws SQLException;
 }

@@ -76,7 +76,7 @@ public class User{
     @Test
     public void Test(){
         Factory factory=new SessionFactory("classpath:config.xml");  //获取session  传入我们的配置文件
-        Session session=factory.openSession();
+        SqlSession session=factory.openSession();
             User user=new User();
             user.setId(10086);
             user.setName("Leopard");

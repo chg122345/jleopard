@@ -22,7 +22,7 @@ import java.util.Map;
  *  对查询出的对象赋值
  */
 final class EntityHelper {
-    protected static List invoke(ResultSet res, Class<?> cls, Map<String, String> C_F) throws IllegalAccessException, InstantiationException, IntrospectionException, SQLException, InvocationTargetException {
+    protected static <T> List<T> invoke(ResultSet res, Class<T> cls, Map<String, String> C_F) throws IllegalAccessException, InstantiationException, IntrospectionException, SQLException, InvocationTargetException {
         List entitys=new ArrayList();
         while (res.next()) {
             Object entity=cls.newInstance();
