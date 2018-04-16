@@ -106,6 +106,7 @@ public class TableToJavaBean {
         String paths = System.getProperty("user.dir");  //工程路径
         String endPath = paths/* + "\\src\\main\\java\\"*/ +"\\"+ (srcPackage.replace("/", "\\")).replace(".", "\\");
         FileUtil.writeFile(endPath + "\\" + tableName + ".java", sb.toString());
+       // System.out.println("Success ! 工程路径 : "+srcPackage);
     }
 
     /**

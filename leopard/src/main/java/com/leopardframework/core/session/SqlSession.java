@@ -60,7 +60,12 @@ public interface SqlSession {
     <T> PageInfo Get(Class<T> cls, int page, int pageSize) throws SqlSessionException;
 
     //  List Get(String sql,Object... args);
+    /**
+     * -----------------------Commit and rollback---------------------------------
+     **/
+    void Commit()throws SqlSessionException;
 
+    void Rollback() throws SqlSessionException;
     /**
      * -----------------------Close---------------------------------
      **/

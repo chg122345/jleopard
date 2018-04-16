@@ -60,11 +60,11 @@ public class GeneratorFactory implements Factory {
         DatabaseMetaData databaseMetaData = conn.getMetaData();
         String[] tableType = { "TABLE" };
         ResultSet rs = databaseMetaData.getTables(null, null, "%",tableType);
-        TableToJavaBean d = new TableToJavaBean();
+        TableToJavaBean tableToJavaBean = new TableToJavaBean();
         while(rs.next()){
-            String tableName=rs.getString(3).toString();
-            d.tableToBean(conn,tableName,factory.getEntityPackage(),factory.getGeneratorPackage());
+            String tableName=rs.getString(3);
+            tableToJavaBean.tableToBean(conn,tableName,factory.getEntityPackage(),factory.getGeneratorPackage());
         }
-
+        System.out.println("Success ! 工程目标路径 : "+factory.getGeneratorPackage());
     }
 }

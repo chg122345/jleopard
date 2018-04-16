@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE leopard-config  PUBLIC "-//leopard.com//DTD Config 1.0//EN"
-        "http://leopard.com/leopard/config/leopard.dtd">
+        "http://120.78.131.95/leopard/config/leopard.dtd">
 <leopard-config>
    <!-- 数据源的配置-->
    <bean class="com.leopardframework.plugins.DBPlugin" id="dataSource">

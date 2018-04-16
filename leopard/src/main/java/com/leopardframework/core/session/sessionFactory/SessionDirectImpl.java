@@ -47,6 +47,12 @@ final class SessionDirectImpl implements SqlSession {
         if(conn==null){
             LOG.error(" 获取数据库连接失败....");
             throw new SessionException("获取数据库连接失败... or session 已经关闭...");
+        }else{
+            try {
+                conn.setAutoCommit(false);
+            } catch (SQLException e) {
+                throw new SessionException("设置事物出错了..."+e);
+            }
         }
     }
 
@@ -483,7 +489,7 @@ final class SessionDirectImpl implements SqlSession {
             total=res.getInt(1);
         }
 
-        System.out.println("总记录数据: "+total);
+      //  System.out.println("总记录数据: "+total);
         PageInfo pm=new PageInfo(total,pageSize);
         StringBuilder SQL=new StringBuilder();
         SQL.append(selectsql.getSql());
@@ -493,6 +499,7 @@ final class SessionDirectImpl implements SqlSession {
                 page=pm.getTotalPages();
         }
         pm.setPage(page);
+         //   System.out.println("page数: "+page);
         int star=(page-1)*pageSize;
         SQL.append(" ").append("limit").append(" ").append(star).append(",").append(pageSize);
         String sql=SQL.toString().toUpperCase();
@@ -511,6 +518,24 @@ final class SessionDirectImpl implements SqlSession {
             throw new SqlSessionException(" sql执行出错了... "+e);
         } catch (InvocationTargetException e) {
             throw new SqlSessionException(" 反射调用方法或构造方法失败... "+e);
+        }
+    }
+
+    @Override
+    public void Commit() throws SqlSessionException {
+        try {
+            conn.commit();
+        } catch (SQLException e) {
+           throw new SqlSessionException("事务提交出错了..."+e);
+        }
+    }
+
+    @Override
+    public void Rollback() throws SqlSessionException {
+        try {
+            conn.rollback();
+        } catch (SQLException e) {
+            throw new SqlSessionException("事物回滚出错了..."+e);
         }
     }
 

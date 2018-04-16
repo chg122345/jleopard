@@ -52,8 +52,8 @@ public class PageInfo {
             this.pageStartRow = 0;
             this.pageEndRow = totalRows;
         } else {
-            this.pageStartRow = 0;
-            this.pageEndRow = pageSize;
+            this.pageStartRow =pageSize*(this.getPage()-1);
+            this.pageEndRow = (this.getPage()*pageSize);
         }
     }
 

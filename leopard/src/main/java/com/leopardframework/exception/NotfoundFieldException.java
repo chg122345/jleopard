@@ -16,10 +16,14 @@ package com.leopardframework.exception;
 public class NotFoundFieldException extends IllegalArgumentException {
 	
 	 public NotFoundFieldException() {
-	        super();
+
 	    }
 
-	    /**
+	public NotFoundFieldException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	/**
 	     * 
 	     * 	字段丢失/没有找到异常
 	     * @param   s   the detail message.

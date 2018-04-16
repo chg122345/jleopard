@@ -8,7 +8,7 @@ import com.leopardframework.core.enums.Primary;
  *
  * @Copyright  (c) by Chen_9g (80588183@qq.com).
  * @Author  Leopard Generator
- * @DateTime  2018-04-15 14:04:19
+ * @DateTime  2018-04-16 09:35:52
  */
 @Table
 public class User {

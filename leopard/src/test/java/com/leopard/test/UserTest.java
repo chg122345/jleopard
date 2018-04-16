@@ -9,12 +9,14 @@ import com.leopardframework.core.session.sessionFactory.SessionFactory;
 import com.leopardframework.exception.SqlSessionException;
 import com.leopardframework.generator.GeneratorFactory;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
+import com.leopardframework.page.PageInfo;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.test.entity.*;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.sql.*;
+import java.util.List;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -333,5 +335,70 @@ public class UserTest {
         } catch (SqlSessionException e) {e.printStackTrace();
 
         }
+    }
+
+    @Test
+    public void JdbcTest(){
+        XmlFactoryBuilder builder=new XmlFactoryBuilder(ClassLoader.getSystemResource("config.xml").getPath());
+        XmlFactoryBuilder.XmlFactory factory=builder.getFactory();
+        DBPlugin db=(DBPlugin) factory.getBean("dataSource");
+        Connection conn;
+        conn=db.getConn();
+        System.out.println(db.getConn());
+        String sql="insert into user (id,name) values (100088,'GGGGGGG')";
+        try {
+            conn.setAutoCommit(false);
+            Statement stm=conn.createStatement();
+            int temp=stm.executeUpdate(sql);
+                System.out.println("结果:" +temp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+/** 事物 success */
+    @Test
+    public void TranTest(){
+        Factory factory=new SessionFactory("classpath:config.xml");
+        SqlSession session=factory.openSession();
+        User user=new User();
+        user.setId(199997);
+        user.setName("JJJ");
+        user.setAddress("江西");
+        Student su=new Student();
+        su.setName("GXFJJJ");
+        try {
+            session.Save(su);
+            int temp=session.Save(user);
+            System.out.println("结果："+temp);
+            session.Commit();
+            session.Stop();
+        } catch (SqlSessionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void PageTest(){
+        Factory factory=new SessionFactory("classpath:config.xml");
+        SqlSession session=factory.openSession();
+        try {
+            PageInfo temp=session.Get(User.class,3,10);
+            session.Close();
+            List<User> users=temp.getList();
+            for (User u :users){
+                System.out.println(u.toString());
+            }
+            temp.description();
+            //  System.out.println(" 结果："+temp);
+        } catch (SqlSessionException e) {
+            e.printStackTrace();
+        }
+
     }
 }
