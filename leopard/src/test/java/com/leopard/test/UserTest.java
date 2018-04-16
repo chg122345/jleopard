@@ -385,10 +385,17 @@ public class UserTest {
 
     @Test
     public void PageTest(){
+        /*目前仅封装了我们开发中常用的一些数据信息。
+        获取分页信息 ：getPage();  // 获取当前查询的页数
+        getTotalPages(); //获取总页数
+        getPageSize();   //获取每页显示的数据数量
+        getTotalRows();  //获取总记录数
+        getList();       //获取目标数据，也就是我们要查询的数据*/
         Factory factory=new SessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         try {
             PageInfo temp=session.Get(User.class,3,10);
+            session.Stop();
             session.Close();
             List<User> users=temp.getList();
             for (User u :users){

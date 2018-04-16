@@ -124,26 +124,28 @@ public class User{
                 e.printStackTrace();
             }
         }
- 
-/****----------------分页查询详细介绍------------------***/
-    @Test
+四.分頁查詢
+
+ @Test
     public void PageTest(){
+        /*目前仅封装了我们开发中常用的一些数据信息。
+        获取分页信息 ：getPage();  // 获取当前查询的页数
+        getTotalPages(); //获取总页数
+        getPageSize();   //获取每页显示的数据数量
+        getTotalRows();  //获取总记录数
+        getList();       //获取目标数据，也就是我们要查询的数据*/
         Factory factory=new SessionFactory("classpath:config.xml");  //获取session工厂
-        SqlSession session=factory.openSession();           //打开session连接 开始操作
+        SqlSession session=factory.openSession();  //打开session连接 开始操作
         try {
-            PageInfo temp=session.Get(User.class,3,10);      //分页查询开始 用封装好的pageInfo接收查询结果
-            session.Stop();                                  //传三个参数分别代为 ：1.实体对象类，2.查询第几页，3.每页显示多少条数据
-            session.Close();                                 //目前仅封装了我们开发中常用的一些数据信息。
-                                                             //获取分页信息 ：getPage();  // 获取当前查询的页数
-                                                             //            getTotalPages(); //获取总页数
-                                                             //            getPageSize();   //获取每页显示的数据数量
-                                                             //            getTotalRows();  //获取总记录数
-                                                             //            getList();       //获取目标数据，也就是我们要查询的数据
+            PageInfo temp=session.Get(User.class,3,10);  //分页查询开始 用封装好的pageInfo接收查询结果
+            session.Stop();
+            session.Close();
             List<User> users=temp.getList();
             for (User u :users){
                 System.out.println(u.toString());
             }
             temp.description();
+            //  System.out.println(" 结果："+temp);
         } catch (SqlSessionException e) {
             e.printStackTrace();
         }
