@@ -6,6 +6,7 @@ import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
 import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
+import com.leopardframework.core.sql.*;
 import com.leopardframework.exception.SqlSessionException;
 import com.leopardframework.generator.GeneratorFactory;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
@@ -408,4 +409,25 @@ public class UserTest {
         }
 
     }
+
+    @Test
+    public void InsertSqlTest(){
+        User user=new User();
+        //   user.setId(9);
+        user.setPhone("15770549440");
+        user.setName("leopard");
+        //  user.setAddress("China");
+        // System.out.println("Sql value："+FieldUtil.getAllColumnName_Value(user));
+
+        Sql insert=new UpdateSql(user);
+
+        System.out.println("Sql 语句："+insert.getSql());
+        System.out.println("Sql value："+insert.getValues());
+      /*  for(int i=0;i<insert.getValues().size();++i){
+
+        System.out.print(insert.getValues().get(i)+" ");
+    }*/
+
+
+}
 }
