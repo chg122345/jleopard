@@ -37,9 +37,9 @@ public class TableUtil {
 
     public static String getTableName(Class<?> cls){
         Table table=cls.getDeclaredAnnotation(Table.class);
-        String tablename=table.value().toUpperCase();
+        String tablename=table.value()/*.toUpperCase()*/;
         if(StringUtil.isEmpty(tablename)){
-            tablename=cls.getSimpleName().toUpperCase();
+            tablename=cls.getSimpleName()/*.toUpperCase()*/;
         }
         return tablename;
     }

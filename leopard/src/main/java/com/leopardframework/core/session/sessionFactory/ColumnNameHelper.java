@@ -19,9 +19,9 @@ public class ColumnNameHelper {
 
     public static String getColumnName(Field field){
         Column column=field.getDeclaredAnnotation(Column.class);
-        String columnName=column.value().toUpperCase();
+        String columnName=column.value()/*.toUpperCase()*/;
         if(StringUtil.isEmpty(columnName)){
-            columnName=field.getName().toUpperCase();
+            columnName=field.getName()/*.toUpperCase()*/;
         }
         return columnName;
     }

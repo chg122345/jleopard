@@ -82,6 +82,6 @@ public class CreateTableSql implements Sql{
         }
         SQL.deleteCharAt(SQL.length()-2).append(")");
 
-        return SQL.toString().toUpperCase();
+        return SQL.toString()/*.toUpperCase()*/;
     }
 }

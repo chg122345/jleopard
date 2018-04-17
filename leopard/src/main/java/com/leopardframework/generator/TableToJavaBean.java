@@ -71,6 +71,7 @@ public class TableToJavaBean {
         int columnCount = md.getColumnCount();
         String primaryKeyName=getPrimaryKey(connection,tableName);
         StringBuffer sb = new StringBuffer();
+        String tureTableName=tableName;
         tableName = StringUtil.firstToUpper(StringUtil.underlineToCamelhump(tableName));  //下划线转大驼峰  首字母大写
         sb.append("package " + entityPackage + " ;");
         sb.append(LINE);
@@ -94,7 +95,7 @@ public class TableToJavaBean {
         sb.append(LINE);
         sb.append(" */");
         sb.append(LINE);
-        sb.append("@Table");
+        sb.append("@Table").append("(\"").append(tureTableName).append("\")");
         sb.append(LINE);
         sb.append("public class " + tableName + " {");
         sb.append(LINE);
@@ -106,6 +107,7 @@ public class TableToJavaBean {
         String paths = System.getProperty("user.dir");  //工程路径
         String endPath = paths/* + "\\src\\main\\java\\"*/ +"\\"+ (srcPackage.replace("/", "\\")).replace(".", "\\");
         FileUtil.writeFile(endPath + "\\" + tableName + ".java", sb.toString());
+        System.out.println("Success ! 工程路径 : "+tableName);
        // System.out.println("Success ! 工程路径 : "+srcPackage);
     }
 

@@ -65,7 +65,7 @@ public class SelectSqlMore implements Sql{
         }
         SQL.deleteCharAt(SQL.length()-1).append(" ").append("from").append(" ").append(tableName)
                 .append("\n")/*.append("   where").append(" ").append(primaryKeyName)*/;
-        log.info(" 生成的sql语句: "+SQL.toString().toUpperCase());
-        return SQL.toString().toUpperCase();
+        log.info(" 生成的sql语句: "+SQL.toString()/*.toUpperCase()*/);
+        return SQL.toString()/*.toUpperCase()*/;
     }
 }

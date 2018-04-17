@@ -48,7 +48,7 @@ public class DeleteSqlMore implements Sql {
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
         SQL.append("delete from ").append(tableName).append("\n").append(" ").append("where ").append(primaryKeyName);
-        log.info(" 生成的sql语句: "+SQL.toString().toUpperCase());
-        return SQL.toString().toUpperCase();
+        log.info(" 生成的sql语句: "+SQL.toString()/*.toUpperCase()*/);
+        return SQL.toString()/*.toUpperCase()*/;
     }
 }

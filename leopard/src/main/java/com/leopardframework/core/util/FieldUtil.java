@@ -94,9 +94,9 @@ public class FieldUtil {
                 if(fieldValue==null||"".equals(fieldValue)){
                     continue;    //空值 不是我们所要的对象  ignore
                 }
-                columnName=column.value().toUpperCase();//ColumnNameHelper.getColumnName(field);
+                columnName=column.value()/*.toUpperCase()*/;//ColumnNameHelper.getColumnName(field);
                 if(StringUtil.isEmpty(columnName)){
-                    columnName=field.getName().toUpperCase();
+                    columnName=field.getName()/*.toUpperCase()*/;
                 }
                 c_v.put(columnName,fieldValue);             //取到我们需要的打包
             } catch (Exception e) {
