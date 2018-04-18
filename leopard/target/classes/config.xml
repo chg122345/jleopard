@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE leopard-config  PUBLIC "-//leopard.com//DTD Config 1.0//EN"
+        "http://120.78.131.95/leopard/config/leopard.dtd">
+<leopard-config>
+   <!-- 数据源的配置-->
+   <bean class="com.leopardframework.plugins.DBPlugin" id="dataSource">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/myshop?characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="chg122345"/>
+    </bean>
+   <!-- c3p0数据源的配置-->
+    <!--<bean class="com.leopardframework.plugins.c3p0.C3p0Plugin" id="dataSource">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/myshop?characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="chg122345"/>
+        <property name="maxPoolSize" value="100"/>
+        <property name="minPoolSize" value="20"/>
+    </bean>-->
+    <!--实体对象所在包-->
+    <entity-package value="com.leopardframework.test.entity"/>
+    <!--逆向工程配置 -->
+<generator>
+    <target package="src.main.java.com.leopardframework.test.entity"/>
+</generator>
+</leopard-config>

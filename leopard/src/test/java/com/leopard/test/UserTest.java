@@ -6,17 +6,25 @@ import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
 import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
-import com.leopardframework.core.sql.*;
+import com.leopardframework.core.sql.CreateTableSql;
+import com.leopardframework.core.sql.SelectSql;
+import com.leopardframework.core.sql.Sql;
+import com.leopardframework.core.sql.UpdateSql;
 import com.leopardframework.exception.SqlSessionException;
 import com.leopardframework.generator.GeneratorFactory;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.page.PageInfo;
 import com.leopardframework.plugins.DBPlugin;
-import com.leopardframework.test.entity.*;
+import com.leopardframework.test.entity.Article;
+import com.leopardframework.test.entity.Student;
+import com.leopardframework.test.entity.User;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -290,7 +298,7 @@ public class UserTest {
 
     }*/
 
-    @Test
+   /* @Test
     public void GenTest(){
         Factory factory=new SessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
@@ -299,7 +307,7 @@ public class UserTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       /* Jqubian jj=new Jqubian();
+       *//* Jqubian jj=new Jqubian();
         jj.setGxfId(111);
         jj.setGxfLong(5454);
         jj.setGxfName("GGG");
@@ -307,8 +315,8 @@ public class UserTest {
         jj.setGxfPrice2(2.5f);
         jj.getGxfStatus(TRUE.equals(true));
         jj.setGxfCreate(new Date(2018,02,05));
-        System.out.println(jj);*/
-    }
+        System.out.println(jj);*//*
+    }*/
 
     @Test
     public void GeneratorTest(){
@@ -386,7 +394,7 @@ public class UserTest {
 
     @Test
     public void PageTest(){
-        /*目前仅封装了我们开发中常用的一些数据信息。
+       /* 目前仅封装了我们开发中常用的一些数据信息。
         获取分页信息 ：getPage();  // 获取当前查询的页数
         getTotalPages(); //获取总页数
         getPageSize();   //获取每页显示的数据数量
@@ -411,23 +419,44 @@ public class UserTest {
     }
 
     @Test
-    public void InsertSqlTest(){
+    public void SqlTest(){
         User user=new User();
-        //   user.setId(9);
+        user.setId(10);
         user.setPhone("15770549440");
         user.setName("leopard");
-        //  user.setAddress("China");
+          user.setAddress("China002");
         // System.out.println("Sql value："+FieldUtil.getAllColumnName_Value(user));
 
-        Sql insert=new UpdateSql(user);
+        /*Sql insert=new CreateTableSql(Article.class);
 
         System.out.println("Sql 语句："+insert.getSql());
-        System.out.println("Sql value："+insert.getValues());
-      /*  for(int i=0;i<insert.getValues().size();++i){
+        System.out.println("Sql value："+insert.getValues());*/
+        Factory factory=new SessionFactory("classpath:config.xml");
+        SqlSession session=factory.openSession();
+        Article a=new Article();
+        a.setId(1002);
+        a.setName("GGG");
+        a.setUser(user);
+        try {
+            System.out.println(session.Get(a));
+            session.Commit();
+            session.Stop();
+        } catch (SqlSessionException e) {
+            e.printStackTrace();
+        }
 
-        System.out.print(insert.getValues().get(i)+" ");
-    }*/
 
+    }
 
-}
+    @Test
+    public void SQLTTt(){
+        User user=new User();
+        user.setId(8);
+        user.setPhone("15770549440");
+        user.setName("leopard");
+        user.setAddress("China");
+        Sql selectsql=new SelectSql(user);
+        System.out.println("Sql 语句："+selectsql.getSql());
+        System.out.println("Sql value："+selectsql.getValues());
+    }
 }

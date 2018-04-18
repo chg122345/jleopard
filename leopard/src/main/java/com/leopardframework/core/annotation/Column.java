@@ -31,5 +31,5 @@ public @interface Column {
 
    boolean allowNull() default false;
 
-   boolean isForeginKey() default false;
+   String relation() default "";  //外键关系 连接另一个实体类
 }

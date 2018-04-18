@@ -59,17 +59,29 @@ public class CreateTableSql implements Sql{
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
         SQL.append("create table if not exists ").append(tableName).append("\n").append(" (");
+        String endSql=null;
         Field[] fields=cls.getDeclaredFields();
         for (Field field:fields){
           Column column=field.getDeclaredAnnotation(Column.class);
           if (FieldUtil.isPrimaryKey(column)==0){
-              if(column.allowNull()){
-                  SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
-                          .append(",").append("\n");
+              String foreignKeyName=column.relation();
+              if(StringUtil.isNotEmpty(foreignKeyName)){
+                  Class<?> clazz=FieldUtil.getForeignKeys(cls).get(foreignKeyName); //外键类
+                  String fpkName= FieldUtil.getPrimaryKeys(clazz).get(0);                      //外键类的主键名
+                  Class<?> fpkType=FieldUtil.getPrimaryKeys_Type(clazz).get(fpkName);         //外键类的主键的类型
+                       SQL.append(foreignKeyName).append(" ").append(JavaTypeUtil.getSqlType(fpkType))
+                               .append(" ").append("not null").append(",").append("\n");
+                  endSql="constraint foreign key("+foreignKeyName+") references "+ TableUtil.getTableName(clazz)+"("+fpkName+") on delete restrict on update restrict";
               }else{
-                  SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
-                      .append(" ").append("not null").append(",").append("\n");
+                  if (column.allowNull()) {
+                      SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
+                              .append(",").append("\n");
+                  } else {
+                      SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
+                              .append(" ").append("not null").append(",").append("\n");
+                  }
               }
+
           }else if (FieldUtil.isPrimaryKey(column)==1){
               SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))
                       .append(" ").append("primary key").append(" ").append("not null").append(",").append("\n");
@@ -80,7 +92,12 @@ public class CreateTableSql implements Sql{
           }
 
         }
-        SQL.deleteCharAt(SQL.length()-2).append(")");
+       // SQL.deleteCharAt(SQL.length()-2).append(")");
+        if (StringUtil.isEmpty(endSql)) {
+            SQL.deleteCharAt(SQL.length() - 2).append(")");
+        } else {
+            SQL.append(endSql).append("\n").append(")");
+        }
 
         return SQL.toString()/*.toUpperCase()*/;
     }

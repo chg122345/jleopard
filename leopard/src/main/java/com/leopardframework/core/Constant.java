@@ -18,6 +18,6 @@ public interface Constant {
     String JDBCURL="jdbc.Url";
     String JDBCUSER="jdbc.User";
     String JDBCPASSWORD="jdbc.Password";
-    boolean DEV=false;
+    boolean DEV=true;
 //    String ENTITY_PACKAGE="com.leopardframework.test.entity";
 }

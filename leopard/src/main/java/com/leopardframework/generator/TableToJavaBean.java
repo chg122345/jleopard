@@ -1,6 +1,5 @@
 package com.leopardframework.generator;
 
-import com.leopardframework.core.session.sessionFactory.SessionFactory;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.util.DateUtil;
@@ -30,7 +29,7 @@ public class TableToJavaBean {
     private static final String TAB ="\t";
 
     /**
-     *  获取数据库的表主键名 全转换为小写
+     *  获取数据库的表主键名
      * @param conn
      * @param tableName
      * @return
@@ -45,7 +44,7 @@ public class TableToJavaBean {
             Statement stm=conn.createStatement();
             ResultSet res=stm.executeQuery(sql);
             while (res.next()){
-               return res.getString(1).toLowerCase();
+               return res.getString(1)/*.toLowerCase()*/;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,19 +81,7 @@ public class TableToJavaBean {
         sb.append("import com.leopardframework.core.enums.Primary;");
         sb.append(LINE);
         sb.append(LINE);
-        sb.append(LINE);
-        sb.append("/**");
-        sb.append(LINE);
-        sb.append(" *");
-        sb.append(LINE);
-        sb.append(" * @Copyright  ").append("(c) by Chen_9g (80588183@qq.com).");
-        sb.append(LINE);
-        sb.append(" * @Author  Leopard Generator");
-        sb.append(LINE);
-        sb.append(" * @DateTime  ").append(DateUtil.formatDatetime(new Date()));
-        sb.append(LINE);
-        sb.append(" */");
-        sb.append(LINE);
+        generatorInfo(sb);
         sb.append("@Table").append("(\"").append(tureTableName).append("\")");
         sb.append(LINE);
         sb.append("public class " + tableName + " {");
@@ -107,7 +94,7 @@ public class TableToJavaBean {
         String paths = System.getProperty("user.dir");  //工程路径
         String endPath = paths/* + "\\src\\main\\java\\"*/ +"\\"+ (srcPackage.replace("/", "\\")).replace(".", "\\");
         FileUtil.writeFile(endPath + "\\" + tableName + ".java", sb.toString());
-        System.out.println("Success ! 工程路径 : "+tableName);
+      //  System.out.println("Success ! 工程路径 : "+tableName);
        // System.out.println("Success ! 工程路径 : "+srcPackage);
     }
 
@@ -129,6 +116,26 @@ public class TableToJavaBean {
     }
 
     /**
+     *  生成头信息
+     * @param sb
+     */
+    private void generatorInfo(StringBuffer sb){
+        sb.append(LINE);
+        sb.append("/**");
+        sb.append(LINE);
+        sb.append(" *");
+        sb.append(LINE);
+        sb.append(" * @Copyright  ").append("(c) by Chen_9g (80588183@qq.com).");
+        sb.append(LINE);
+        sb.append(" * @Author  Leopard Generator");
+        sb.append(LINE);
+        sb.append(" * @DateTime  ").append(DateUtil.formatDatetime(new Date()));
+        sb.append(LINE);
+        sb.append(" */");
+        sb.append(LINE);
+    }
+
+    /**
      *  私有成员变量
      * @param md
      * @param columnCount
@@ -139,15 +146,17 @@ public class TableToJavaBean {
 
         for (int i = 1; i <= columnCount; i++) {
             sb.append(TAB);
-            String columnName = StringUtil.underlineToCamelhump(md.getColumnName(i).toLowerCase());
+            String columnName =md.getColumnName(i);
+            String fieldName=StringUtil.underlineToCamelhump(columnName.toLowerCase());
+            sb.append("@Column");
             if(columnName.equals(primaryKeyName)){
-                sb.append("@Column").append("(").append("isPrimary = Primary.YSE").append(")");
+                sb.append("(").append("value=").append("\"").append(columnName).append("\"").append(",").append("isPrimary = Primary.YSE").append(")");
             }else{
-                sb.append("@Column");
+                sb.append("(").append("\"").append(columnName).append("\"").append(")");
             }
             sb.append(LINE);
             sb.append(TAB);
-            sb.append("private " + JavaTypeHelper.getPojoType(md.getColumnTypeName(i)) + " " + columnName + ";");
+            sb.append("private " + JavaTypeHelper.getPojoType(md.getColumnTypeName(i)) + " " + fieldName + ";");
             sb.append(LINE);
         }
     }

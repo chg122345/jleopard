@@ -9,16 +9,16 @@ import com.leopardframework.core.enums.Primary;
  *
  * @Copyright  (c) by Chen_9g (80588183@qq.com).
  * @Author  Leopard Generator
- * @DateTime  2018-04-16 09:35:51
+ * @DateTime  2018-04-18 08:50:20
  */
-@Table
+@Table("student")
 public class Student {
 
-	@Column(isPrimary = Primary.YSE)
+	@Column(value="ID",isPrimary = Primary.YSE)
 	private Integer id;
-	@Column
+	@Column("NAME")
 	private String name;
-	@Column
+	@Column("CREATED")
 	private Timestamp created;
 
 	public Student() {

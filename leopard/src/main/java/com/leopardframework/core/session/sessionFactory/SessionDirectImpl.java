@@ -63,26 +63,30 @@ final class SessionDirectImpl implements SqlSession {
     public SessionDirectImpl(String packagePath) {
         this.conn=SessionFactory.Config.getConnection();
         Set<Class<?>> set=ClassUtil.getClassSetByPackagename(packagePath);
-        List<String> list=ArraysHelper.toUpperCase(TableUtil.showAllTableName(conn));
+        List<String> list=TableUtil.showAllTableName(conn);   //ArraysHelper.toUpperCase(TableUtil.showAllTableName(conn));
         //System.out.println("对比："+ArraysHelper.toUpperCase(list));
         if(CollectionUtil.isEmpty(set)){
             LOG.error("获取到的实体类为空...");
             throw new SessionException("获取到的实体类为空...");
         }
-        for(Class<?> cls:set) {
-            if (list.contains(TableUtil.getTableName(cls))) {
-              continue;
-            }
-            Sql create = new CreateTableSql(cls);
-            String sql = create.getSql();
-            try {
-                stm = conn.createStatement();
-                stm.executeUpdate(sql);
-            } catch (SQLException e) {
+        for (Class<?> cls : set) {
+            if (CollectionUtil.isEmpty(list)) {
+                continue;
+            } else {
+                if (list.contains(TableUtil.getTableName(cls))) {
+                    continue;
+                }
+                Sql create = new CreateTableSql(cls);
+                String sql = create.getSql();
+                try {
+                    stm = conn.createStatement();
+                    stm.executeUpdate(sql);
+                } catch (SQLException e) {
                     LOG.error(cls + "创建表时出错...", e);
                     e.printStackTrace();
+                }
+                DevModelHelper.outParameter(DevModel, sql, "");
             }
-            DevModelHelper.outParameter(DevModel, sql, "");
         }
     }
 
@@ -197,7 +201,7 @@ final class SessionDirectImpl implements SqlSession {
         Sql deletesql=new DeleteSqlMore(cls);
         StringBuilder SQL=new StringBuilder();
         SQL.append(deletesql.getSql()).append(" ").append(ArraysHelper.getSql(primaryKeys));
-        String sql=SQL.toString().toUpperCase();
+        String sql=SQL.toString()/*.toUpperCase()*/;
         LOG.info("当前执行的sql语句: \n" +sql);
         try {
             pstm=conn.prepareStatement(sql);
@@ -244,14 +248,15 @@ final class SessionDirectImpl implements SqlSession {
         }
         StringBuilder SQL=new StringBuilder();
         SQL.append( updatesql.getSql()).append(pks.get(0)).append("=").append("?");
-        String sql=SQL.toString().toUpperCase();
+        String sql=SQL.toString()/*.toUpperCase()*/;
         LOG.info("当前执行的sql语句: \n" +sql);
         List values=updatesql.getValues();
         try {
             pstm = conn.prepareStatement(sql);
             pstmSetListValues(pstm, values);
             pstm.setObject(values.size() + 1, primaryKey);
-            DevModelHelper.outParameter(DevModel, sql, primaryKey);
+            values.add(primaryKey);
+            DevModelHelper.outParameter(DevModel, sql, values);
 
             return pstm.executeUpdate();
         } catch (SQLException e) {
@@ -304,7 +309,7 @@ final class SessionDirectImpl implements SqlSession {
         }else{
             SQL.append( selectsql.getSql()).append("\n").append(" where").append(" ").append(where);
         }
-        String sql=SQL.toString().toUpperCase();
+        String sql=SQL.toString()/*.toUpperCase()*/;
         LOG.info("当前执行的sql语句: \n" +sql);
         try {
             pstm=conn.prepareStatement(sql);
@@ -345,12 +350,11 @@ final class SessionDirectImpl implements SqlSession {
         Sql selectsql=new SelectSql(entity);
         String sql=selectsql.getSql();
         LOG.info("当前执行的sql语句: \n" +sql);
-        List values=selectsql.getValues();
-
+        List<Object> values=selectsql.getValues();
         try {
             pstm=conn.prepareStatement(sql);
-            res=pstm.executeQuery();
             pstmSetListValues(pstm,values);
+            res=pstm.executeQuery();
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了... "+e);
         }
@@ -400,7 +404,7 @@ final class SessionDirectImpl implements SqlSession {
         }
         SQL.append( selectsql.getSql()).append("\n").append(" where").append(" ")
                 .append(pks.get(0)).append(" ").append( ArraysHelper.getSql(primaryKeys));
-        String sql=SQL.toString().toUpperCase();
+        String sql=SQL.toString()/*.toUpperCase()*/;
         LOG.info("当前执行的sql语句: \n" +sql);
         try {
             pstm = conn.prepareStatement(sql);
@@ -502,7 +506,7 @@ final class SessionDirectImpl implements SqlSession {
          //   System.out.println("page数: "+page);
         int star=(page-1)*pageSize;
         SQL.append(" ").append("limit").append(" ").append(star).append(",").append(pageSize);
-        String sql=SQL.toString().toUpperCase();
+        String sql=SQL.toString()/*.toUpperCase()*/;
         LOG.info("当前执行的sql语句: \n" +sql);
         res=stm.executeQuery(sql);
         DevModelHelper.outParameter(DevModel,sql,page);

@@ -37,11 +37,11 @@ public class TableUtil {
 
     public static String getTableName(Class<?> cls){
         Table table=cls.getDeclaredAnnotation(Table.class);
-        String tablename=table.value()/*.toUpperCase()*/;
-        if(StringUtil.isEmpty(tablename)){
-            tablename=cls.getSimpleName()/*.toUpperCase()*/;
+        String tableName=table.value()/*.toUpperCase()*/;
+        if(StringUtil.isEmpty(tableName)){
+            tableName=cls.getSimpleName()/*.toUpperCase()*/;
         }
-        return tablename;
+        return tableName.substring(0,1).toLowerCase()+tableName.substring(1);
     }
 
     /**

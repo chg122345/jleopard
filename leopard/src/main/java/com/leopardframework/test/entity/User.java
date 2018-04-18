@@ -8,18 +8,18 @@ import com.leopardframework.core.enums.Primary;
  *
  * @Copyright  (c) by Chen_9g (80588183@qq.com).
  * @Author  Leopard Generator
- * @DateTime  2018-04-16 09:35:52
+ * @DateTime  2018-04-18 08:50:20
  */
-@Table
+@Table("user")
 public class User {
 
-	@Column(isPrimary = Primary.YSE)
+	@Column(value="ID",isPrimary = Primary.YSE)
 	private Integer id;
-	@Column
+	@Column("NAME")
 	private String name;
-	@Column
+	@Column("PHONE")
 	private String phone;
-	@Column
+	@Column(value = "ADDRESS",allowNull = true)
 	private String address;
 
 	public User() {

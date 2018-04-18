@@ -1,5 +1,7 @@
 package com.leopardframework.core.session.sessionFactory;
 
+import com.leopardframework.core.util.FieldUtil;
+
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +31,15 @@ final class EntityHelper {
             for (Map.Entry<String, String> cf : C_F.entrySet()) {
                 PropertyDescriptor pd = new PropertyDescriptor(cf.getValue(), cls);
                 Method write = pd.getWriteMethod();
-                write.invoke(entity, res.getObject(cf.getKey()));
+                List<String> fns=FieldUtil.getForeignKeyName(cls);
+                for (String fn : fns) {
+                    if (cf.getKey().equals(fn)) {
+                         Object fkv=res.getObject(cf.getKey());   //外键值
+                        continue;
+                    } else {
+                        write.invoke(entity, res.getObject(cf.getKey()));
+                    }
+                }
             }
             entitys.add(entity);
         }
