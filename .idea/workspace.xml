@@ -7,20 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41837a88-f548-45ab-8b84-28fe9602f5ae" name="Default" comment="1.02">
-      <change afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/JoinSql.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/annotation/Column.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/annotation/Column.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/SqlSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/SqlSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/EntityHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/EntityHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionDirectImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionDirectImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/CreateTableSql.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/CreateTableSql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/FieldUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/FieldUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/TableUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/TableUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/exception/NotfoundFieldException.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/exception/NotFoundFieldException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/generator/TableToJavaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/generator/TableToJavaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Student.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/util/ArrayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/util/ArrayUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/leopard/src/test/java/com/leopard/test/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/leopard/src/test/java/com/leopard/test/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leopard/target/classes/config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/leopard/target/classes/log4j.properties" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/leopard/target/" />
     <ignored path=".idea/" />
@@ -42,10 +39,35 @@
       <file leaf-file-name="UserTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/leopard/src/test/java/com/leopard/test/UserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="408" column="44" lean-forward="true" selection-start-line="408" selection-start-column="44" selection-end-line="408" selection-end-column="44" />
+            <state relative-caret-position="156">
+              <caret line="452" column="32" lean-forward="true" selection-start-line="452" selection-start-column="32" selection-end-line="452" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Article.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+              <folding>
+                <element signature="e#564#565#0" expanded="true" />
+                <element signature="e#580#581#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -54,8 +76,8 @@
       <file leaf-file-name="SqlSession.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/SqlSession.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="53" column="10" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
+            <state relative-caret-position="311">
+              <caret line="63" column="100" selection-start-line="63" selection-start-column="100" selection-end-line="63" selection-end-column="100" />
             </state>
           </provider>
         </entry>
@@ -63,8 +85,8 @@
       <file leaf-file-name="SessionDirectImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionDirectImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="365" column="37" selection-start-line="365" selection-start-column="37" selection-end-line="365" selection-end-column="37" />
+            <state relative-caret-position="498">
+              <caret line="611" column="35" selection-start-line="611" selection-start-column="35" selection-end-line="611" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,11 +94,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FieldUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/FieldUtil.java">
+      <file leaf-file-name="ArrayUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/util/ArrayUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="244" column="19" lean-forward="true" selection-start-line="244" selection-end-line="245" />
+            <state relative-caret-position="332">
+              <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+              <folding>
+                <element signature="e#409#410#0" expanded="true" />
+                <element signature="e#447#448#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sql.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/Sql.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JoinSql.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/JoinSql.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-563">
+              <caret line="49" column="31" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1222#1223#0" expanded="true" />
+                <element signature="e#1249#1250#0" expanded="true" />
+                <element signature="e#476#477#0" expanded="true" />
+                <element signature="e#503#504#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,8 +135,17 @@
       <file leaf-file-name="EntityHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/EntityHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="34" column="39" lean-forward="true" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+            <state relative-caret-position="121">
+              <caret line="93" column="65" selection-start-line="93" selection-start-column="65" selection-end-line="93" selection-end-column="65" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SelectSql.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/SelectSql.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="156">
+              <caret line="49" column="35" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -158,8 +218,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/util/DateUtil.java" />
-        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/bean/BeanInvoke.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/bean/BeanInfo.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/SqlBuilder.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionImplDirect.java" />
@@ -180,7 +238,6 @@
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/Factory.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/exception/SqlSessionException.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/Session.java" />
-        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/SqlSession.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/page/PageInfo.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/exception/NotFoundFieldException.java" />
@@ -200,15 +257,18 @@
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/generator/TableToJavaBean.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/annotation/Column.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/Constant.java" />
-        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Student.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/CreateTableSql.java" />
-        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/TableUtil.java" />
-        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionDirectImpl.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/FieldUtil.java" />
-        <option value="$PROJECT_DIR$/leopard/src/test/java/com/leopard/test/UserTest.java" />
+        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/util/ArrayUtil.java" />
+        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/JoinSql.java" />
         <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/EntityHelper.java" />
+        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java" />
+        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java" />
+        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/SqlSession.java" />
+        <option value="$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionDirectImpl.java" />
+        <option value="$PROJECT_DIR$/leopard/src/test/java/com/leopard/test/UserTest.java" />
       </list>
     </option>
   </component>
@@ -260,7 +320,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="476" />
+    <option name="x" value="475" />
     <option name="y" value="50" />
     <option name="width" value="1400" />
     <option name="height" value="990" />
@@ -278,106 +338,12 @@
               <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
               <item name="leopard" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="leopardframework" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="leopardframework" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="leopardframework" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="session" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="leopardframework" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="session" type="462c0819:PsiDirectoryNode" />
-              <item name="sessionFactory" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="leopardframework" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="leopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="leopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -429,7 +395,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserTest.SqlTest">
+  <component name="RunManager" selected="JUnit.UserTest.JionSqlTt">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
@@ -445,29 +411,6 @@
         </option>
       </method>
     </configuration>
-    <configuration name="UserTest.GeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="leopard" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.leopard.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.leopard.test" />
-      <option name="MAIN_CLASS_NAME" value="com.leopard.test.UserTest" />
-      <option name="METHOD_NAME" value="GeneratorTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
     <configuration name="UserTest.InsertSqlTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="leopard" />
       <extension name="coverage">
@@ -481,6 +424,29 @@
       <option name="PACKAGE_NAME" value="com.leopard.test" />
       <option name="MAIN_CLASS_NAME" value="com.leopard.test.UserTest" />
       <option name="METHOD_NAME" value="InsertSqlTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UserTest.JionSqlTt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="leopard" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.leopard.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.leopard.test" />
+      <option name="MAIN_CLASS_NAME" value="com.leopard.test.UserTest" />
+      <option name="METHOD_NAME" value="JionSqlTt" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -763,18 +729,18 @@
     <list>
       <item itemvalue="Application.leopard" />
       <item itemvalue="JUnit.UserTest.PageTest" />
-      <item itemvalue="JUnit.UserTest.GeneratorTest" />
       <item itemvalue="JUnit.UserTest.InsertSqlTest" />
       <item itemvalue="JUnit.UserTest.SQLTTt" />
       <item itemvalue="JUnit.UserTest.SqlTest" />
+      <item itemvalue="JUnit.UserTest.JionSqlTt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserTest.JionSqlTt" />
+        <item itemvalue="JUnit.UserTest.PageTest" />
         <item itemvalue="JUnit.UserTest.SqlTest" />
         <item itemvalue="JUnit.UserTest.SQLTTt" />
         <item itemvalue="JUnit.UserTest.InsertSqlTest" />
-        <item itemvalue="JUnit.UserTest.PageTest" />
-        <item itemvalue="JUnit.UserTest.GeneratorTest" />
       </list>
     </recent_temporary>
   </component>
@@ -825,6 +791,7 @@
       <workItem from="1524011022864" duration="10136000" />
       <workItem from="1524039194090" duration="3949000" />
       <workItem from="1524043257201" duration="2970000" />
+      <workItem from="1524096905412" duration="10057000" />
     </task>
     <task id="LOCAL-00001" summary="1.02">
       <created>1523268823798</created>
@@ -879,39 +846,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 17h 45m 26s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 10h 37m 00s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 17h 46m 20s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 10h 38m 19s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 17h 46m 36s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 10h 38m 37s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 17h 48m 31s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 10h 38m 51s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 17h 51m 07s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 10h 39m 53s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 17h 52m 10s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 10h 40m 33s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 18h 08m 52s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 11h 01m 25s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 18h 09m 19s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 11h 01m 37s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 18h 10m 02s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 11h 01m 59s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserTest_SqlTest - 2018.04.18 at 18h 10m 17s.xml">
-      <configuration name="UserTest.SqlTest" configurationId="JUnit" />
+    <history-entry file="UserTest_JionSqlTt - 2018.04.19 at 11h 02m 36s.xml">
+      <configuration name="UserTest.JionSqlTt" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211072000" />
+    <option name="totallyTimeSpent" value="221129000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -928,7 +895,7 @@
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49597856" weight="0.3266762" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" weight="0.32952926" />
       <window_info id="Designer" order="6" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23123324" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23458445" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -948,33 +915,33 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49597856" visible="true" weight="0.32763532" />
       <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28686327" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" sideWeight="0.49865952" weight="0.32905984" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="6" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" weight="0.32952926" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3988604" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" sideWeight="0.49865952" weight="0.32905984" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50402147" side_tool="true" weight="0.32763532" />
       <window_info id="Capture Tool" order="4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32763532" />
       <window_info anchor="right" id="Maven Projects" order="7" weight="0.3297587" />
-      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -996,24 +963,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="24" />
+      <option name="time" value="25" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/logging/log/LogFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-251">
-          <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/enums/Primary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/SqlBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -1113,24 +1066,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/SelectSql.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="89" column="59" selection-start-line="89" selection-start-column="48" selection-end-line="89" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/DeleteSqlMore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="26" column="11" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/ColumnNameHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -1208,34 +1147,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-          <folding>
-            <element signature="e#564#565#0" expanded="true" />
-            <element signature="e#580#581#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/TableUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="893">
@@ -1258,30 +1169,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
           <caret line="59" column="56" selection-start-line="59" selection-start-column="56" selection-end-line="59" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/Sql.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/FieldUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="244" column="19" lean-forward="true" selection-start-line="244" selection-end-line="245" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionDirectImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="365" column="37" selection-start-line="365" selection-start-column="37" selection-end-line="365" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1310,24 +1197,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/SqlSession.java">
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/ColumnNameHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="23" column="57" lean-forward="true" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/util/FieldUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="128" column="30" selection-start-line="128" selection-start-column="30" selection-end-line="128" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/SelectSql.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="49" column="35" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/Sql.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
-          <caret line="53" column="10" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
+          <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/util/ArrayUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+          <folding>
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/sql/JoinSql.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-563">
+          <caret line="49" column="31" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1222#1223#0" expanded="true" />
+            <element signature="e#1249#1250#0" expanded="true" />
+            <element signature="e#476#477#0" expanded="true" />
+            <element signature="e#503#504#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/EntityHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="34" column="39" lean-forward="true" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+        <state relative-caret-position="121">
+          <caret line="93" column="65" selection-start-line="93" selection-start-column="65" selection-end-line="93" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/Article.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/test/entity/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+          <folding>
+            <element signature="e#564#565#0" expanded="true" />
+            <element signature="e#580#581#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/SqlSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="63" column="100" selection-start-line="63" selection-start-column="100" selection-end-line="63" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leopard/src/main/java/com/leopardframework/core/session/sessionFactory/SessionDirectImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="611" column="35" selection-start-line="611" selection-start-column="35" selection-end-line="611" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/leopard/src/test/java/com/leopard/test/UserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="408" column="44" lean-forward="true" selection-start-line="408" selection-start-column="44" selection-end-line="408" selection-end-column="44" />
+        <state relative-caret-position="156">
+          <caret line="452" column="32" lean-forward="true" selection-start-line="452" selection-start-column="32" selection-end-line="452" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

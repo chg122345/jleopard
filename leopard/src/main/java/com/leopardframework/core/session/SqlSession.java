@@ -49,6 +49,8 @@ public interface SqlSession {
      **/
     ResultSet Get(String sql, Object... args) throws SqlSessionException;
 
+    <T> List<T> Get(Class<T> cls1, Class<?> cls2, String where, Object... args) throws SqlSessionException;
+
     <T> List<T> Get(Class<T> cls, String where, Object... args) throws SqlSessionException;
 
     <T> T Get(T entity) throws SqlSessionException;
@@ -58,6 +60,8 @@ public interface SqlSession {
     <T> List<T> Get(Class<T> cls) throws SqlSessionException;
 
     <T> PageInfo Get(Class<T> cls, int page, int pageSize) throws SqlSessionException;
+
+    <T> PageInfo Get(Class<T> cls1,Class<?>cls2 ,int page, int pageSize) throws SqlSessionException;
 
     //  List Get(String sql,Object... args);
     /**

@@ -10,8 +10,10 @@ import com.leopardframework.exception.SqlSessionException;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.page.PageInfo;
+import com.leopardframework.util.ArrayUtil;
 import com.leopardframework.util.ClassUtil;
 import com.leopardframework.util.CollectionUtil;
+import com.leopardframework.util.StringUtil;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
@@ -154,7 +156,9 @@ final class SessionDirectImpl implements SqlSession {
         LOG.info("当前执行的sql语句: \n" +sql);
         try {
             pstm = conn.prepareStatement(sql);
-            pstmSetArrayValues(pstm, args);
+            if (ArrayUtil.isNotEmpty(args)) {
+                pstmSetArrayValues(pstm, args);
+            }
             DevModelHelper.outArrayParameter(DevModel, sql, args);
             return pstm.executeUpdate();
         } catch (SQLException e) {
@@ -205,7 +209,9 @@ final class SessionDirectImpl implements SqlSession {
         LOG.info("当前执行的sql语句: \n" +sql);
         try {
             pstm=conn.prepareStatement(sql);
-            pstmSetArrayValues(pstm,primaryKeys);
+            if(ArrayUtil.isNotEmpty(primaryKeys)){
+             pstmSetArrayValues(pstm,primaryKeys);
+            }
 
         DevModelHelper.outArrayParameter(DevModel,sql,primaryKeys);
 
@@ -277,14 +283,69 @@ final class SessionDirectImpl implements SqlSession {
         this.open();
         try {
             pstm = conn.prepareStatement(sql);
-            pstmSetArrayValues(pstm, args);
-
+            if(ArrayUtil.isNotEmpty(args)){
+                pstmSetArrayValues(pstm, args);
+            }
             res = pstm.executeQuery();
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了... "+e);
         }
         DevModelHelper.outArrayParameter(DevModel, sql, args);
         return res;
+    }
+
+    /**
+     *   多表链接查询 返回有外键的对象  m 2 one 返回m 对象
+     *     one对象放置m 对象中
+     * @param cls1  m对象类  （返回的对象类）
+     * @param cls2  one对象类
+     * @param where   查询条件 不加条件留空 "" 后面参数也必须留空 ""
+     * @param args    查询条件的动态参数 按顺序依次写入
+     * @param <T>
+     * @return
+     * @throws SqlSessionException
+     */
+    @Override
+    public <T> List<T> Get(Class<T> cls1, Class<?> cls2, String where, Object... args) throws SqlSessionException {
+        this.open();
+        Sql joinSql=new JoinSql(cls1,cls2);
+        StringBuilder SQL=new StringBuilder();
+        if (StringUtil.isEmpty(where)) {
+            SQL.append(joinSql.getSql());
+        } else {
+            if (where.startsWith("where")) {
+                SQL.append(joinSql.getSql()).append("\n").append(where);
+            } else {
+                SQL.append(joinSql.getSql()).append("\n").append(" where").append(" ").append(where);
+            }
+        }
+        String sql=SQL.toString();
+        LOG.info("当前执行的sql语句: \n" +sql);
+        try {
+            pstm=conn.prepareStatement(sql);
+            if(ArrayUtil.isNotEmpty(args)){
+              //  System.out.println("pstm 设置" +args);
+                pstmSetArrayValues(pstm,args);
+            }
+            res=pstm.executeQuery();
+        } catch (SQLException e) {
+            throw new SqlSessionException("sql执行出错了...."+e);
+        }
+        DevModelHelper.outArrayParameter(DevModel,sql,args);
+        try {
+            return EntityHelper.invoke(res,cls1,cls2);
+        } catch (IllegalAccessException e) {
+            throw new SqlSessionException("反射调用private属性设值失败... ."+e);
+        } catch (InstantiationException e) {
+            throw new SqlSessionException("反射调用实例化失败... "+e);
+        } catch (IntrospectionException e) {
+            throw new SqlSessionException("反射调用构造方法失败... "+e);
+        } catch (SQLException e) {
+            throw new SqlSessionException("sql执行出错了... "+e);
+        } catch (InvocationTargetException e) {
+            throw new SqlSessionException("反射调用方法或构造方法失败... "+e);
+        }
+
     }
 
     /**
@@ -313,7 +374,9 @@ final class SessionDirectImpl implements SqlSession {
         LOG.info("当前执行的sql语句: \n" +sql);
         try {
             pstm=conn.prepareStatement(sql);
-            pstmSetArrayValues(pstm,args);
+            if (ArrayUtil.isNotEmpty(args)) {
+                pstmSetArrayValues(pstm, args);
+            }
             res=pstm.executeQuery();
         } catch (SQLException e) {
             throw new SqlSessionException(" sql执行出错了... "+e);
@@ -408,7 +471,9 @@ final class SessionDirectImpl implements SqlSession {
         LOG.info("当前执行的sql语句: \n" +sql);
         try {
             pstm = conn.prepareStatement(sql);
-            pstmSetArrayValues(pstm, primaryKeys);
+            if (ArrayUtil.isNotEmpty(primaryKeys)) {
+                pstmSetArrayValues(pstm, primaryKeys);
+            }
             res = pstm.executeQuery();
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了..."+e);
@@ -513,7 +578,49 @@ final class SessionDirectImpl implements SqlSession {
         pm.setList(EntityHelper.invoke(res,cls,C_F));
         return pm;
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败... "+e);
+            throw new SqlSessionException("反射调用private属性设值失败.... "+e);
+        } catch (InstantiationException e) {
+            throw new SqlSessionException("反射调用实例化失败... "+e);
+        } catch (IntrospectionException e) {
+            throw new SqlSessionException("反射调用构造方法失败... "+e);
+        } catch (SQLException e) {
+            throw new SqlSessionException(" sql执行出错了... "+e);
+        } catch (InvocationTargetException e) {
+            throw new SqlSessionException(" 反射调用方法或构造方法失败... "+e);
+        }
+    }
+
+    @Override
+    public <T> PageInfo Get(Class<T> cls1, Class<?> cls2, int page, int pageSize) throws SqlSessionException {
+        this.open();
+        Sql joinSql=new JoinSql(cls1,cls2);
+        try {
+            stm=conn.createStatement();
+            String csql="select count(*) from "+TableUtil.getTableName(cls1);
+            res=stm.executeQuery(csql);
+            int total=0;
+            while(res.next()){
+                total=res.getInt(1);
+            }
+            PageInfo pageInfo=new PageInfo(total,pageSize);
+            StringBuilder SQL=new StringBuilder();
+            if (page<=1){
+                page=1;
+            }else if(page>=pageInfo.getTotalPages()){
+                page=pageInfo.getTotalPages();
+            }
+            pageInfo.setPage(page);
+            int star=(page-1)*pageSize;
+            SQL.append(joinSql.getSql());
+            SQL.append(" ").append("limit").append(" ").append(star).append(",").append(pageSize);
+            String sql=SQL.toString();
+            LOG.info("当前执行的sql语句: \n" +sql);
+            res=stm.executeQuery(sql);
+            DevModelHelper.outParameter(DevModel,sql,page);
+            pageInfo.setList(EntityHelper.invoke(res,cls1,cls2));
+            return pageInfo;
+        } catch (IllegalAccessException e) {
+            throw new SqlSessionException("反射调用private属性设值失败.."+e);
         } catch (InstantiationException e) {
             throw new SqlSessionException("反射调用实例化失败... "+e);
         } catch (IntrospectionException e) {

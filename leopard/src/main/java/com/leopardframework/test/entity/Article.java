@@ -49,4 +49,13 @@ public class Article {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }

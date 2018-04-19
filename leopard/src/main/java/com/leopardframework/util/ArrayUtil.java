@@ -28,7 +28,7 @@ public class ArrayUtil {
      */
     public static boolean isEmpty(Object[] array) {
     	
-        return (array.length==0||array==null);
+        return (array.length==0||array==null||"".equals(array[0]));
     }
 
     /**

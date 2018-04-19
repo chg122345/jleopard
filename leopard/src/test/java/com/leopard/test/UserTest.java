@@ -6,10 +6,7 @@ import com.leopardframework.core.annotation.Table;
 import com.leopardframework.core.enums.Primary;
 import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
-import com.leopardframework.core.sql.CreateTableSql;
-import com.leopardframework.core.sql.SelectSql;
-import com.leopardframework.core.sql.Sql;
-import com.leopardframework.core.sql.UpdateSql;
+import com.leopardframework.core.sql.*;
 import com.leopardframework.exception.SqlSessionException;
 import com.leopardframework.generator.GeneratorFactory;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
@@ -458,5 +455,27 @@ public class UserTest {
         Sql selectsql=new SelectSql(user);
         System.out.println("Sql 语句："+selectsql.getSql());
         System.out.println("Sql value："+selectsql.getValues());
+    }
+
+    @Test
+    public void JionSqlTt(){
+
+        /*Sql jionsql=new JoinSql(Article.class,User.class);
+        System.out.println("Sql 语句："+jionsql.getSql());
+        System.out.println("Sql value："+jionsql.getValues());*/
+       Factory factory=new SessionFactory("classpath:config.xml");
+        SqlSession session=factory.openSession();
+        try {
+            PageInfo pg=session.Get(Article.class,User.class,2,2);
+            List<Article> list=pg.getList();
+            for (Object a:list){
+                System.out.println("结果："+a);
+            }
+            System.out.println();
+            pg.description();
+        } catch (SqlSessionException e) {
+            e.printStackTrace();
+        }
+
     }
 }
