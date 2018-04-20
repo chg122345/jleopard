@@ -61,10 +61,18 @@ public class GeneratorFactory implements Factory {
         String[] tableType = { "TABLE" };
         ResultSet rs = databaseMetaData.getTables(null, null, "%",tableType);
         TableToJavaBean tableToJavaBean = new TableToJavaBean();
+        String generatorPackage=factory.getGeneratorPackage();
+        String generatorProject=factory.getGeneratorProject();
+        if(!generatorProject.startsWith("\\")){
+            generatorProject="\\"+generatorProject;
+        }
+        if(!generatorProject.endsWith("\\")){
+           generatorProject=generatorProject+"\\";
+        }
         while(rs.next()){
             String tableName=rs.getString(3);
-            tableToJavaBean.tableToBean(conn,tableName,factory.getEntityPackage(),factory.getGeneratorPackage());
+            tableToJavaBean.tableToBean(conn,tableName,generatorPackage,generatorProject);
         }
-        System.out.println("Success ! 工程目标路径 : "+factory.getGeneratorPackage());
+        System.out.println("Success ! 工程目标路径 : "+generatorProject+generatorPackage);
     }
 }

@@ -488,7 +488,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (InstantiationException e) {
             throw new SqlSessionException("反射调用实例化失败... "+e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用构造方法失败... "+e);
+            throw new SqlSessionException("反射调用方法失败... "+e);
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了... "+e);
         } catch (InvocationTargetException e) {
@@ -526,7 +526,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (InstantiationException e) {
             throw new SqlSessionException("反射调用实例化失败... "+e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用构造方法失败... "+e);
+            throw new SqlSessionException("反射调用方法失败... "+e);
         } catch (SQLException e) {
             throw new SqlSessionException(" sql执行出错了... "+e);
         } catch (InvocationTargetException e) {
@@ -582,7 +582,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (InstantiationException e) {
             throw new SqlSessionException("反射调用实例化失败... "+e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用构造方法失败... "+e);
+            throw new SqlSessionException("反射调用方法失败... "+e);
         } catch (SQLException e) {
             throw new SqlSessionException(" sql执行出错了... "+e);
         } catch (InvocationTargetException e) {

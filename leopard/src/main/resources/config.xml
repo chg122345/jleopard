@@ -22,6 +22,6 @@
     <entity-package value="com.leopardframework.test.entity"/>
     <!--逆向工程配置 -->
 <generator>
-    <target package="src.main.java.com.leopardframework.test.entity"/>
+    <target package="com.leopardframework.entity" project="src\main\java"/>
 </generator>
 </leopard-config>

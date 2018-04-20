@@ -47,11 +47,16 @@ final class EntityHelper {
             for (Map.Entry<String, String> cf : C_F.entrySet()) {
                 PropertyDescriptor pd = new PropertyDescriptor(cf.getValue(), cls);
                 Method write = pd.getWriteMethod();
-                List<String> fns=FieldUtil.getForeignKeyName(cls);
-                for (String fn : fns) {
-                    if (cf.getKey().equals(fn)) {
+                Map<String,Class<?>> fns=FieldUtil.getForeignKeys(cls);
+                for (Map.Entry<String,Class<?>> fn : fns.entrySet()) {
+                    if (cf.getKey().equals(fn.getKey())) {
                          Object fkv=res.getObject(cf.getKey());   //外键值
-                        continue;
+                        Class<?> clazz=fn.getValue();
+                        Object entity2=clazz.newInstance();
+                            PropertyDescriptor pd2 = new PropertyDescriptor(FieldUtil.getColumnFieldName(clazz).get(FieldUtil.getPrimaryKeys(clazz).get(0)), clazz);
+                            Method write2 = pd2.getWriteMethod();
+                            write2.invoke(entity2,fkv);
+                        write.invoke(entity,entity2);   // 外表值设上
                     } else {
                         write.invoke(entity, res.getObject(cf.getKey()));
                     }

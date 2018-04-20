@@ -18,4 +18,5 @@
         <!ELEMENT target (#PCDATA)>
         <!ATTLIST target
                 package CDATA #REQUIRED
+                project CDATA #REQUIRED
                 >

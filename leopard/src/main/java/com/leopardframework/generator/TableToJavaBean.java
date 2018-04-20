@@ -56,11 +56,11 @@ public class TableToJavaBean {
      *   转换为JavaBean
      * @param connection
      * @param tableName
-     * @param entityPackage
-     * @param srcPackage
+     * @param generatorPackage
+     * @param generatorProject
      * @throws SQLException
      */
-    public void tableToBean(Connection connection, String tableName,String entityPackage,String srcPackage) throws SQLException {
+    public void tableToBean(Connection connection, String tableName,String generatorPackage,String generatorProject) throws SQLException {
         String sql = "select * from " + tableName + " where 1 <> 1";
         PreparedStatement ps;
         ResultSet rs;
@@ -72,7 +72,7 @@ public class TableToJavaBean {
         StringBuffer sb = new StringBuffer();
         String tureTableName=tableName;
         tableName = StringUtil.firstToUpper(StringUtil.underlineToCamelhump(tableName));  //下划线转大驼峰  首字母大写
-        sb.append("package " + entityPackage + " ;");
+        sb.append("package " + generatorPackage + " ;");
         sb.append(LINE);
         sb.append(LINE);
         importPackage(md, columnCount, sb);
@@ -92,7 +92,7 @@ public class TableToJavaBean {
         genSetGet(md, columnCount, sb);
         sb.append("}");
         String paths = System.getProperty("user.dir");  //工程路径
-        String endPath = paths/* + "\\src\\main\\java\\"*/ +"\\"+ (srcPackage.replace("/", "\\")).replace(".", "\\");
+        String endPath= paths+generatorProject+ (generatorPackage.replace("/", "\\")).replace(".", "\\");
         FileUtil.writeFile(endPath + "\\" + tableName + ".java", sb.toString());
       //  System.out.println("Success ! 工程路径 : "+tableName);
        // System.out.println("Success ! 工程路径 : "+srcPackage);

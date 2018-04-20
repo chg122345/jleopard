@@ -40,6 +40,8 @@ public class XmlFactoryBuilder {
 
     private String generatorPackage; //逆向工程生成JavaBean 包
 
+    private String generatorProject; //工程路径
+
     public XmlFactory getFactory(){
         return new XmlFactory();
     }
@@ -76,6 +78,7 @@ public class XmlFactoryBuilder {
                         entityPackage=attrs.getValue("value");
                     }else if ("target".equals(qName)){
                         generatorPackage=attrs.getValue("package");
+                        generatorProject=attrs.getValue("project");
                     }
                 }
 
@@ -143,5 +146,8 @@ public class XmlFactoryBuilder {
             return generatorPackage;
         }
 
+        public String getGeneratorProject(){
+            return generatorProject;
+        }
     }
 }
