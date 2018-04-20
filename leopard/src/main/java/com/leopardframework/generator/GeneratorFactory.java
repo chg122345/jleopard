@@ -1,14 +1,13 @@
 package com.leopardframework.generator;
 
-import com.leopardframework.core.Factory;
-import com.leopardframework.core.session.SqlSession;
+import com.leopardframework.core.util.TableUtil;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
+import com.leopardframework.logging.log.Log;
+import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.plugins.c3p0.C3p0Plugin;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -20,21 +19,31 @@ import java.sql.SQLException;
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
  *
- *   运作逆向工程的工厂
+ *   运作逆向工程的工厂 单列模式
  */
-public class GeneratorFactory implements Factory {
+public final class GeneratorFactory {
+
+    private static final Log LOG=LogFactory.getLog(GeneratorFactory.class);
 
     private Connection conn;
     private String xmlPath;
+    private volatile static GeneratorFactory generatorFactory;
 
-    public GeneratorFactory(String xmlPath) {
+    public static GeneratorFactory getGeneratorFactory(String xmlPath){
+        if (generatorFactory==null){
+            synchronized (GeneratorFactory.class){
+                if (generatorFactory==null){
+                    generatorFactory=new GeneratorFactory(xmlPath);
+                }
+            }
+        }
+        return generatorFactory;
+    }
+
+    private GeneratorFactory(String xmlPath) {
         this.xmlPath=xmlPath;
     }
 
-    @Override
-    public SqlSession openSession() {
-        return null;
-    }
 
     /**
      *   执行逆向工程
@@ -55,11 +64,9 @@ public class GeneratorFactory implements Factory {
             this.conn=c3p0.getConn();
         }
         if(conn==null){
+            LOG.error("获取数据库连接失败..");
             throw new RuntimeException("获取数据库连接失败..");
         }
-        DatabaseMetaData databaseMetaData = conn.getMetaData();
-        String[] tableType = { "TABLE" };
-        ResultSet rs = databaseMetaData.getTables(null, null, "%",tableType);
         TableToJavaBean tableToJavaBean = new TableToJavaBean();
         String generatorPackage=factory.getGeneratorPackage();
         String generatorProject=factory.getGeneratorProject();
@@ -69,8 +76,7 @@ public class GeneratorFactory implements Factory {
         if(!generatorProject.endsWith("\\")){
            generatorProject=generatorProject+"\\";
         }
-        while(rs.next()){
-            String tableName=rs.getString(3);
+        for (String tableName:TableUtil.showAllTableName(conn)){
             tableToJavaBean.tableToBean(conn,tableName,generatorPackage,generatorProject);
         }
         System.out.println("Success ! 工程目标路径 : "+generatorProject+generatorPackage);

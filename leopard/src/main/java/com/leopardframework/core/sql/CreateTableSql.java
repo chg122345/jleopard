@@ -21,6 +21,7 @@ import java.util.List;
  * A novice on the road, please give me a suggestion.
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
+ *  生成建表的sql语句
  */
 public class CreateTableSql implements Sql{
 

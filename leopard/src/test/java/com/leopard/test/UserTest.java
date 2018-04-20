@@ -317,7 +317,7 @@ public class UserTest {
 
     @Test
     public void GeneratorTest(){
-        Factory factory=new GeneratorFactory("classpath:config.xml");
+        GeneratorFactory factory=Factory.getGeneratorFactory("classpath:config.xml");
         try {
            factory.openGenerator();
         } catch (Exception e) {
@@ -369,7 +369,7 @@ public class UserTest {
 /** 事物 success */
     @Test
     public void TranTest(){
-        Factory factory=new SessionFactory("classpath:config.xml");
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         User user=new User();
         user.setId(199997);
@@ -397,7 +397,7 @@ public class UserTest {
         getPageSize();   //获取每页显示的数据数量
         getTotalRows();  //获取总记录数
         getList();       //获取目标数据，也就是我们要查询的数据*/
-        Factory factory=new SessionFactory("classpath:config.xml");
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         try {
             PageInfo temp=session.Get(User.class,3,10);
@@ -428,10 +428,10 @@ public class UserTest {
 
         System.out.println("Sql 语句："+insert.getSql());
         System.out.println("Sql value："+insert.getValues());*/
-        Factory factory=new SessionFactory("classpath:config.xml");
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         Article a=new Article();
-        a.setId(1002);
+        a.setId(1003);
         a.setName("GGG");
         a.setUser(user);
         try {
@@ -463,10 +463,10 @@ public class UserTest {
         /*Sql jionsql=new JoinSql(Article.class,User.class);
         System.out.println("Sql 语句："+jionsql.getSql());
         System.out.println("Sql value："+jionsql.getValues());*/
-       Factory factory=new SessionFactory("classpath:config.xml");
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         try {
-            PageInfo pg=session.Get(Article.class,User.class,2,2);
+            PageInfo pg=session.Get(Article.class,User.class,1,9);
             List<Article> list=pg.getList();
             for (Object a:list){
                 System.out.println("结果："+a);

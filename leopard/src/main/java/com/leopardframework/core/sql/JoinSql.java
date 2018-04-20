@@ -90,6 +90,7 @@ public class JoinSql implements Sql {
         StringBuilder SQL=new StringBuilder();
         String sql=String.format("select %s from "+tableName1+" left join "+tableName2,COL.toString());
         SQL.append(sql).append(ON);
+        LOG.info("生成的sql语句："+SQL.toString());
         return SQL.toString();
     }
 }

@@ -242,7 +242,7 @@ public class FieldUtil {
            Column column=field.getDeclaredAnnotation(Column.class);
            String fName=column.relation();
           if (StringUtil.isNotEmpty(fName)){
-              fkNames.add(fName);
+              fkNames.add(column.value());
           }
        }
        return fkNames;
@@ -262,7 +262,7 @@ public class FieldUtil {
                continue;
            }
            Class<?> clazz=field.getType();   //  外键对应的类
-            fks.put(foreignKeyName,clazz);
+            fks.put(column.value(),clazz);
 
         }
         return fks;

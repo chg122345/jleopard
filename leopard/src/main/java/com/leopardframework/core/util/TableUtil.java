@@ -1,6 +1,8 @@
 package com.leopardframework.core.util;
 
 import com.leopardframework.core.annotation.Table;
+import com.leopardframework.logging.log.Log;
+import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.plugins.c3p0.C3p0Plugin;
 import com.leopardframework.util.ClassUtil;
 import com.leopardframework.util.StringUtil;
@@ -24,6 +26,7 @@ import java.util.Set;
  */
 public class TableUtil {
 
+    private static final Log LOG =LogFactory.getLog(TableUtil.class);
     /**
      *   获取对象对应的表名
      * @param entity
@@ -83,11 +86,13 @@ public class TableUtil {
     public static List<String> showAllTableName(Connection conn){
         List<String> tablenames=new ArrayList<>();
         if(conn==null) {
+            LOG.error("获取数据库连接失败..");
             throw new RuntimeException("获取数据库连接失败..");
         }else {
             try {
+                String[] tableType = { "TABLE" };
                 DatabaseMetaData dmd=(DatabaseMetaData) conn.getMetaData();
-                ResultSet res=dmd.getTables(null, null, "%", null);
+                ResultSet res=dmd.getTables(null, null, "%", tableType);
                 while(res.next()) {
                     tablenames.add(res.getString("TABLE_NAME"));
                 }
@@ -104,9 +109,6 @@ public class TableUtil {
         }
         try {
             Connection conn=c3p0.getDataSource().getConnection();
-            if(conn==null) {
-                throw new RuntimeException("获取数据库连接失败...");
-            }
             return showAllTableName(conn);
         } catch (SQLException e) {
             e.printStackTrace();

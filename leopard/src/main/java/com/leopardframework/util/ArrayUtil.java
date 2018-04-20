@@ -31,17 +31,4 @@ public class ArrayUtil {
         return (array.length==0||array==null||"".equals(array[0]));
     }
 
-    /**
-     * 连接数组
-     *//*
-    public static Object[] concat(Object[] array1, Object[] array2) {
-        return ArrayUtils.addAll(array1, array2);
-    }
-
-    *//**
-     * 判断对象是否在数组中
-     *//*
-    public static <T> boolean contains(T[] array, T obj) {
-        return ArrayUtils.contains(array, obj);
-    }*/
 }

@@ -2,6 +2,7 @@ package com.leopardframework.core.session.sessionFactory;
 
 import com.leopardframework.core.util.FieldUtil;
 import com.leopardframework.core.util.TableUtil;
+import com.leopardframework.util.CollectionUtil;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -48,18 +49,22 @@ final class EntityHelper {
                 PropertyDescriptor pd = new PropertyDescriptor(cf.getValue(), cls);
                 Method write = pd.getWriteMethod();
                 Map<String,Class<?>> fns=FieldUtil.getForeignKeys(cls);
-                for (Map.Entry<String,Class<?>> fn : fns.entrySet()) {
-                    if (cf.getKey().equals(fn.getKey())) {
-                         Object fkv=res.getObject(cf.getKey());   //外键值
-                        Class<?> clazz=fn.getValue();
-                        Object entity2=clazz.newInstance();
+                if (CollectionUtil.isNotEmpty(fns)) {
+                    for (Map.Entry<String, Class<?>> fn : fns.entrySet()) {
+                        if (cf.getKey().equals(fn.getKey())) {
+                            Object fkv = res.getObject(cf.getKey());   //外键值
+                            Class<?> clazz = fn.getValue();
+                            Object entity2 = clazz.newInstance();
                             PropertyDescriptor pd2 = new PropertyDescriptor(FieldUtil.getColumnFieldName(clazz).get(FieldUtil.getPrimaryKeys(clazz).get(0)), clazz);
                             Method write2 = pd2.getWriteMethod();
-                            write2.invoke(entity2,fkv);
-                        write.invoke(entity,entity2);   // 外表值设上
-                    } else {
-                        write.invoke(entity, res.getObject(cf.getKey()));
+                            write2.invoke(entity2, fkv);
+                            write.invoke(entity, entity2);   // 外表值设上
+                        } else {
+                            write.invoke(entity, res.getObject(cf.getKey()));
+                        }
                     }
+                }else{
+                    write.invoke(entity, res.getObject(cf.getKey()));
                 }
             }
             entitys.add(entity);

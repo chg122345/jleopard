@@ -44,7 +44,7 @@ public class TableToJavaBean {
             Statement stm=conn.createStatement();
             ResultSet res=stm.executeQuery(sql);
             while (res.next()){
-               return res.getString(1)/*.toLowerCase()*/;
+               return res.getString(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();

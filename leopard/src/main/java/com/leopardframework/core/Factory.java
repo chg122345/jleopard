@@ -1,6 +1,8 @@
 package com.leopardframework.core;
 
 import com.leopardframework.core.session.SqlSession;
+import com.leopardframework.core.session.sessionFactory.SessionFactory;
+import com.leopardframework.generator.GeneratorFactory;
 
 import java.sql.SQLException;
 
@@ -13,9 +15,13 @@ import java.sql.SQLException;
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
  */
-public interface Factory {
+public final class Factory {
 
-    SqlSession openSession();
+    public static SessionFactory getSessionFactory(String xmlPath) {
+      return SessionFactory.getSessionFactory(xmlPath);
+    }
 
-    void openGenerator()throws SQLException;
+    public static GeneratorFactory getGeneratorFactory(String xmlPath) {
+        return GeneratorFactory.getGeneratorFactory(xmlPath);
+    }
 }

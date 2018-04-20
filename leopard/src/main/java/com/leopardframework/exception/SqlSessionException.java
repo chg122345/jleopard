@@ -8,6 +8,7 @@ package com.leopardframework.exception;
  * A novice on the road, please give me a suggestion.
  * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
+ *  操作数据时可能产生的异常
  */
 public class SqlSessionException extends Exception {
 
