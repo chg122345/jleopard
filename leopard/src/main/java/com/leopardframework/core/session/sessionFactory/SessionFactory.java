@@ -25,31 +25,25 @@ public final class SessionFactory {
 
     private static XmlFactoryBuilder.XmlFactory factory;
 
-    private String xmlpath;
+    private String xmlPath;
 
     private volatile static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory(String xmlPath) {
-        if (sessionFactory == null) {
-            synchronized (SessionFactory.class) {
-                if (sessionFactory == null) {
-                    sessionFactory = new SessionFactory(xmlPath);
-                }
-            }
-        }
+            sessionFactory = new SessionFactory(xmlPath);
         return sessionFactory;
     }
 
     private SessionFactory(String xmlPath) {
-        this.xmlpath = xmlPath;
+        this.xmlPath = xmlPath;
     }
 
     public SqlSession openSession() {
-        if (xmlpath.startsWith("classpath:")) {
-            xmlpath = xmlpath.replace("classpath:", "").trim();
+        if (xmlPath.startsWith("classpath:")) {
+            xmlPath = xmlPath.replace("classpath:", "").trim();
         }
-        xmlpath = ClassLoader.getSystemResource(xmlpath).getPath();
-        XmlFactoryBuilder builder = new XmlFactoryBuilder(xmlpath);
+        xmlPath = ClassLoader.getSystemResource(xmlPath).getPath();
+        XmlFactoryBuilder builder = new XmlFactoryBuilder(xmlPath);
         factory = builder.getFactory();
         String packagePath = factory.getEntityPackage();
         return new SessionDirectImpl(packagePath);

@@ -55,6 +55,7 @@ final class SessionDirectImpl implements SqlSession {
                 throw new SessionException("设置事物出错了..." + e);
             }
         }
+
     }
 
     /**
@@ -71,9 +72,6 @@ final class SessionDirectImpl implements SqlSession {
             throw new SessionException("获取到的实体类为空...");
         }
         for (Class<?> cls : set) {
-            if (CollectionUtil.isEmpty(list)) {
-                continue;
-            } else {
                 if (list.contains(TableUtil.getTableName(cls))) {
                     continue;
                 }
@@ -87,7 +85,6 @@ final class SessionDirectImpl implements SqlSession {
                     e.printStackTrace();
                 }
                 DevModelHelper.outParameter(DevModel, sql, "");
-            }
         }
     }
 

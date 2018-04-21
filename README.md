@@ -44,7 +44,7 @@ orm（出错提示 ： 80588183@qq.com）
     <entity-package value="com.leopardframework.test.entity"/>
     <!--逆向工程配置  包要配置为完整的路径-->
 <generator>
-    <target package="src.main.java.com.leopardframework.test.entity"/>
+    <target package="com.leopardframework.entity" project="src\main\java"/>
 </generator>
 </leopard-config>
  
@@ -56,7 +56,7 @@ orm（出错提示 ： 80588183@qq.com）
  IsPrimary 是否为主键 ，有三种类型： NO(不是主键，也是默认的属性)- YES(是主键)-
 AUTOINCREMENT(是主键，且自增)-
 AllowNull ( 是否允许为空，默认为false)-
-isForeginKey （外键 暂不支持）-
+relation （外键）
 
 @Table("user")
 public class User{
@@ -81,7 +81,7 @@ public class User{
 
     @Test
     public void Test(){
-        Factory factory=new SessionFactory("classpath:config.xml");  //获取session  传入我们的配置文件
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml"); //获取session  传入我们的配置文件
         SqlSession session=factory.openSession();
             User user=new User();
             user.setId(10086);
@@ -117,14 +117,14 @@ public class User{
     逆向工程生成JavaBean   简单两行代码解决
     @Test
         public void GeneratorTest(){
-            Factory factory=new GeneratorFactory("classpath:config.xml");  // 开启Generator工厂
+            GeneratorFactory factory=Factory.getGeneratorFactory("classpath:config.xml");  // 开启Generator工厂
             try {
                factory.openGenerator();    //执行逆向工程
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-四.分頁查詢
+四.分页查询
 
  @Test
     public void PageTest(){
@@ -134,7 +134,7 @@ public class User{
         getPageSize();   //获取每页显示的数据数量
         getTotalRows();  //获取总记录数
         getList();       //获取目标数据，也就是我们要查询的数据*/
-        Factory factory=new SessionFactory("classpath:config.xml");  //获取session工厂
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");  //获取session工厂
         SqlSession session=factory.openSession();  //打开session连接 开始操作
         try {
             PageInfo temp=session.Get(User.class,3,10);  //分页查询开始 用封装好的pageInfo接收查询结果

@@ -478,4 +478,39 @@ public class UserTest {
         }
 
     }
+
+    public void Tt(){
+
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
+        SqlSession session=factory.openSession();
+        try {
+            PageInfo pg=session.Get(Article.class,User.class,1,9);
+            List<Article> list=pg.getList();
+            for (Object a:list){
+                System.out.println("结果："+a);
+            }
+            pg.description();
+        } catch (SqlSessionException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @Test
+    public void JionTt(){
+        this.Tt();
+        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
+        SqlSession session=factory.openSession();
+        try {
+            PageInfo pg=session.Get(Article.class,1,9);
+            List<Article> list=pg.getList();
+            for (Article a:list){
+                System.out.println("结果："+a);
+            }
+            System.out.println();
+            pg.description();
+        } catch (SqlSessionException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
