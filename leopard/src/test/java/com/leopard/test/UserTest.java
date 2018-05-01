@@ -424,11 +424,11 @@ public class UserTest {
           user.setAddress("China002");
         // System.out.println("Sql value："+FieldUtil.getAllColumnName_Value(user));
 
-        /*Sql insert=new CreateTableSql(Article.class);
+        Sql insert=new CreateTableSql(Article.class);
 
         System.out.println("Sql 语句："+insert.getSql());
-        System.out.println("Sql value："+insert.getValues());*/
-        SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
+        System.out.println("Sql value："+insert.getValues());
+       /* SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         Article a=new Article();
         a.setId(1003);
@@ -440,7 +440,7 @@ public class UserTest {
             session.Stop();
         } catch (SqlSessionException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
     }

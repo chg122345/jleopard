@@ -72,7 +72,8 @@ public class CreateTableSql implements Sql{
                   Class<?> fpkType=FieldUtil.getPrimaryKeys_Type(clazz).get(fpkName);         //外键类的主键的类型
                        SQL.append(foreignKeyName).append(" ").append(JavaTypeUtil.getSqlType(fpkType))
                                .append(" ").append("not null").append(",").append("\n");
-                  endSql="constraint foreign key("+foreignKeyName+") references "+ TableUtil.getTableName(clazz)+"("+fpkName+") on delete restrict on update restrict";
+                       endSql="key ("+foreignKeyName+")";
+                 // endSql="constraint foreign key("+foreignKeyName+") references "+ TableUtil.getTableName(clazz)+"("+fpkName+") on delete restrict on update restrict";
               }else{
                   if (column.allowNull()) {
                       SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))

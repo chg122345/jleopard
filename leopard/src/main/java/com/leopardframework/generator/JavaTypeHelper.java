@@ -25,6 +25,7 @@ class JavaTypeHelper {
 
     static{
         map=new HashMap<>();
+        imap=new HashMap<>();
         map.put("VARCHAR", "String");
         map.put("CHAR","String");
         map.put("BLOB","byte");
@@ -35,29 +36,25 @@ class JavaTypeHelper {
         map.put("SMALLINT","Integer");
         map.put("MEDIUMINT","Integer");
         map.put("BIGINT","BigInteger");
+        imap.put("BIGINT","import java.math.BigInteger");
         map.put("BIT","Boolean");
         map.put("FLOAT", "Float");
         map.put("DOUBLE", "Double");
         map.put("DECIMAL", "BigDecimal");
-        map.put("DATE", "Date");
-        map.put("YEAR", "Date");
-        map.put("TIME", "Time");
-        map.put("TIMESTAMP", "Timestamp");
-        map.put("DATETIME", "Timestamp");
-        map.put("TIMESTAMP_IMPORT", "Date");
-        map.put("DATETIME_IMPORT","Date");
-    }
-
-    static{
-        imap=new HashMap<>();
-        imap.put("BIGINT","import java.math.BigInteger");
         imap.put("DECIMAL", "import java.math.BigDecimal");
+        map.put("DATE", "Date");
         imap.put("DATE", "import java.sql.Date");
+        map.put("YEAR", "Date");
         imap.put("YEAR", "import java.sql.Date");
+        map.put("TIME", "Time");
         imap.put("TIME", "import java.sql.Time");
+        map.put("TIMESTAMP", "Timestamp");
         imap.put("TIMESTAMP", "import java.sql.Timestamp");
+        map.put("DATETIME", "Timestamp");
         imap.put("DATETIME", "import java.sql.Timestamp");
+        map.put("TIMESTAMP_IMPORT", "Date");
         imap.put("TIMESTAMP_IMPORT", "import java.util.Date");
+        map.put("DATETIME_IMPORT","Date");
         imap.put("DATETIME_IMPORT","import java.util.Date");
     }
 
