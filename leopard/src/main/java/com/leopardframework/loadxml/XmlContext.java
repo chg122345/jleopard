@@ -1,5 +1,7 @@
 package com.leopardframework.loadxml;
 
+import java.io.Serializable;
+
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
  * <p>
@@ -11,18 +13,14 @@ package com.leopardframework.loadxml;
  *
  *  全局信息 加载到上下文中
  */
-public  class XmlContext {
+@Deprecated
+public  class XmlContext implements Serializable {
 
     public String entityPackage;  //实体对象类所在包
 
     public String generatorPackage;  //逆向工程生成JavaBean 包
 
     public XmlContext() {
-    }
-
-    public XmlContext(String entityPackage, String generatorPackage) {
-        this.entityPackage = entityPackage;
-        this.generatorPackage = generatorPackage;
     }
 
     public String getEntityPackage() {

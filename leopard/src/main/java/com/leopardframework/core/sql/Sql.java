@@ -15,15 +15,15 @@ public interface Sql {
     /**
      *    字段名
      */
-    public List<String> getColumnNames();
+     List<String> getColumnNames();
 
     /**
      *   字段名对应的 value
      */
-    public List<Object> getValues();
+     List<Object> getValues();
 
     /**
      *  获取拼接好的sql
      */
-    public String getSql();
+     String getSql();
 }
