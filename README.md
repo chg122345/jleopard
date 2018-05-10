@@ -123,10 +123,11 @@ public class User{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-四.分页查询
+        }
+	
+四.	方法介绍，分页查询：
 
- @Test
+     @Test
     public void PageTest(){
         /*目前仅封装了我们开发中常用的一些数据信息。
         获取分页信息 ：getPage();  // 获取当前查询的页数
@@ -149,5 +150,6 @@ public class User{
         } catch (SqlSessionException e) {
             e.printStackTrace();
         }
-
     }
+
+	
