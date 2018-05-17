@@ -8,8 +8,8 @@ orm（出错提示 ： 80588183@qq.com）
     简单的逆向工程-
 	  快速将数据库表生成javabean-
 	    支持jdbc事物，每次对数据库更新操作都要提交事物-
-	      暂不支持多表连接，外键设置（陆续优化中）-
-	  
+	      支持多表连接，外键设置（陆续优化中）-
+	       详情见开发文档
 	  LEOPARD
 一.	leopard快速上手：
 1.	引入核心jar包 leopard-orm.jar
@@ -123,10 +123,11 @@ public class User{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-四.分页查询
+        }
+	
+四.	方法介绍，分页查询：
 
- @Test
+     @Test
     public void PageTest(){
         /*目前仅封装了我们开发中常用的一些数据信息。
         获取分页信息 ：getPage();  // 获取当前查询的页数
@@ -149,5 +150,6 @@ public class User{
         } catch (SqlSessionException e) {
             e.printStackTrace();
         }
-
     }
+
+	
