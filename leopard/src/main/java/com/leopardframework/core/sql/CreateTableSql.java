@@ -1,5 +1,8 @@
 package com.leopardframework.core.sql;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import com.leopardframework.core.annotation.Column;
 import com.leopardframework.core.session.sessionFactory.ColumnNameHelper;
 import com.leopardframework.core.util.FieldUtil;
@@ -9,9 +12,6 @@ import com.leopardframework.exception.SqlBuilderException;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.util.StringUtil;
-
-import java.lang.reflect.Field;
-import java.util.List;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -23,6 +23,7 @@ import java.util.List;
  * Find a way for success and not make excuses for failure.
  *  生成建表的sql语句
  */
+@SuppressWarnings("deprecation")
 public class CreateTableSql implements Sql{
 
     private static final Log LOG=LogFactory.getLog(CreateTableSql.class);
@@ -31,7 +32,7 @@ public class CreateTableSql implements Sql{
 
     private String tableName;  //表名
 
-    public CreateTableSql(Class<?> cls) {
+	public CreateTableSql(Class<?> cls) {
         this.cls=cls;
         this.tableName =TableUtil.getTableName(cls);
         if(StringUtil.isEmpty(tableName)){
@@ -72,8 +73,8 @@ public class CreateTableSql implements Sql{
                   Class<?> fpkType=FieldUtil.getPrimaryKeys_Type(clazz).get(fpkName);         //外键类的主键的类型
                        SQL.append(foreignKeyName).append(" ").append(JavaTypeUtil.getSqlType(fpkType))
                                .append(" ").append("not null").append(",").append("\n");
-                       endSql="key ("+foreignKeyName+")";
-                 // endSql="constraint foreign key("+foreignKeyName+") references "+ TableUtil.getTableName(clazz)+"("+fpkName+") on delete restrict on update restrict";
+                    //   endSql="key ("+foreignKeyName+")";
+                  endSql="constraint foreign key("+foreignKeyName+") references "+ TableUtil.getTableName(clazz)+"("+fpkName+") on delete cascade on update cascade";
               }else{
                   if (column.allowNull()) {
                       SQL.append(ColumnNameHelper.getColumnName(field)).append(" ").append(JavaTypeUtil.getSqlType(field.getType()))

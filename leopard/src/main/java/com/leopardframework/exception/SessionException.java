@@ -11,7 +11,12 @@ package com.leopardframework.exception;
  */
 public class SessionException extends RuntimeException{
 
-    public SessionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public SessionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

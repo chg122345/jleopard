@@ -20,7 +20,7 @@
     </bean>-->
     <!--实体对象所在包-->
     <entity-package value="com.leopardframework.test.entity"/>
-    <!--逆向工程配置 -->
+    <!--逆向工程配置 包名 所在工程路径-->
 <generator>
     <target package="com.leopardframework.entity" project="src\main\java"/>
 </generator>

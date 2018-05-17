@@ -5,6 +5,7 @@ import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.loadxml.XmlFactoryBuilder;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.plugins.c3p0.C3p0Plugin;
+import com.leopardframework.util.ClassUtil;
 
 import java.sql.Connection;
 
@@ -42,7 +43,7 @@ public final class SessionFactory {
         if (xmlPath.startsWith("classpath:")) {
             xmlPath = xmlPath.replace("classpath:", "").trim();
         }
-        xmlPath = ClassLoader.getSystemResource(xmlPath).getPath();
+        xmlPath = ClassUtil.getClassLoader().getResource(xmlPath).getPath();
         XmlFactoryBuilder builder = new XmlFactoryBuilder(xmlPath);
         factory = builder.getFactory();
         String packagePath = factory.getEntityPackage();

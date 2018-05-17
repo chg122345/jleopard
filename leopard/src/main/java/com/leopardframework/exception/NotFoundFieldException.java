@@ -11,7 +11,12 @@ package com.leopardframework.exception;
  */
 public class NotFoundFieldException extends IllegalArgumentException {
 
-    public NotFoundFieldException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public NotFoundFieldException() {
     }
 
     public NotFoundFieldException(String s) {

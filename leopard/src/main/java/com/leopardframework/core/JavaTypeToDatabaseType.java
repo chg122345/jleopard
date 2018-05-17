@@ -19,8 +19,10 @@ import java.util.Map;
  */
 public class JavaTypeToDatabaseType {
 
-    private Map<String, Class<?>> strToType = new HashMap<String, Class<?>>() {
-        {
+    @SuppressWarnings("serial")
+	private Map<String, Class<?>> strToType = new HashMap<String, Class<?>>() {
+
+		{
             this.put("java.lang.String", String.class);
             this.put("java.lang.Integer", Integer.class);
             this.put("java.lang.Long", Long.class);
@@ -40,6 +42,6 @@ public class JavaTypeToDatabaseType {
     }
 
     public Class<?> getType(String typeString) {
-        return (Class)this.strToType.get(typeString);
+        return (Class<?>)this.strToType.get(typeString);
     }
 }

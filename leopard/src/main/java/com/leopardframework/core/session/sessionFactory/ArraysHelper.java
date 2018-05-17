@@ -42,8 +42,8 @@ private static final Log LOG=LogFactory.getLog(SessionDirectImpl.class);
             }
         return sql;
     }
-    public static List toUpperCase(List<String> list){
-        List ls=new ArrayList();
+    public static List<String> toUpperCase(List<String> list){
+        List<String> ls=new ArrayList<String>();
         for (String obj:list){
             ls.add(obj.toUpperCase());
         }

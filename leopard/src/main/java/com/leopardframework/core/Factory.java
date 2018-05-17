@@ -1,10 +1,7 @@
 package com.leopardframework.core;
 
-import com.leopardframework.core.session.SqlSession;
 import com.leopardframework.core.session.sessionFactory.SessionFactory;
 import com.leopardframework.generator.GeneratorFactory;
-
-import java.sql.SQLException;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).

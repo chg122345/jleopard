@@ -12,7 +12,8 @@ import java.util.List;
  * Find a way for success and not make excuses for failure.
  */
 final class DevModelHelper {
-    protected static void outListParameter(boolean DevModel,String sql,List values){
+    @SuppressWarnings("rawtypes")
+	protected static void outListParameter(boolean DevModel,String sql,List values){
         if(DevModel){
             System.out.println(sql);
             System.out.print("Parameters : " );

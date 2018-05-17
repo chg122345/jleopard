@@ -26,7 +26,8 @@ public class SelectSqlMore implements Sql{
 
     private List<String> allColumnNames; //所有字段名
 
-    private Object primaryKeyName;
+    @SuppressWarnings("unused")
+	private String primaryKeyName;
 
     public SelectSqlMore(Class<?> cls) {
         List<String> allcolumns=new ArrayList<>();

@@ -47,7 +47,6 @@ public class UserTest {
             System.out.println(tableName);
             String columnName=null;
             Primary pk=null;
-            boolean un;
             Field[] fields =cls.getDeclaredFields();
             for(Field field:fields){
                 System.out.println(field.getName()+" 变量类型： "+field.getType());
@@ -389,7 +388,8 @@ public class UserTest {
 
     }
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void PageTest(){
        /* 目前仅封装了我们开发中常用的一些数据信息。
         获取分页信息 ：getPage();  // 获取当前查询的页数
@@ -403,7 +403,7 @@ public class UserTest {
             PageInfo temp=session.Get(User.class,3,10);
             session.Stop();
             session.Close();
-            List<User> users=temp.getList();
+            List<User> users=(List<User>) temp.getList();
             for (User u :users){
                 System.out.println(u.toString());
             }
@@ -457,7 +457,8 @@ public class UserTest {
         System.out.println("Sql value："+selectsql.getValues());
     }
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void JionSqlTt(){
 
         /*Sql jionsql=new JoinSql(Article.class,User.class);
@@ -467,7 +468,7 @@ public class UserTest {
         SqlSession session=factory.openSession();
         try {
             PageInfo pg=session.Get(Article.class,User.class,1,9);
-            List<Article> list=pg.getList();
+            List<Article> list=(List<Article>) pg.getList();
             for (Object a:list){
                 System.out.println("结果："+a);
             }
@@ -479,13 +480,14 @@ public class UserTest {
 
     }
 
-    public void Tt(){
+    @SuppressWarnings("unchecked")
+	public void Tt(){
 
         SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         try {
             PageInfo pg=session.Get(Article.class,User.class,1,9);
-            List<Article> list=pg.getList();
+            List<Article> list=(List<Article>) pg.getList();
             for (Object a:list){
                 System.out.println("结果："+a);
             }
@@ -495,14 +497,15 @@ public class UserTest {
         }
 
     }
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void JionTt(){
         this.Tt();
         SessionFactory factory=Factory.getSessionFactory("classpath:config.xml");
         SqlSession session=factory.openSession();
         try {
             PageInfo pg=session.Get(Article.class,1,9);
-            List<Article> list=pg.getList();
+            List<Article> list=(List<Article>) pg.getList();
             for (Article a:list){
                 System.out.println("结果："+a);
             }

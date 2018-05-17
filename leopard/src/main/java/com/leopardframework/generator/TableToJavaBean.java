@@ -1,13 +1,16 @@
 package com.leopardframework.generator;
 
-import com.leopardframework.logging.log.Log;
-import com.leopardframework.logging.log.LogFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+
 import com.leopardframework.util.DateUtil;
 import com.leopardframework.util.FileUtil;
 import com.leopardframework.util.StringUtil;
-
-import java.sql.*;
-import java.util.Date;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -21,8 +24,6 @@ import java.util.Date;
  *  逆向工程  生成简单的JavaBean
  */
 public class TableToJavaBean {
-
-    private static final Log LOG=LogFactory.getLog(TableToJavaBean.class);
 
     private static final String  LINE ="\r\n";
 

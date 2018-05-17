@@ -11,7 +11,12 @@ package com.leopardframework.logging.log;
  */
 public class LogException extends RuntimeException{
 
-    public LogException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public LogException() {
         super();
     }
 

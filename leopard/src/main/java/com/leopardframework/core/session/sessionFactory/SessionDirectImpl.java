@@ -95,7 +95,8 @@ final class SessionDirectImpl implements SqlSession {
      * @return 数据库变化的 row 数
      * @throws SqlSessionException
      */
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public <T> int Save(T entity) throws SqlSessionException {
         this.open();
         Sql insertsql = new InsertSql(entity);
@@ -170,7 +171,8 @@ final class SessionDirectImpl implements SqlSession {
      * @return 数据库变化的 row 数
      * @throws SqlSessionException
      */
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public <T> int Delete(T entity) throws SqlSessionException {
         this.open();
         Sql deletesql = new DeleteSql(entity);
@@ -239,7 +241,8 @@ final class SessionDirectImpl implements SqlSession {
      * @return 数据库变化的 row 数
      * @throws SqlSessionException
      */
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
     public <T> int Update(T entity, Object primaryKey) throws SqlSessionException {
         this.open();
         Sql updatesql = new UpdateSql(entity);
@@ -403,7 +406,8 @@ final class SessionDirectImpl implements SqlSession {
      * @return 查出的单个对象(如果该对象条件符合多条数据 ， 则只返回第一条数据)
      * @throws SqlSessionException
      */
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
     public <T> T Get(T entity) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSql(entity);
@@ -451,7 +455,8 @@ final class SessionDirectImpl implements SqlSession {
      * @return
      * @throws SqlSessionException
      */
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public <T> List<T> Get(Class<T> cls, Object... primaryKeys) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
@@ -694,7 +699,8 @@ final class SessionDirectImpl implements SqlSession {
     /**
      * ------------------------处理动态参数的方法--------------------------------------------
      **/
-    private void pstmSetListValues(PreparedStatement pstm, List values) throws SQLException {
+    @SuppressWarnings("rawtypes")
+	private void pstmSetListValues(PreparedStatement pstm, List values) throws SQLException {
         for (int i = 0; i < values.size(); ++i) {
             pstm.setObject(i + 1, values.get(i));
         }

@@ -1,15 +1,13 @@
 package com.leopardframework.core.sql;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import com.leopardframework.core.util.FieldUtil;
 import com.leopardframework.core.util.TableUtil;
 import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
-import com.leopardframework.util.MapUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).

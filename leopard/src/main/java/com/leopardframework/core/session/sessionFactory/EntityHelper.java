@@ -41,7 +41,8 @@ final class EntityHelper {
      * @throws SQLException
      * @throws InvocationTargetException
      */
-    protected static <T> List<T> invoke(ResultSet res, Class<T> cls, Map<String, String> C_F) throws IllegalAccessException, InstantiationException, IntrospectionException, SQLException, InvocationTargetException {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected static <T> List<T> invoke(ResultSet res, Class<T> cls, Map<String, String> C_F) throws IllegalAccessException, InstantiationException, IntrospectionException, SQLException, InvocationTargetException {
         List entitys=new ArrayList();
         while (res.next()) {
             Object entity=cls.newInstance();
@@ -86,7 +87,8 @@ final class EntityHelper {
      * @throws InvocationTargetException
      * @throws IntrospectionException
      */
-    protected static <T> List<T> invoke(ResultSet res, Class<T> cls1,Class<?> cls2) throws IllegalAccessException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected static <T> List<T> invoke(ResultSet res, Class<T> cls1,Class<?> cls2) throws IllegalAccessException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
         List entitys=new ArrayList();
         String tableName1=TableUtil.getTableName(cls1);
         String tableName2=TableUtil.getTableName(cls2);

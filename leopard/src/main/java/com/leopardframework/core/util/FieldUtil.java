@@ -195,7 +195,7 @@ public class FieldUtil {
      * @return list
      */
     public static List<String> getPrimaryKeys(Class<?> cls){
-        List pks =new ArrayList() ;
+        List<String> pks =new ArrayList<String>() ;
         Field[] fields=cls.getDeclaredFields();
         for (Field field :fields){
            Column column=field.getDeclaredAnnotation(Column.class);
@@ -236,7 +236,7 @@ public class FieldUtil {
         return pk_v;
     }*/
    public static List<String> getForeignKeyName(Class<?> cls){
-       List fkNames =new ArrayList() ;
+       List<String> fkNames =new ArrayList<String>() ;
        Field[] fields=cls.getDeclaredFields();
        for (Field field :fields){
            Column column=field.getDeclaredAnnotation(Column.class);
@@ -275,7 +275,7 @@ public class FieldUtil {
      */
     public static int isPrimaryKey( Column column){
 
-        if(column==null||"".equals(column)){
+        if(column==null){
             throw new NotFoundFieldException("没有找到@Column注解...");
         }
         switch (column.isPrimary()) {

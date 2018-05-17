@@ -16,7 +16,12 @@ import java.io.Serializable;
 @Deprecated
 public  class XmlContext implements Serializable {
 
-    public String entityPackage;  //实体对象类所在包
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public String entityPackage;  //实体对象类所在包
 
     public String generatorPackage;  //逆向工程生成JavaBean 包
 

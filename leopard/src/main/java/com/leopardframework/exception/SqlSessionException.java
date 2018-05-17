@@ -12,7 +12,12 @@ package com.leopardframework.exception;
  */
 public class SqlSessionException extends Exception {
 
-    public SqlSessionException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public SqlSessionException() {
     }
 
     public SqlSessionException(String message) {

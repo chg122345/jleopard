@@ -75,7 +75,6 @@ public class ObjectUtil {
     /**
      * 通过反射创建实例
      */
-    @SuppressWarnings("unchecked")
     public static <T> T newInstance(Class<T> cls) {
         T instance;
         try {

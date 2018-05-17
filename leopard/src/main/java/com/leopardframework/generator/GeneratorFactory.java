@@ -6,6 +6,7 @@ import com.leopardframework.logging.log.Log;
 import com.leopardframework.logging.log.LogFactory;
 import com.leopardframework.plugins.DBPlugin;
 import com.leopardframework.plugins.c3p0.C3p0Plugin;
+import com.leopardframework.util.ClassUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -53,7 +54,7 @@ public final class GeneratorFactory {
         if(xmlPath.startsWith("classpath:")){
             xmlPath= xmlPath.replace("classpath:","").trim();
         }
-        xmlPath=ClassLoader.getSystemResource(xmlPath).getPath();
+        xmlPath=ClassUtil.getClassLoader().getResource(xmlPath).getPath();
         XmlFactoryBuilder builder = new XmlFactoryBuilder(xmlPath);
         XmlFactoryBuilder.XmlFactory factory = builder.getFactory();
         if(factory.hasBean(DBPlugin.class.getName())){
