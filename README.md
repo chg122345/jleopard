@@ -20,27 +20,31 @@ orm（bug提交：80588183@qq.com）
   逆向工程只用一次 用的时候配就行 ，因为获取路径问题，所有要配置项目根径。
   包名与实体对象包保持一致，不然会出错。
   
+  <?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
+		"http://www.jleopard.org/jleopard/jleopard.dtd">
+  
 	<?xml version="1.0" encoding="UTF-8" ?>
 	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
 		"http://www.jleopard.org/jleopard/jleopard.dtd">
-		<jleopard-configuration>
+	<jleopard-configuration>
 		<config>
-		<!--实体对象所在包-->
-		<entityScan value="test.entity"></entityScan>
-		<dev value="true"></dev>
+			<!--实体对象所在包-->
+			<entityScan value="test.entity"></entityScan>
+			<dev value="true"></dev>
 		</config>
 		<!--逆向工程配置  包要配置为完整的路径-->
 		<generator>
-	       <target package="com.leopardframework.entity" project="/src/main/java/"/>
+	       		<target package="com.leopardframework.entity" project="/src/main/java/"/>
 		</generator>
 		<!--数据源配置-->
 		<dataSource class="org.jleopard.jdbc.BaseDataSource" id="dataSource">
-		 <property name="driver" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/jleopardDemo?characterEncoding=UTF-8"/>
-		<property name="username" value="root"/>
-		<property name="password" value="123"/>
+			<property name="driver" value="com.mysql.jdbc.Driver"/>
+			<property name="url" value="jdbc:mysql://127.0.0.1:3306/jleopardDemo?characterEncoding=UTF-8"/>
+			<property name="username" value="root"/>
+			<property name="password" value="123"/>
 		</dataSource>
-		</jleopard-configuration>
+	</jleopard-configuration>
  
 
 
