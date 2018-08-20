@@ -22,7 +22,7 @@ orm（bug提交：80588183@qq.com）
   
 <?xml version="1.0" encoding="UTF-8" ?>
 	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
-		"http://www.jleopard.org/jleopard/jleopard.dtd">
+		"http://www.jleopard.org/dtd/jleopard.dtd">
 	<jleopard-configuration>
 		<config>
 			<!--实体对象所在包-->
