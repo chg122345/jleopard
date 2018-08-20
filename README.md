@@ -20,10 +20,6 @@ orm（bug提交：80588183@qq.com）
   逆向工程只用一次 用的时候配就行 ，因为获取路径问题，所有要配置项目根径。
   包名与实体对象包保持一致，不然会出错。
   
-  <?xml version="1.0" encoding="UTF-8" ?>
-	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
-		"http://www.jleopard.org/jleopard/jleopard.dtd">
-  
 	<?xml version="1.0" encoding="UTF-8" ?>
 	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
 		"http://www.jleopard.org/jleopard/jleopard.dtd">
