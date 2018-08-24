@@ -1,7 +1,6 @@
-# leopard
-orm（出错提示 ： 80588183@qq.com）
+# jleopard
+orm（bug提交：80588183@qq.com）
 前言：代码写的很乱，只是实现了各种功能，没有去做优化，后续会有大量的修改优化。
-  本次仅采用简单的工厂模式，单例模式进行开发的。
 
  极速开发-
   快速入手-
@@ -10,43 +9,38 @@ orm（出错提示 ： 80588183@qq.com）
 	    支持jdbc事物，每次对数据库更新操作都要提交事物-
 	      支持多表连接，外键设置（陆续优化中）-
 	       详情见开发文档
-	  LEOPARD
-一.	leopard快速上手：
-1.	引入核心jar包 leopard-orm.jar
+	  JLEOPARD
+一.	jleopard快速上手：
+1.	引入核心jar包 jleopard-xx.jar
 2.	引入所依赖的jar包 ，常用到c3p0连接池，文件操作
 3.	在类路径下创建配置文件，配置如下：
  （配置文件的头文件要写清楚，因为dtd我是放在自己的服务器上作为公共的dtd，便于维护。）
   数据源配置二选一 id固定为dataSource ， class为插件的完整类名。
   实体对象包一定要配 ，不然扫描不到对象。
   逆向工程只用一次 用的时候配就行 ，因为获取路径问题，所有要配置项目根径。
-  包名与实体对象包保持一致，不然会出错。
-  <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE leopard-config  PUBLIC "-//leopard.com//DTD Config 1.0//EN"
-        "http://120.78.131.95/leopard/config/leopard.dtd">
-<leopard-config>
-   <!-- 数据源的配置-->
-   <bean class="com.leopardframework.plugins.DBPlugin" id="dataSource">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/myshop?characterEncoding=UTF-8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="chg122345"/>
-    </bean>
-   <!-- c3p0数据源的配置-->
-    <!--<bean class="com.leopardframework.plugins.c3p0.C3p0Plugin" id="dataSource">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/myshop?characterEncoding=UTF-8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="chg122345"/>
-        <property name="maxPoolSize" value="100"/>
-        <property name="minPoolSize" value="20"/>
-    </bean>-->
-    <!--实体对象所在包-->
-    <entity-package value="com.leopardframework.test.entity"/>
-    <!--逆向工程配置  包要配置为完整的路径-->
-<generator>
-    <target package="com.leopardframework.entity" project="src\main\java"/>
-</generator>
-</leopard-config>
+  包名与实体对象包保持一致，不然会出错。 
+  
+<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
+		"http://www.jleopard.org/dtd/jleopard.dtd">
+	<jleopard-configuration>
+		<config>
+			<!--实体对象所在包-->
+			<entityScan value="test.entity"></entityScan>
+			<dev value="true"></dev>
+		</config>
+		<!--逆向工程配置  包要配置为完整的路径-->
+		<generator>
+	       		<target package="com.leopardframework.entity" project="/src/main/java/"/>
+		</generator>
+		<!--数据源配置-->
+		<dataSource class="org.jleopard.jdbc.BaseDataSource" id="dataSource">
+			<property name="driver" value="com.mysql.jdbc.Driver"/>
+			<property name="url" value="jdbc:mysql://127.0.0.1:3306/jleopardDemo?characterEncoding=UTF-8"/>
+			<property name="username" value="root"/>
+			<property name="password" value="123"/>
+		</dataSource>
+	</jleopard-configuration>
  
 
 
@@ -56,11 +50,11 @@ orm（出错提示 ： 80588183@qq.com）
  IsPrimary 是否为主键 ，有三种类型： NO(不是主键，也是默认的属性)- YES(是主键)-
 AUTOINCREMENT(是主键，且自增)-
 AllowNull ( 是否允许为空，默认为false)-
-relation （外键）
+relation （外键联系）
 
-@Table("user")
-public class User{
-
+    @Table("user")
+    public class User{
+    
     @Column(isPrimary = Primary.YSE)
     private long id;
 
@@ -73,7 +67,7 @@ public class User{
     @Column
     private String address;
 	//省略getset方法 构造方法
-  }
+    }
  
 
 
@@ -85,7 +79,7 @@ public class User{
         SqlSession session=factory.openSession();
             User user=new User();
             user.setId(10086);
-            user.setName("Leopard");
+            user.setName("JLeopard");
             user.setPhone("10010");
             user.setAddress("China");
             List list=new ArrayList();
@@ -153,3 +147,42 @@ public class User{
     }
 
 	
+五.	与Spring整合配置（只需要配置数据源和sqlSessionFactoryBean）：
+
+   1.配置文件详情：
+   
+	<bean id="dataSource" class="org.jleopard.jdbc.BaseDataSource">
+    	<property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/jleopardDemo?characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123"/>
+        </bean>
+        <bean id="sqlSessionFactoryBean" class="org.jleopard.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    	<property name="entityPackage" value="com.leopardframework.entity"></property>
+    	<property name="useColumnLabel" value="false"></property>
+    	<property name="autoCommit" value="true"></property>
+    	<property name="useGeneratedKeys" value="false"></property>
+    	<property name="dev" value="true"></property>
+   	</bean>
+	
+   2.注入SqlSessionFactoryBean
+   
+   	@Autowired
+	private SqlSessionFactoryBean sqlSessionFactoryBean;
+	
+   3.获取SqlSession
+   
+   	SqlSession session =sqlSessionFactoryBean.getSessionFactory().openSession();
+	
+   4.极速开发
+   
+   	User user = new User();
+	user.setName("测试spring");
+	user.setId(9441);
+	user.setAddress("江西南昌");
+	user.setPhone("10086");
+	
+   	int temp = session.Save(user);
+		session.Commit();
+		session.Stop();
