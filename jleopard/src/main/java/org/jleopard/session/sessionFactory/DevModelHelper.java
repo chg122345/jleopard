@@ -38,8 +38,9 @@ public final class DevModelHelper {
         if(DevModel){
         	if (primaryKey == null || "".equals(primaryKey)) {
         		LOG.info("当前执行的sql语句: \n \t" + sql + "\n");
+        	}else {
+        		LOG.info("当前执行的sql语句: \n \t" + sql + "\n Paramters: " + primaryKey + "\n");
         	}
-            LOG.info("当前执行的sql语句: \n \t" + sql + "\n Paramters: " + primaryKey + "\n");
         }
     }
 
