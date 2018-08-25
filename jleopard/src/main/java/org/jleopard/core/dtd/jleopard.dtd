@@ -15,21 +15,17 @@
         <!ATTLIST entityScan 
         		value CDATA #REQUIRED
                 >
-        <!ELEMENT useGeneratedKeys (true|false)>
-        <!ATTLIST useGeneratedKeys 
-        		value #FIXED "false"
-        		 >
-        <!ELEMENT useColumnLabel (true|false)>
-        <!ATTLIST useColumnLabel 
-        		value #FIXED "false"
-        		 >
-        <!ELEMENT autoCommit (true|false)>
+        <!ELEMENT useGeneratedKeys (#PCDATA)>
+        <!ATTLIST useGeneratedKeys value (true|false) "false">
+        <!ELEMENT useColumnLabel (#PCDATA)>
+        <!ATTLIST useColumnLabel value (true|false) "false">
+        <!ELEMENT autoCommit (#PCDATA)>
         <!ATTLIST autoCommit 
-        		value #FIXED "true"
+        		value (true|false) "true"
         		 >
-        <!ELEMENT dev (true|false)>
+        <!ELEMENT dev (#PCDATA)>
         <!ATTLIST dev 
-        		value #FIXED "true"
+        		value (true|false) "true"
         		 >
         <!ELEMENT generator (target)>
         <!ELEMENT target (#PCDATA)>

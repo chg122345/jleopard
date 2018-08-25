@@ -22,7 +22,7 @@
          <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/jleopardDemo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="123"/>
+        <property name="password" value="chg122345"/>
     </bean>
     <bean id="sqlSessionFactoryBean" class="org.jleopard.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="dataSource"/>
