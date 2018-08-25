@@ -1,6 +1,8 @@
 # jleopard
-orm（bug提交：80588183@qq.com）
-###声明： 目前jleopard仅支持MySQL数据库
+orm（bug提交：jleopard@126.com）
+
+### 声明： 目前jleopard仅支持MySQL数据库
+
 **前言**：代码写的很乱，只是实现了各种功能，没有去做优化，后续会有大量的修改优化。
 
 **jleopard优势**
@@ -45,7 +47,9 @@ orm（bug提交：80588183@qq.com）
 
 
 **二 Java注解配置**
+
 @Table 标志该类对应数据库的一张表 - value值为表名 ，不写则默认取类名作为表名。
+
 @Column 对应表中的字段名 - value值为表中的字段名 ，不写则默认取变量名。
  IsPrimary 是否为主键 ，有三种类型： 
  - NO(不是主键，也是默认的属性)
