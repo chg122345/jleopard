@@ -21,8 +21,8 @@ orm（bug提交：jleopard@126.com）
 	（1）数据源配置id固定为dataSource ， class为插件的完整类名。
 	（2）实体对象包一定要配 ，不然扫描不到对象。
   	（3）逆向工程只用一次 用的时候配就行。
-  
-	<?xml version="1.0" encoding="UTF-8" ?>
+	
+<?xml version="1.0" encoding="UTF-8" ?>
 	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
 		"http://www.jleopard.org/dtd/jleopard.dtd">
 	<jleopard-configuration>
@@ -57,25 +57,25 @@ orm（bug提交：jleopard@126.com）
  - AUTOINCREMENT(是主键，且自增)
 - AllowNull ( 是否允许为空，默认为false)
 - relation （外键联系 默认为空则不是外键 如：relation="address_id" --> 表示数据库的address_id字段为外键，关联该字段类的对应表）
-
-    @Table("user")
-    public class User{
+   
+      @Table("user")
+      public class User{
     
-    @Column(isPrimary = Primary.YSE)
-    private long id;
+      @Column(isPrimary = Primary.YSE)
+      private long id;
 
-    @Column(value = "name",allowNull = true)
-    private String name;
+      @Column(value = "name",allowNull = true)
+      private String name;
 
-    @Column
-    private String phone;
+      @Column
+      private String phone;
 
-    @Column(value="address_id", relation="address_id")
-    private Address address;
-    // 表示user表的address_id字段为外键，关联着Address这个实体类对应表的主键。
+      @Column(value="address_id", relation="address_id")
+      private Address address;
+      // 表示user表的address_id字段为外键，关联着Address这个实体类对应表的主键。
     
-	//省略getset方法 构造方法
-    }
+	  //省略getset方法 构造方法
+      }
  
 
 
