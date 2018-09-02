@@ -2,6 +2,51 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>org.jleopard</groupId>
+	<artifactId>jleopard</artifactId>
+	<version>2.0.2</version>
+	<packaging>jar</packaging>
+
+	<name>jleopard</name>
+	<url>http://www.jleopard.org</url>
+	<description>This is a lightweight complete ORM framework,
+		which encapsulates a large number of commonly used SQL and implements multi-table Association query and paging query.</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<slf4j.version>1.7.25</slf4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
+	</dependencies>
+	
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -17,7 +62,7 @@
          scm:git:https://github.com/chg122345/jleopard.git
       </developerConnection>
 		<url>https://github.com/chg122345/jleopard</url>
-		<tag>v2.0.1</tag>
+		<tag>v2.0.2</tag>
 	</scm>
 	<developers>
 		<developer>
@@ -99,47 +144,5 @@
 		</profile>
 	</profiles>
 	
-	<groupId>org.jleopard</groupId>
-	<artifactId>jleopard</artifactId>
-	<version>2.0.1</version>
-	<packaging>jar</packaging>
-
-	<name>jleopard</name>
-	<url>http://www.jleopard.org</url>
-	<description>This is a lightweight complete ORM framework,
-		which encapsulates a large number of commonly used SQL and implements multi-table Association query and paging query.</description>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-		<slf4j.version>1.7.25</slf4j.version>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.5.2</version>
-		</dependency>
-	</dependencies>
+	
 </project>

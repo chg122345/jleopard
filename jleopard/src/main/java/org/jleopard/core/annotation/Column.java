@@ -30,5 +30,5 @@ public @interface Column {
 
    boolean allowNull() default false;
 
-   String relation() default "";  //外键关系 连接另一个实体类
+   Class<?> relation() default Object.class;  //外键关系 连接另一个实体类
 }

@@ -21,7 +21,7 @@
         <!ATTLIST useColumnLabel value (true|false) "false">
         <!ELEMENT autoCommit (#PCDATA)>
         <!ATTLIST autoCommit 
-        		value (true|false) "true"
+        		value (true|false) "false"
         		 >
         <!ELEMENT dev (#PCDATA)>
         <!ATTLIST dev 
