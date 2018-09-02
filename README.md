@@ -1,6 +1,8 @@
 # jleopard
-orm（bug提交：80588183@qq.com）
-###声明： 目前jleopard仅支持MySQL数据库
+orm（bug提交：jleopard@126.com）
+
+### 声明： 目前jleopard仅支持MySQL数据库
+
 **前言**：代码写的很乱，只是实现了各种功能，没有去做优化，后续会有大量的修改优化。
 
 **jleopard优势**
@@ -8,8 +10,10 @@ orm（bug提交：80588183@qq.com）
  2. 极易上手，不再需要手写sql。
  3. 功能强大，自动生成sql，除了常用的增删改查还支持逆向工程，自动建表 ，多表外键关联，分页查询。
  
-** JLEOPARD**
+**JLEOPARD**
+
 **jleopard快速上手：**
+
 **一 基本配置**
 1.	引入核心jar包 jleopard-xx.jar。
 2.	引入所依赖的jar包 ，如数据库驱动包，数据库连接池包等。
@@ -17,8 +21,8 @@ orm（bug提交：80588183@qq.com）
 	（1）数据源配置id固定为dataSource ， class为插件的完整类名。
 	（2）实体对象包一定要配 ，不然扫描不到对象。
   	（3）逆向工程只用一次 用的时候配就行。
-  
-	<?xml version="1.0" encoding="UTF-8" ?>
+	
+<?xml version="1.0" encoding="UTF-8" ?>
 	<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
 		"http://www.jleopard.org/dtd/jleopard.dtd">
 	<jleopard-configuration>
@@ -43,7 +47,9 @@ orm（bug提交：80588183@qq.com）
 
 
 **二 Java注解配置**
+
 @Table 标志该类对应数据库的一张表 - value值为表名 ，不写则默认取类名作为表名。
+
 @Column 对应表中的字段名 - value值为表中的字段名 ，不写则默认取变量名。
  IsPrimary 是否为主键 ，有三种类型： 
  - NO(不是主键，也是默认的属性)
@@ -51,25 +57,25 @@ orm（bug提交：80588183@qq.com）
  - AUTOINCREMENT(是主键，且自增)
 - AllowNull ( 是否允许为空，默认为false)
 - relation （外键联系 默认为空则不是外键 如：relation="address_id" --> 表示数据库的address_id字段为外键，关联该字段类的对应表）
-
-    @Table("user")
-    public class User{
+   
+      @Table("user")
+      public class User{
     
-    @Column(isPrimary = Primary.YSE)
-    private long id;
+      @Column(isPrimary = Primary.YSE)
+      private long id;
 
-    @Column(value = "name",allowNull = true)
-    private String name;
+      @Column(value = "name",allowNull = true)
+      private String name;
 
-    @Column
-    private String phone;
+      @Column
+      private String phone;
 
-    @Column(value="address_id", relation="address_id")
-    private Address address;
-    // 表示user表的address_id字段为外键，关联着Address这个实体类对应表的主键。
+      @Column(value="address_id", relation="address_id")
+      private Address address;
+      // 表示user表的address_id字段为外键，关联着Address这个实体类对应表的主键。
     
-	//省略getset方法 构造方法
-    }
+	  //省略getset方法 构造方法
+      }
  
 
 
