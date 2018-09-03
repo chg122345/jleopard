@@ -1,88 +1,101 @@
 package org.jleopard.core.sql;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.jleopard.core.util.FieldUtil;
 import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
+import org.jleopard.util.CollectionUtil;
+import org.jleopard.util.PathUtils;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
  * <p>
- * DateTime 2018/4/19
+ * DateTime 2018/4/19  
+ * update 2018/9/3
  * <p>
  * Find a way for success and not make excuses for failure.
+ * <p/>
+ * 
+ * 生成关联查询的sql语句
  */
 public class JoinSql implements Sql, CloumnNames {
 
-    private static final Log LOG=LogFactory.getLog(JoinSql.class);
+	private static final Log LOG = LogFactory.getLog(JoinSql.class);
 
-    private String tableName1;  //表名1
+	private String tableName1; // 表名1
 
-    private String tableName2;  //表名2
+	private List<String> allColumnNames; // 所有字段名
 
-    private String foreignKey; //外键
+	private Map<String, Map<String, Set<String>>> t2ColumnNames; // 表名 (主键 所有字段名)
 
-    private String t2PrimaryKey;
+	public JoinSql(Class<?> cls1, Class<?>... clazz) {
+		List<String> allColumns = new ArrayList<>();
+		Map<String, Map<String, Set<String>>> t2Columns = new HashMap<>();
+		this.tableName1 = TableUtil.getTableName(cls1);
+		Map<String, Class<?>> fMap = FieldUtil.getForeignKeys(cls1);
+		Set<String> set = FieldUtil.getAllColumnName(cls1);
+		allColumns.addAll(set);
+		for (Class<?> cls2 : clazz) {
+			fMap.forEach((k,v)->{
+				if (v == cls2) {
+					String pk = CollectionUtil.isNotEmpty(FieldUtil.getPrimaryKeys(cls2))
+							? FieldUtil.getPrimaryKeys(cls2).get(0)
+							: null;
+					Set<String> set2 = FieldUtil.getAllColumnName(cls2);
+					Map<String, Set<String>> fC = new HashMap<>();
+					fC.put(pk, set2);
+					t2Columns.put(TableUtil.getTableName(cls2), fC);
+				}
+			});
+			
+		}
+		this.allColumnNames = allColumns;
+		this.t2ColumnNames = t2Columns;
+	}
 
-    private List<String> allColumnNames; //所有字段名
+	@Override
+	public List<String> getColumnNames() {
+		return allColumnNames;
+	}
 
-    private List<String> t2ColumnNames; //所有字段名
+	@Override
+	public String getSql() {
 
+		/*
+		 * StringBuilder ON=new StringBuilder();
+		 * ON.append("\n").append(" on").append(" ").append(tableName1).append(".").
+		 * append(foreignKey)
+		 * .append("=").append(tableName2).append(".").append(t2PrimaryKey).append(" ");
+		 */
+		StringBuilder COL = new StringBuilder();
+		// 自己本身的字段
+		for (int i = 0, j = allColumnNames.size(); i < j; ++i) {
+			if (i > 0) {
+				COL.append(",");
+			}
+			COL.append(tableName1).append(".").append(allColumnNames.get(i));
+		}
 
-    public JoinSql(Class<?> cls1,Class<?> cls2) {
-        List<String> allColumns=new ArrayList<>();
-        List<String> t2Columns=new ArrayList<>();
-        this.tableName1 =TableUtil.getTableName(cls1);
-        this.tableName2=TableUtil.getTableName(cls2);
-        this.foreignKey=FieldUtil.getForeignKeyName(cls1).get(0);
-        this.t2PrimaryKey=FieldUtil.getPrimaryKeys(cls2).get(0);
-        Set<String> set=FieldUtil.getAllColumnName(cls1);
-        allColumns.addAll(set);
-        Set<String> set2= FieldUtil.getAllColumnName(cls2);
-        t2Columns.addAll(set2);
-        /*for (String column:set2){
-            if(column.equals(t2PrimaryKey)){
-               continue;
-            }else{
-                t2Columns.add(column);
-            }
-        }*/
-        this.allColumnNames=allColumns;
-        this.t2ColumnNames=t2Columns;
-    }
+		StringBuilder JOIN = new StringBuilder();
+		// 关联表的信息
+		t2ColumnNames.forEach((k, v) -> {
+			v.forEach((f, s) -> {
+				JOIN.append(PathUtils.LINE).append("left join ").append(k).append(" on").append(" ").append(tableName1)
+						.append(".").append(f).append("=").append(k).append(".").append(f).append(" ");
+				s.forEach(c -> COL.append(",").append(k).append(".").append(c));
+			});
+		});
 
-    @Override
-    public List<String> getColumnNames() {
-        return allColumnNames;
-    }
-
-
-    @Override
-    public String getSql() {
-
-       StringBuilder ON=new StringBuilder();
-        ON.append("\n").append(" on").append(" ").append(tableName1).append(".").append(foreignKey)
-               .append("=").append(tableName2).append(".").append(t2PrimaryKey).append(" ");
-
-        StringBuilder COL=new StringBuilder();
-        for (int i=0,j=allColumnNames.size();i<j;++i){
-            if (i>0){
-                COL.append(",");
-            }
-            COL.append(tableName1).append(".").append(allColumnNames.get(i));
-        }
-        for (int i=0,j=t2ColumnNames.size();i<j;++i){
-
-            COL.append(",").append(tableName2).append(".").append(t2ColumnNames.get(i));
-        }
-        StringBuilder SQL=new StringBuilder();
-        String sql=String.format("select %s from "+tableName1+" left join "+tableName2,COL.toString());
-        SQL.append(sql).append(ON);
-        LOG.info("生成的sql语句："+SQL.toString());
-        return SQL.toString();
-    }
+		StringBuilder SQL = new StringBuilder();
+		String sql = String.format("select %s from " + tableName1, COL.toString());
+		SQL.append(sql).append(JOIN);
+		LOG.info("生成的sql语句：" + SQL.toString());
+		return SQL.toString();
+	}
 }

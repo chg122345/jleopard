@@ -42,12 +42,16 @@ public class TableUtil {
     }
 
     public static String getTableName(Class<?> cls){
-        Table table=cls.getDeclaredAnnotation(Table.class);
-        String tableName=table.value()/*.toUpperCase()*/;
-        if(StringUtil.isEmpty(tableName)){
-            tableName=cls.getSimpleName()/*.toUpperCase()*/;
+        String tableName = null;
+        if (isTable(cls)){
+            Table table=cls.getDeclaredAnnotation(Table.class);
+            tableName=table.value();
+            if(StringUtil.isEmpty(tableName)){
+                tableName=cls.getSimpleName();
+                tableName = tableName.substring(0,1).toLowerCase()+tableName.substring(1);
+            }
         }
-        return tableName.substring(0,1).toLowerCase()+tableName.substring(1);
+        return tableName;
     }
 
     /**

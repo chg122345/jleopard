@@ -14,7 +14,8 @@ package org.jleopard.util;
  */
 public class PathUtils {
 
-    private static String separator = System.getProperty("file.separator"); // 文件类型
+    public static final String  LINE = System.lineSeparator();
+    public static final String SEPARATOR = System.getProperty("file.separator"); // 文件类型
 
     public static String getUploadImgBasePath(){
         String basePath = "";
@@ -24,7 +25,7 @@ public class PathUtils {
         } else {
             basePath = "/home/jleopard/images/";
         }
-        basePath = basePath.replace("/",separator);
+        basePath = basePath.replace("/",SEPARATOR);
         return basePath;
     }
 }

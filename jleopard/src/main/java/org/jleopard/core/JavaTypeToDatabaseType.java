@@ -28,6 +28,7 @@ public class JavaTypeToDatabaseType {
             this.put("java.math.BigDecimal", java.math.BigDecimal.class);
             this.put("java.math.BigInteger", java.math.BigInteger.class);
             this.put("B", byte[].class);
+            this.put("java.long.Byte",Byte.class);
         }
     };
 

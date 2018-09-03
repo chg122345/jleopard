@@ -5,6 +5,7 @@ import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.util.MapUtil;
+import org.jleopard.util.PathUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,7 @@ public class SelectSql implements Sql, CloumnNames, CloumnValue{
             SQL.append(columnname).append(",");
         }
         SQL.deleteCharAt(SQL.length()-1).append(" ").append("from").append(" ").append(tableName)
-                .append("\n").append("   where").append(" ");
+                .append(PathUtils.LINE).append("   where").append(" ");
         for(int i=0;i<columnNames.size();++i){
             if(i==0) {
                 SQL.append(columnNames.get(i)).append("=").append("?").append(" ");

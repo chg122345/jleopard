@@ -5,6 +5,7 @@ import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.util.MapUtil;
+import org.jleopard.util.PathUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,7 @@ public class InsertSql implements Sql,CloumnNames,CloumnValue{
         for(int i=0;i<columnNames.size();++i){
           SQL.append(columnNames.get(i)).append(",");
         }
-        SQL.deleteCharAt(SQL.length()-1).append(")").append(" \n    ").append("values").append("(");
+        SQL.deleteCharAt(SQL.length()-1).append(")").append(PathUtils.LINE + "\t").append("values").append("(");
         for(int i=0;i<columnNames.size();++i){
             SQL.append("?").append(",");
         }

@@ -10,6 +10,8 @@ import org.jleopard.exception.SessionException;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.session.sessionFactory.ColumnNameHelper;
+import org.jleopard.util.CollectionUtil;
+import org.jleopard.util.PathUtils;
 import org.jleopard.util.StringUtil;
 
 /**
@@ -45,49 +47,53 @@ public class CreateTableSql implements Sql {
     @Override
 	public String getSql() {
 		StringBuilder SQL = new StringBuilder();
-		SQL.append("create table if not exists ").append(tableName).append("\n").append(" (");
-		String endSql = null;
+		SQL.append("create table if not exists ").append(tableName).append(PathUtils.LINE).append(" (");
+		StringBuilder endSql = new StringBuilder();
 		Field[] fields = cls.getDeclaredFields();
 		for (Field field : fields) {
 			Column column = field.getDeclaredAnnotation(Column.class);
+			if (column == null){
+				continue;
+			}
 			if (FieldUtil.isPrimaryKey(column) == 0) {
 				String foreignKeyName = ColumnNameHelper.getColumnName(field); // 外键名
 				Class<?> clazz = column.relation(); // 外键类
 				if (clazz != Object.class) {
-					String fpkName = FieldUtil.getPrimaryKeys(clazz).get(0); // 外键类的主键名
+					String fpkName = CollectionUtil.isNotEmpty(FieldUtil.getPrimaryKeys(clazz)) ? FieldUtil.getPrimaryKeys(clazz).get(0) : null; // 外键类的主键名
 					Class<?> fpkType = FieldUtil.getPrimaryKeys_Type(clazz).get(fpkName); // 外键类的主键的类型
 					SQL.append(foreignKeyName).append(" ").append(JavaTypeUtil.getSqlType(fpkType)).append(" ")
-							.append("not null").append(",").append("\n");
+							.append("not null").append(",").append(PathUtils.LINE);
 					// endSql="key ("+foreignKeyName+")";
-					endSql = "constraint foreign key(" + foreignKeyName + ") references "
-							+ TableUtil.getTableName(clazz) + "(" + fpkName + ") on delete cascade on update cascade";
+					String joinSql = "constraint foreign key(" + foreignKeyName + ") references "
+							+ TableUtil.getTableName(clazz) + "(" + fpkName + ") on delete cascade on update cascade, \n";
+					endSql.append(joinSql);
 				} else {
 					if (column.allowNull()) {
 						SQL.append(ColumnNameHelper.getColumnName(field)).append(" ")
-								.append(JavaTypeUtil.getSqlType(field.getType())).append(",").append("\n");
+								.append(JavaTypeUtil.getSqlType(field.getType())).append(",").append(PathUtils.LINE);
 					} else {
 						SQL.append(ColumnNameHelper.getColumnName(field)).append(" ")
 								.append(JavaTypeUtil.getSqlType(field.getType())).append(" ").append("not null")
-								.append(",").append("\n");
+								.append(",").append(PathUtils.LINE);
 					}
 				}
 
 			} else if (FieldUtil.isPrimaryKey(column) == 1) {
 				SQL.append(ColumnNameHelper.getColumnName(field)).append(" ")
 						.append(JavaTypeUtil.getSqlType(field.getType())).append(" ").append("primary key").append(" ")
-						.append("not null").append(",").append("\n");
+						.append("not null").append(",").append(PathUtils.LINE);
 			} else if (FieldUtil.isPrimaryKey(column) == 2) {
 				SQL.append(ColumnNameHelper.getColumnName(field)).append(" ")
 						.append(JavaTypeUtil.getSqlType(field.getType())).append(" ").append("primary key").append(" ")
-						.append("auto_increment").append(" ").append("not null").append(",").append("\n");
+						.append("auto_increment").append(" ").append("not null").append(",").append(PathUtils.LINE);
 			}
 
 		}
 		// SQL.deleteCharAt(SQL.length()-2).append(")");
-		if (StringUtil.isEmpty(endSql)) {
+		if (StringUtil.isEmpty(endSql.toString())) {
 			SQL.deleteCharAt(SQL.length() - 2).append(")");
 		} else {
-			SQL.append(endSql).append("\n").append(")");
+			SQL.append(endSql.deleteCharAt(endSql.length()-3)).append(")");
 		}
 
 		return SQL.toString();

@@ -11,6 +11,7 @@ import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.util.MapUtil;
+import org.jleopard.util.PathUtils;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -66,12 +67,12 @@ public class UpdateSql implements Sql, CloumnNames, CloumnValue{
     @Override
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
-        SQL.append("update ").append(tableName).append(" \n").append(" ").append("set").append(" ");
+        SQL.append("update ").append(tableName).append(PathUtils.LINE).append(" ").append("set").append(" ");
         for(int i=0;i<columnNames.size();++i){
             SQL.append(columnNames.get(i)).append("=?").append(",");
         }
-        SQL.deleteCharAt(SQL.length()-1).append("\n").append("   where").append(" ");
-        log.info(" 生成的sql语句: "+SQL.toString()/*.toUpperCase()*/);
-        return SQL.toString()/*.toUpperCase()*/;
+        SQL.deleteCharAt(SQL.length()-1).append(PathUtils.LINE).append("   where").append(" ");
+        log.info(" 生成的sql语句: "+SQL.toString());
+        return SQL.toString();
     }
 }

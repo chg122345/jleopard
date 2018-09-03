@@ -4,6 +4,7 @@ import org.jleopard.core.util.FieldUtil;
 import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
+import org.jleopard.util.PathUtils;
 
 
 /**
@@ -34,7 +35,7 @@ public class DeleteSqlMore implements Sql {
     @Override
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
-        SQL.append("delete from ").append(tableName).append("\n").append(" ").append("where ").append(primaryKeyName);
+        SQL.append("delete from ").append(tableName).append(PathUtils.LINE).append(" ").append("where ").append(primaryKeyName);
         log.info(" 生成的sql语句: "+SQL.toString());
         return SQL.toString();
     }

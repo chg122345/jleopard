@@ -1,5 +1,7 @@
 package org.jleopard.util;
 
+import org.jleopard.core.util.TableUtil;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -66,7 +68,7 @@ public class ClassUtil {
     public static Set<Class<?>> getClassSetByPackagename(String packagename){
 		Set<Class<?>> scls=new HashSet<>();
 		if(StringUtil.isEmpty(packagename)){
-			String packagePath=System.getProperty("user.dir")+"\\src";
+			String packagePath=System.getProperty("user.dir")+PathUtils.SEPARATOR+"src";
 			addClass(scls, packagePath, packagename);
 			//throw new RuntimeException(" 实体类的位置没有找到...");
 		}else {
@@ -107,8 +109,10 @@ public class ClassUtil {
 
 	public static void doAddClass(Set<Class<?>> scls, String classname) {
 		Class<?> cls=loadClass(classname, false);
-		scls.add(cls);
-		
+		// 有table注解加进去
+		if (TableUtil.isTable(cls)){
+			scls.add(cls);
+		}
 	}
 
 	public static void addClass(Set<Class<?>> scls, String packagePath, String packagename) {

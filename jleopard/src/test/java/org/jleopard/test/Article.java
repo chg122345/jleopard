@@ -1,5 +1,7 @@
 package org.jleopard.test;
 
+import java.util.List;
+
 import org.jleopard.core.EnumPrimary;
 import org.jleopard.core.annotation.Column;
 import org.jleopard.core.annotation.Table;
@@ -25,6 +27,9 @@ public class Article {
 	
 	@Column(relation=User.class)
 	private User user_id;
+	
+	@Column(relation=Reply.class)
+	private List<Reply> replys;
 
 	public Article() {
 		// TODO Auto-generated constructor stub
@@ -69,6 +74,14 @@ public class Article {
 
 	public void setUser_id(User user_id) {
 		this.user_id = user_id;
+	}
+	
+	public List<Reply> getReplys() {
+		return replys;
+	}
+
+	public void setReplys(List<Reply> replys) {
+		this.replys = replys;
 	}
 
 	@Override

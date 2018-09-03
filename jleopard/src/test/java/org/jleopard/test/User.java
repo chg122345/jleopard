@@ -11,7 +11,7 @@ import org.jleopard.core.annotation.Table;
  * Find a way for success and not make excuses for failure.
  *
  */
-@Table
+@Table("user")
 public class User {
 	
 	@Column(isPrimary=EnumPrimary.YES)

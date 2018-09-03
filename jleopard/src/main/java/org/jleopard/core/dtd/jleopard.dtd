@@ -16,9 +16,11 @@
         		value CDATA #REQUIRED
                 >
         <!ELEMENT useGeneratedKeys (#PCDATA)>
-        <!ATTLIST useGeneratedKeys value (true|false) "false">
+        <!ATTLIST useGeneratedKeys
+				value (true|false) "false">
         <!ELEMENT useColumnLabel (#PCDATA)>
-        <!ATTLIST useColumnLabel value (true|false) "false">
+        <!ATTLIST useColumnLabel
+				value (true|false) "false">
         <!ELEMENT autoCommit (#PCDATA)>
         <!ATTLIST autoCommit 
         		value (true|false) "false"

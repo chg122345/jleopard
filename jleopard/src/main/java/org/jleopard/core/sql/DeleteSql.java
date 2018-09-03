@@ -10,6 +10,7 @@ import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.util.MapUtil;
+import org.jleopard.util.PathUtils;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -64,7 +65,7 @@ public class DeleteSql implements Sql,CloumnNames,CloumnValue{
     @Override
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
-        SQL.append("delete from ").append(tableName).append("\n").append(" ").append("where ");
+        SQL.append("delete from ").append(tableName).append(PathUtils.LINE).append(" ").append("where ");
         for(int i=0;i<columnNames.size();++i){
             if(i==0) {
                 SQL.append(columnNames.get(i)).append("=?").append(" ");

@@ -1,7 +1,6 @@
 package org.jleopard.session.sessionFactory;
 
 
-
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -49,7 +48,7 @@ final class SessionDirectImpl implements SqlSession {
 
     private static final Log LOG = LogFactory.getLog(SessionDirectImpl.class);
     @SuppressWarnings("unused")
-	private Configuration configuration;
+    private Configuration configuration;
     private DataSource dataSource;
     private Connection conn;
     private PreparedStatement pstm;
@@ -66,7 +65,7 @@ final class SessionDirectImpl implements SqlSession {
             try {
                 conn.setAutoCommit(false);
             } catch (SQLException e) {
-                throw new SessionException("设置事物出错了..." , e);
+                throw new SessionException("设置事物出错了...", e);
             }
         }
 
@@ -77,15 +76,15 @@ final class SessionDirectImpl implements SqlSession {
      * 当前表名在数据库中已存在时 不会新建表
      */
     public SessionDirectImpl(Configuration configuration) {
-    	this.configuration = configuration;
-    	this.dataSource = configuration.getDataSource();
-    	this.DevModel = configuration.isDev();
+        this.configuration = configuration;
+        this.dataSource = configuration.getDataSource();
+        this.DevModel = configuration.isDev();
         try {
-			this.conn = dataSource.getConnection();
-		} catch (SQLException e1) {
-			  LOG.error("获取数据库连接失败...");
-	            throw new SessionException("获取数据库连接失败...", e1);
-		}
+            this.conn = dataSource.getConnection();
+        } catch (SQLException e1) {
+            LOG.error("获取数据库连接失败...");
+            throw new SessionException("获取数据库连接失败...", e1);
+        }
         Set<Class<?>> set = ClassUtil.getClassSetByPackagename(configuration.getEntityPackage());
         List<String> list = TableUtil.showAllTableName(conn);   //ArraysHelper.toUpperCase(TableUtil.showAllTableName(conn));
         //System.out.println("对比："+ArraysHelper.toUpperCase(list));
@@ -93,19 +92,20 @@ final class SessionDirectImpl implements SqlSession {
             LOG.error("获取到的实体类为空...");
             throw new SessionException("获取到的实体类为空...");
         }
+
         for (Class<?> cls : set) {
-                if (list.contains(TableUtil.getTableName(cls))) {
-                    continue;
-                }
-                Sql create = new CreateTableSql(cls);
-                String sql = create.getSql();
-                try {
-                    stm = conn.createStatement();
-                    stm.executeUpdate(sql);
-                } catch (SQLException e) {
-                    LOG.error(cls + "创建表时出错...", e);
-                    e.printStackTrace();
-                }
+            if (list.contains(TableUtil.getTableName(cls))) {
+                continue;
+            }
+            Sql create = new CreateTableSql(cls);
+            String sql = create.getSql();
+            try {
+                stm = conn.createStatement();
+                stm.executeUpdate(sql);
+            } catch (SQLException e) {
+                LOG.error(cls + "创建表时出错...", e);
+                e.printStackTrace();
+            }
         }
     }
 
@@ -117,7 +117,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @SuppressWarnings("rawtypes")
-	@Override
+    @Override
     public <T> int Save(T entity) throws SqlSessionException {
         this.open();
         InsertSql insertsql = new InsertSql(entity);
@@ -129,7 +129,7 @@ final class SessionDirectImpl implements SqlSession {
             pstmSetListValues(pstm, values);
             return pstm.executeUpdate();
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了..." , e);
+            throw new SqlSessionException(" sql执行出错了...", e);
         }
     }
 
@@ -178,7 +178,7 @@ final class SessionDirectImpl implements SqlSession {
             }
             return pstm.executeUpdate();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了..." , e);
+            throw new SqlSessionException("sql执行出错了...", e);
         }
     }
 
@@ -191,7 +191,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @SuppressWarnings("rawtypes")
-	@Override
+    @Override
     public <T> int Delete(T entity) throws SqlSessionException {
         this.open();
         DeleteSql deletesql = new DeleteSql(entity);
@@ -203,7 +203,7 @@ final class SessionDirectImpl implements SqlSession {
             pstmSetListValues(pstm, values);
             return pstm.executeUpdate();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " , e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         }
     }
 
@@ -222,7 +222,7 @@ final class SessionDirectImpl implements SqlSession {
         StringBuilder SQL = new StringBuilder();
         SQL.append(deletesql.getSql()).append(" ").append(ArraysHelper.getSql(primaryKeys));
         String sql = SQL.toString();
-    //    LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + primaryKeys + "\n");
+        //    LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + primaryKeys + "\n");
         DevModelHelper.outParameter(DevModel, sql, primaryKeys);
         try {
             pstm = conn.prepareStatement(sql);
@@ -231,7 +231,7 @@ final class SessionDirectImpl implements SqlSession {
             }
             return pstm.executeUpdate();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " , e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         }
     }
 
@@ -257,8 +257,8 @@ final class SessionDirectImpl implements SqlSession {
      * @return 数据库变化的 row 数
      * @throws SqlSessionException
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
     public <T> int Update(T entity, Object primaryKey) throws SqlSessionException {
         this.open();
         UpdateSql updatesql = new UpdateSql(entity);
@@ -271,7 +271,7 @@ final class SessionDirectImpl implements SqlSession {
         SQL.append(updatesql.getSql()).append(pks.get(0)).append("=").append("?");
         String sql = SQL.toString();
         List values = updatesql.getValues();
-      //  LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + values + "\n");
+        //  LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + values + "\n");
         DevModelHelper.outParameter(DevModel, sql, values);
         try {
             pstm = conn.prepareStatement(sql);
@@ -281,7 +281,7 @@ final class SessionDirectImpl implements SqlSession {
 
             return pstm.executeUpdate();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " , e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         }
     }
 
@@ -296,7 +296,7 @@ final class SessionDirectImpl implements SqlSession {
     @Override
     public ResultSet Get(String sql, Object... args) throws SqlSessionException {
         this.open();
-      //  LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + args + "\n");
+        //  LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + args + "\n");
         DevModelHelper.outParameter(DevModel, sql, args);
         try {
             pstm = conn.prepareStatement(sql);
@@ -305,7 +305,7 @@ final class SessionDirectImpl implements SqlSession {
             }
             res = pstm.executeQuery();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " , e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         }
         return res;
     }
@@ -337,7 +337,7 @@ final class SessionDirectImpl implements SqlSession {
             }
         }
         String sql = SQL.toString();
-     //   LOG.info("当前执行的sql语句: \n \t" + sql + where + "Paramter: " + args + "\n");
+        //   LOG.info("当前执行的sql语句: \n \t" + sql + where + "Paramter: " + args + "\n");
         DevModelHelper.outParameter(DevModel, sql, args);
         try {
             pstm = conn.prepareStatement(sql);
@@ -347,20 +347,20 @@ final class SessionDirectImpl implements SqlSession {
             }
             res = pstm.executeQuery();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了...." , e);
+            throw new SqlSessionException("sql执行出错了....", e);
         }
         try {
             return EntityHelper.invoke(res, cls1, cls2);
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败... ." ,e);
+            throw new SqlSessionException("反射调用private属性设值失败... .", e);
         } catch (InstantiationException e) {
-            throw new SqlSessionException("反射调用实例化失败... " ,e);
+            throw new SqlSessionException("反射调用实例化失败... ", e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用构造方法失败... ",e);
+            throw new SqlSessionException("反射调用构造方法失败... ", e);
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " ,e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
-            throw new SqlSessionException("反射调用方法或构造方法失败... " ,e);
+            throw new SqlSessionException("反射调用方法或构造方法失败... ", e);
         }
 
     }
@@ -387,7 +387,7 @@ final class SessionDirectImpl implements SqlSession {
             SQL.append(selectsql.getSql()).append("\n").append(" where").append(" ").append(where);
         }
         String sql = SQL.toString();
-    //    LOG.info("当前执行的sql语句: \n \t" + sql + where + "Paramter: " + args + "\n");
+        //    LOG.info("当前执行的sql语句: \n \t" + sql + where + "Paramter: " + args + "\n");
         DevModelHelper.outParameter(DevModel, sql, args);
         try {
             pstm = conn.prepareStatement(sql);
@@ -396,22 +396,22 @@ final class SessionDirectImpl implements SqlSession {
             }
             res = pstm.executeQuery();
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了... " , e);
+            throw new SqlSessionException(" sql执行出错了... ", e);
         }
         Map<String, String> C_F = FieldUtil.getColumnFieldName(cls);
 
         try {
             return EntityHelper.invoke(res, cls, C_F);
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败... " ,e);
+            throw new SqlSessionException("反射调用private属性设值失败... ", e);
         } catch (InstantiationException e) {
-            throw new SqlSessionException("反射调用实例化失败... " ,e);
+            throw new SqlSessionException("反射调用实例化失败... ", e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用构造方法失败... " ,e);
+            throw new SqlSessionException("反射调用构造方法失败... ", e);
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " ,e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
-            throw new SqlSessionException("反射调用方法或构造方法失败... " ,e);
+            throw new SqlSessionException("反射调用方法或构造方法失败... ", e);
         }
     }
 
@@ -423,21 +423,21 @@ final class SessionDirectImpl implements SqlSession {
      * @return 查出的单个对象(如果该对象条件符合多条数据 ， 则只返回第一条数据)
      * @throws SqlSessionException
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
     public <T> T Get(T entity) throws SqlSessionException {
         this.open();
         SelectSql selectsql = new SelectSql(entity);
         String sql = selectsql.getSql();
         List<Object> values = selectsql.getValues();
-       // LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + values + "\n");
+        // LOG.info("当前执行的sql语句: \n \t" + sql + "Paramter: " + values + "\n");
         DevModelHelper.outParameter(DevModel, sql, values);
         try {
             pstm = conn.prepareStatement(sql);
             pstmSetListValues(pstm, values);
             res = pstm.executeQuery();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " , e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         }
 
         Map<String, String> C_F = FieldUtil.getColumnFieldName(entity.getClass());
@@ -445,15 +445,15 @@ final class SessionDirectImpl implements SqlSession {
         try {
             list = EntityHelper.invoke(res, entity.getClass(), C_F);
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败... " , e);
+            throw new SqlSessionException("反射调用private属性设值失败... ", e);
         } catch (InstantiationException e) {
-            throw new SqlSessionException("反射调用实例化失败... " , e);
+            throw new SqlSessionException("反射调用实例化失败... ", e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用构造方法失败... " , e);
+            throw new SqlSessionException("反射调用构造方法失败... ", e);
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " , e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
-            throw new SqlSessionException("反射调用方法或构造方法失败... " , e);
+            throw new SqlSessionException("反射调用方法或构造方法失败... ", e);
         }
         if (CollectionUtil.isEmpty(list)) {
             return null;
@@ -473,7 +473,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @SuppressWarnings("rawtypes")
-	@Override
+    @Override
     public <T> List<T> Get(Class<T> cls, Object... primaryKeys) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
@@ -486,7 +486,7 @@ final class SessionDirectImpl implements SqlSession {
         SQL.append(selectsql.getSql()).append("\n").append(" where").append(" ")
                 .append(pks.get(0)).append(" ").append(ArraysHelper.getSql(primaryKeys));
         String sql = SQL.toString();
-       DevModelHelper.outParameter(DevModel, sql, primaryKeys);
+        DevModelHelper.outParameter(DevModel, sql, primaryKeys);
         try {
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(primaryKeys)) {
@@ -494,22 +494,22 @@ final class SessionDirectImpl implements SqlSession {
             }
             res = pstm.executeQuery();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了..." , e);
+            throw new SqlSessionException("sql执行出错了...", e);
         }
         Map<String, String> C_F = FieldUtil.getColumnFieldName(cls);
 
         try {
             return EntityHelper.invoke(res, cls, C_F);
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败... " , e);
+            throw new SqlSessionException("反射调用private属性设值失败... ", e);
         } catch (InstantiationException e) {
-            throw new SqlSessionException("反射调用实例化失败... " , e);
+            throw new SqlSessionException("反射调用实例化失败... ", e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用方法失败... " , e);
+            throw new SqlSessionException("反射调用方法失败... ", e);
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... " , e);
+            throw new SqlSessionException("sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
-            throw new SqlSessionException(" 反射调用方法或构造方法失败... " , e);
+            throw new SqlSessionException(" 反射调用方法或构造方法失败... ", e);
         }
     }
 
@@ -527,27 +527,27 @@ final class SessionDirectImpl implements SqlSession {
         Map<String, String> C_F = FieldUtil.getColumnFieldName(cls);
         //   List entitys=new ArrayList();
         String sql = selectsql.getSql();
-      //  LOG.info("当前执行的sql语句: \n" + sql + "\n");
+        //  LOG.info("当前执行的sql语句: \n" + sql + "\n");
         DevModelHelper.outParameter(DevModel, sql, "");
         try {
             stm = conn.createStatement();
             res = stm.executeQuery(sql);
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了... " , e);
+            throw new SqlSessionException(" sql执行出错了... ", e);
         }
 
         try {
             return EntityHelper.invoke(res, cls, C_F);
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败... " , e);
+            throw new SqlSessionException("反射调用private属性设值失败... ", e);
         } catch (InstantiationException e) {
-            throw new SqlSessionException("反射调用实例化失败... " , e);
+            throw new SqlSessionException("反射调用实例化失败... ", e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用方法失败... " , e);
+            throw new SqlSessionException("反射调用方法失败... ", e);
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了... " , e);
+            throw new SqlSessionException(" sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
-            throw new SqlSessionException(" 反射调用方法或构造方法失败... " , e);
+            throw new SqlSessionException(" 反射调用方法或构造方法失败... ", e);
         }
     }
 
@@ -589,21 +589,21 @@ final class SessionDirectImpl implements SqlSession {
             int star = (page - 1) * pageSize;
             SQL.append(" ").append("limit").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();
-           // LOG.info("当前执行的sql语句: \n" + sql + "\n");
+            // LOG.info("当前执行的sql语句: \n" + sql + "\n");
             DevModelHelper.outParameter(DevModel, sql, "");
             res = stm.executeQuery(sql);
             pageInfo.setList(EntityHelper.invoke(res, cls, C_F));
             return pageInfo;
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败.... " , e);
+            throw new SqlSessionException("反射调用private属性设值失败.... ", e);
         } catch (InstantiationException e) {
-            throw new SqlSessionException("反射调用实例化失败... " , e);
+            throw new SqlSessionException("反射调用实例化失败... ", e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用方法失败... " , e);
+            throw new SqlSessionException("反射调用方法失败... ", e);
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了... " , e);
+            throw new SqlSessionException(" sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
-            throw new SqlSessionException(" 反射调用方法或构造方法失败... " , e);
+            throw new SqlSessionException(" 反射调用方法或构造方法失败... ", e);
         }
     }
 
@@ -631,21 +631,21 @@ final class SessionDirectImpl implements SqlSession {
             SQL.append(joinSql.getSql());
             SQL.append(" ").append("limit").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();
-           // LOG.info("当前执行的sql语句: \n\t" + sql + "\n");
+            // LOG.info("当前执行的sql语句: \n\t" + sql + "\n");
             DevModelHelper.outParameter(DevModel, sql, "");
             res = stm.executeQuery(sql);
             pageInfo.setList(EntityHelper.invoke(res, cls1, cls2));
             return pageInfo;
         } catch (IllegalAccessException e) {
-            throw new SqlSessionException("反射调用private属性设值失败.." , e);
+            throw new SqlSessionException("反射调用private属性设值失败..", e);
         } catch (InstantiationException e) {
-            throw new SqlSessionException("反射调用实例化失败... " , e);
+            throw new SqlSessionException("反射调用实例化失败... ", e);
         } catch (IntrospectionException e) {
-            throw new SqlSessionException("反射调用方法失败... " , e);
+            throw new SqlSessionException("反射调用方法失败... ", e);
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了... " , e);
+            throw new SqlSessionException(" sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
-            throw new SqlSessionException(" 反射调用方法或构造方法失败... " , e);
+            throw new SqlSessionException(" 反射调用方法或构造方法失败... ", e);
         }
     }
 
@@ -654,7 +654,7 @@ final class SessionDirectImpl implements SqlSession {
         try {
             conn.commit();
         } catch (SQLException e) {
-            throw new SqlSessionException("事务提交出错了..." , e);
+            throw new SqlSessionException("事务提交出错了...", e);
         }
     }
 
@@ -663,7 +663,7 @@ final class SessionDirectImpl implements SqlSession {
         try {
             conn.rollback();
         } catch (SQLException e) {
-            throw new SqlSessionException("事物回滚出错了..." , e);
+            throw new SqlSessionException("事物回滚出错了...", e);
         }
     }
 
@@ -685,7 +685,7 @@ final class SessionDirectImpl implements SqlSession {
                 pstm.close();
             }
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了... " , e);
+            throw new SqlSessionException(" sql执行出错了... ", e);
         }
 
     }
@@ -708,7 +708,7 @@ final class SessionDirectImpl implements SqlSession {
                 this.conn = null;
             }
         } catch (SQLException e) {
-            throw new SqlSessionException(" sql执行出错了... " , e);
+            throw new SqlSessionException(" sql执行出错了... ", e);
         }
     }
 
@@ -716,7 +716,7 @@ final class SessionDirectImpl implements SqlSession {
      * ------------------------处理动态参数的方法--------------------------------------------
      **/
     @SuppressWarnings("rawtypes")
-	private void pstmSetListValues(PreparedStatement pstm, List values) throws SQLException {
+    private void pstmSetListValues(PreparedStatement pstm, List values) throws SQLException {
         for (int i = 0; i < values.size(); ++i) {
             pstm.setObject(i + 1, values.get(i));
         }

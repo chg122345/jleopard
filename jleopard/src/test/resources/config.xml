@@ -6,6 +6,9 @@
 		<!--实体对象所在包 如：org.jleopard.demo.entity-->
 		<entityScan value="org.jleopard.test"></entityScan>
 		<dev value="true"></dev>
+		<useGeneratedKeys value="false"></useGeneratedKeys>
+		<useColumnLabel value="false"/>
+		<autoCommit/>
 	</config>
 	<!--逆向工程配置  包要配置为完整的路径 maven工程和web工程项目路径不同-->
 	<generator>
@@ -14,7 +17,7 @@
 	<!--数据源配置 id固定为dataSource-->
 	<dataSource class="org.jleopard.jdbc.BaseDataSource" id="dataSource">
 		<property name="driver" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/jleopardDemo?characterEncoding=UTF-8"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/jlTest?characterEncoding=UTF-8"/>
 		<property name="username" value="root"/>
 		<property name="password" value="123"/>
 	</dataSource>

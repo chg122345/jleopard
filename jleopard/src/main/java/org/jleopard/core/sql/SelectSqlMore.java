@@ -9,6 +9,7 @@ import org.jleopard.core.util.FieldUtil;
 import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
+import org.jleopard.util.PathUtils;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -33,9 +34,6 @@ public class SelectSqlMore implements Sql{
         this.primaryKeyName=FieldUtil.getPrimaryKeys(cls).get(0);
         Set<String> set=FieldUtil.getAllColumnName(cls);
         set.stream().forEach(column-> allcolumns.add(column));
-       /* for(String column:set){
-            allcolumns.add(column);
-        }*/
         this.allColumnNames=allcolumns;
 
     }
@@ -54,7 +52,7 @@ public class SelectSqlMore implements Sql{
             SQL.append(columnname).append(",");
         }
         SQL.deleteCharAt(SQL.length()-1).append(" ").append("from").append(" ").append(tableName)
-                .append("\n")/*.append("   where").append(" ").append(primaryKeyName)*/;
+                .append(PathUtils.LINE)/*.append("   where").append(" ").append(primaryKeyName)*/;
         log.info(" 生成的sql语句: "+SQL.toString());
         return SQL.toString();
     }
