@@ -35,7 +35,7 @@ public class DeleteSqlMore implements Sql {
     @Override
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
-        SQL.append("delete from ").append(tableName).append(PathUtils.LINE).append(" ").append("where ").append(primaryKeyName);
+        SQL.append("DELETE FROM ").append(tableName).append(PathUtils.LINE).append(" ").append("WHERE ").append(primaryKeyName);
         log.info(" 生成的sql语句: "+SQL.toString());
         return SQL.toString();
     }

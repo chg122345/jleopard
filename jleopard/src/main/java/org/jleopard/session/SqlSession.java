@@ -44,25 +44,28 @@ public interface SqlSession {
     <T> int Update(T entity, Object primaryKey) throws SqlSessionException;
 
     /**
-     * -----------------------Get---------------------------------
+     * -----------------------Get one or one2one m2o---------------------------------
      **/
     ResultSet Get(String sql, Object... args) throws SqlSessionException;
 
-    <T> List<T> Get(Class<T> cls1, Class<?> cls2, String where, Object... args) throws SqlSessionException;
+    <T> List<T> Get(Class<T> cls1, Class<?>[] clazz, String where, Object... args) throws SqlSessionException;
 
     <T> List<T> Get(Class<T> cls, String where, Object... args) throws SqlSessionException;
 
-    <T> T Get(T entity) throws SqlSessionException;
+    <T> List<T> Get(T entity) throws SqlSessionException;
 
     <T> List<T> Get(Class<T> cls, Object... primaryKeys) throws SqlSessionException;
 
     <T> List<T> Get(Class<T> cls) throws SqlSessionException;
 
-    <T> PageInfo Get(Class<T> cls, int page, int pageSize) throws SqlSessionException;
+    <T> PageInfo GetToPage(Class<T> cls, int page, int pageSize, String where, Object... args) throws SqlSessionException;
 
-    <T> PageInfo Get(Class<T> cls1,Class<?>cls2 ,int page, int pageSize) throws SqlSessionException;
-
-    //  List Get(String sql,Object... args);
+    <T> PageInfo GetToPage(Class<T> cls1,Class<?>[] clazz, int page, int pageSize, String where, Object... args) throws SqlSessionException;
+    
+    /**
+     * -----------------------Get o2m---------------------------------
+     **/
+    <T> List<T> GetOne2Many(Class<T> cls1, Class<?>[] clazz, String where, Object... args)throws SqlSessionException;
     /**
      * -----------------------Commit and rollback---------------------------------
      **/

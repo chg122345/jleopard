@@ -16,8 +16,7 @@ import org.jleopard.util.PathUtils;
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
  * <p>
- * DateTime 2018/4/19  
- * update 2018/9/3
+ * DateTime 2018/4/19 update 2018/9/3
  * <p>
  * Find a way for success and not make excuses for failure.
  * <p/>
@@ -40,9 +39,8 @@ public class JoinSql implements Sql, CloumnNames {
 		this.tableName1 = TableUtil.getTableName(cls1);
 		Map<String, Class<?>> fMap = FieldUtil.getForeignKeys(cls1);
 		Set<String> set = FieldUtil.getAllColumnName(cls1);
-		allColumns.addAll(set);
 		for (Class<?> cls2 : clazz) {
-			fMap.forEach((k,v)->{
+			fMap.forEach((k, v) -> {
 				if (v == cls2) {
 					String pk = CollectionUtil.isNotEmpty(FieldUtil.getPrimaryKeys(cls2))
 							? FieldUtil.getPrimaryKeys(cls2).get(0)
@@ -53,8 +51,10 @@ public class JoinSql implements Sql, CloumnNames {
 					t2Columns.put(TableUtil.getTableName(cls2), fC);
 				}
 			});
-			
 		}
+		List<String> fName = FieldUtil.getForeignKeyName(cls1);
+		fName.stream().forEach(i -> set.remove(i));
+		allColumns.addAll(set);
 		this.allColumnNames = allColumns;
 		this.t2ColumnNames = t2Columns;
 	}
@@ -64,6 +64,11 @@ public class JoinSql implements Sql, CloumnNames {
 		return allColumnNames;
 	}
 
+	/**
+	 * SELECT article.id,article.title,article.status,reply.id,reply.content,reply.user_id,user.id,user.name,user.password FROM article
+	 * LEFT JOIN reply ON article.id=reply.id 
+	 * LEFT JOIN user ON article.id=user.id 
+	 */
 	@Override
 	public String getSql() {
 
@@ -86,14 +91,14 @@ public class JoinSql implements Sql, CloumnNames {
 		// 关联表的信息
 		t2ColumnNames.forEach((k, v) -> {
 			v.forEach((f, s) -> {
-				JOIN.append(PathUtils.LINE).append("left join ").append(k).append(" on").append(" ").append(tableName1)
+				JOIN.append(PathUtils.LINE).append("LEFT JOIN ").append(k).append(" ON").append(" ").append(tableName1)
 						.append(".").append(f).append("=").append(k).append(".").append(f).append(" ");
 				s.forEach(c -> COL.append(",").append(k).append(".").append(c));
 			});
 		});
 
 		StringBuilder SQL = new StringBuilder();
-		String sql = String.format("select %s from " + tableName1, COL.toString());
+		String sql = String.format("SELECT %s FROM " + tableName1, COL.toString());
 		SQL.append(sql).append(JOIN);
 		LOG.info("生成的sql语句：" + SQL.toString());
 		return SQL.toString();

@@ -1,15 +1,17 @@
 package org.jleopard.core.sql;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.jleopard.core.util.FieldFilterUtil;
 import org.jleopard.core.util.FieldUtil;
 import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.util.MapUtil;
 import org.jleopard.util.PathUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -18,95 +20,81 @@ import java.util.Map;
  * <p>
  * Find a way for success and not make excuses for failure.
  */
-public class InsertSql implements Sql,CloumnNames,CloumnValue{
+public class InsertSql<T> implements Sql, CloumnNames, CloumnValue {
 
-    private static final Log log=LogFactory.getLog(InsertSql.class);
+	private static final Log log = LogFactory.getLog(InsertSql.class);
 
-    private String tableName;  //表名
+	private String tableName; // 表名
 
-    private List<String> columnNames; //字段名
+	private List<String> columnNames; // 字段名
 
-    private List<Object> values;  //字段对应的值
+	private List<Object> values; // 字段对应的值
 
-  //  private Map<String,Object> C_V;   //字段名==>值
+	/**
+	 *
+	 * @param tableName
+	 * @param map
+	 */
+	public InsertSql(String tableName, Map<String, Object> map) {
+		init(tableName, map);
+	}
 
-    /**
-     *
-     * @param tableName
-     * @param map
-     */
-    public InsertSql(String tableName,Map<String,Object> map) {
-        List<String> columns=new ArrayList<>();
-        List<Object> vs=new ArrayList<>();
-        this.tableName = tableName;
-        for(Map.Entry<String,Object> cv :map.entrySet()){
-            columns.add(cv.getKey());
-           vs.add(cv.getValue());
-        }
-        this.columnNames=columns;
-        this.values=vs;
-     //   System.out.println(columnNames.size());
-    }
+	/**
+	 *
+	 */
+	public InsertSql(T entity) {
+		Map<String, Object> map = FieldUtil.getAllColumnName_Value(entity);
+		Map<String, Field> columnField = FieldUtil.getAllColumnName_Field(entity.getClass());
+		if (MapUtil.isEmpty(map)) {
+			log.error("取到的对象值为空...");
+		}
+		init(TableUtil.getTableName(entity), FieldFilterUtil.filterListFeild(columnField, map));
+	}
 
+	private void init(String tableName, Map<String, Object> map) {
+		List<String> columns = new ArrayList<>();
+		List<Object> vs = new ArrayList<>();
+		this.tableName = tableName;
+		map.forEach((c, v) -> {
+			columns.add(c);
+			vs.add(v);
+		});
+		this.columnNames = columns;
+		this.values = vs;
+	}
 
-    /**
-     *
-     */
-    public InsertSql(Object entity) {
-        List<String> columns=new ArrayList<>();
-        List<Object> vs=new ArrayList<>();
-        this.tableName =TableUtil.getTableName(entity);
-        Map<String,Object> map=FieldUtil.getAllColumnName_Value(entity);
-        if(MapUtil.isEmpty(map)){
-            log.error("取到的对象值为空...");
-        }
-        for(Map.Entry<String,Object> cv :map.entrySet()){
-            columns.add(cv.getKey());
-            vs.add(cv.getValue());
-        }
-        this.columnNames=columns;
-        this.values=vs;
-    }
+	/**
+	 *
+	 * @return 字段名
+	 */
+	@Override
+	public List<String> getColumnNames() {
+		return columnNames;
+	}
 
-    /**
-     *
-     * @return
-     *    字段名
-     */
-    @Override
-    public List<String> getColumnNames() {
-        return columnNames;
-    }
+	/**
+	 * @return 字段名对应的 value
+	 */
+	@Override
+	public List<Object> getValues() {
+		return values;
+	}
 
-    /**
-     * @return
-     *   字段名对应的 value
-     */
-    @Override
-    public List<Object> getValues() {
-        return values;
-    }
-
-    /**
-     *  获取拼接好的sql
-     * @return
-     *     例:  INSERT INTO USER(PHONE,ID,NAME)
-     *              VALUES(?,?,?)
-     */
-    @Override
-    public String getSql(){
-        StringBuilder SQL =new StringBuilder();
-        SQL.append("insert into ").append(tableName).append("(");
-        for(int i=0;i<columnNames.size();++i){
-          SQL.append(columnNames.get(i)).append(",");
-        }
-        SQL.deleteCharAt(SQL.length()-1).append(")").append(PathUtils.LINE + "\t").append("values").append("(");
-        for(int i=0;i<columnNames.size();++i){
-            SQL.append("?").append(",");
-        }
-        SQL.deleteCharAt(SQL.length()-1).append(")");
-        log.info(" 生成的sql语句: "+SQL.toString());
-        return SQL.toString();
-    }
+	/**
+	 * 获取拼接好的sql
+	 * 
+	 * @return 例: INSERT INTO USER(PHONE,ID,NAME) VALUES(?,?,?)
+	 */
+	@Override
+	public String getSql() {
+		StringBuilder SQL = new StringBuilder();
+		SQL.append("INSERT INTO ").append(tableName).append("(");
+		columnNames.forEach(i -> SQL.append(i).append(","));
+		SQL.deleteCharAt(SQL.length() - 1).append(")").append(PathUtils.LINE + "\t").append("VALUES").append("(");
+		columnNames.forEach(i -> SQL.append("?").append(","));
+		SQL.deleteCharAt(SQL.length() - 1).append(")");
+		log.info(" 生成的sql语句: " + SQL.toString());
+		return SQL.toString();
+	}
 
 }

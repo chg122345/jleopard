@@ -1,16 +1,18 @@
 package org.jleopard.core.sql;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 import org.jleopard.core.util.FieldUtil;
 import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.util.MapUtil;
 import org.jleopard.util.PathUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -19,7 +21,7 @@ import java.util.Set;
  * <p>
  * Find a way for success and not make excuses for failure.
  */
-public class SelectSql implements Sql, CloumnNames, CloumnValue{
+public class SelectSql<T> implements Sql, CloumnNames, CloumnValue{
 
     private static final Log log=LogFactory.getLog(SelectSql.class);
 
@@ -31,23 +33,31 @@ public class SelectSql implements Sql, CloumnNames, CloumnValue{
 
     private List<Object> values;  //字段对应的值
 
-    public SelectSql(Object entity) {
+    public SelectSql(T entity) {
         List<String> columns=new ArrayList<>();
         List<String> allcolumns=new ArrayList<>();
         List<Object> vs=new ArrayList<>();
         this.tableName =TableUtil.getTableName(entity);
         Map<String,Object> map=FieldUtil.getAllColumnName_Value(entity);
-        Set<String> set=FieldUtil.getAllColumnName(entity);
+        Map<String, Field> ctMap=FieldUtil.getAllColumnName_Field(entity.getClass());
         if(MapUtil.isEmpty(map)){
             log.error("取到的对象值为空...");
         }
-        for(Map.Entry<String,Object> cv :map.entrySet()){
-            columns.add(cv.getKey());
-            vs.add(cv.getValue());
-        }
-        for(String column:set){
-            allcolumns.add(column);
-        }
+        map.forEach((c,v) -> {
+        	columns.add(c);
+        	vs.add(v);
+        });
+        ctMap.forEach((c,f) -> {
+        	if (Collection.class.isAssignableFrom(f.getType())) {
+				ParameterizedType pm = (ParameterizedType) f.getGenericType();
+				Class<?> fcls = (Class<?>) pm.getActualTypeArguments()[0];
+				if (!TableUtil.isTable(fcls)) {
+					allcolumns.add(c);
+				}
+			}else {
+				allcolumns.add(c);
+			}
+        });
         this.columnNames=columns;
         this.allColumnNames=allcolumns;
         this.values=vs;
@@ -73,17 +83,17 @@ public class SelectSql implements Sql, CloumnNames, CloumnValue{
     @Override
     public String getSql() {
         StringBuilder SQL =new StringBuilder();
-        SQL.append("select ");
+        SQL.append("SELECT ");
         for(String columnname:allColumnNames){
             SQL.append(columnname).append(",");
         }
-        SQL.deleteCharAt(SQL.length()-1).append(" ").append("from").append(" ").append(tableName)
-                .append(PathUtils.LINE).append("   where").append(" ");
+        SQL.deleteCharAt(SQL.length()-1).append(" ").append("FROM").append(" ").append(tableName)
+                .append(PathUtils.LINE).append("   WHERE").append(" ");
         for(int i=0;i<columnNames.size();++i){
             if(i==0) {
                 SQL.append(columnNames.get(i)).append("=").append("?").append(" ");
             }else{
-                SQL.append("and").append(" ").append(columnNames.get(i)).append("=").append("?").append(" ");
+                SQL.append("AND").append(" ").append(columnNames.get(i)).append("=").append("?").append(" ");
             }
         }
         log.info(" 生成的sql语句: "+SQL.toString());
