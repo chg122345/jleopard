@@ -14,7 +14,7 @@ import org.jleopard.pageHelper.PageInfo;
  * <p>
  * Find a way for success and not make excuses for failure.
  *
- * @see  com.leopardframework.core.session.sessionFactory.SessionDirectImpl
+ * @see  org.jleopard.session.sessionFactory.SessionDirectImpl
  *   管理与数据库操作的方法接口
  */
 public interface SqlSession {
@@ -22,62 +22,61 @@ public interface SqlSession {
     /**
      * -----------------------Save---------------------------------
      **/
-    <T> int Save(T entity) throws SqlSessionException;
+    <T> int save(T entity) throws SqlSessionException;
 
-    <T> int SaveMore(List<T> list) throws SqlSessionException;
+    <T> int saveMore(List<T> list) throws SqlSessionException;
 
-    int MySql(String sql, Object... args) throws SqlSessionException;
+    int mySql(String sql, Object... args) throws SqlSessionException;
 
     /**
      * -----------------------Delete---------------------------------
      **/
-    <T> int Delete(T entity) throws SqlSessionException;
+    <T> int delete(T entity) throws SqlSessionException;
 
-    <T> int Delete(Class<T> cls, Object... primaryKeys) throws SqlSessionException;
+    <T> int delete(Class<T> cls, Object... primaryKeys) throws SqlSessionException;
 
 
     /**
      * -----------------------Update---------------------------------
      **/
-    //  int Update(Object entity) throws SQLException;
 
-    <T> int Update(T entity, Object primaryKey) throws SqlSessionException;
+    <T> int update(T entity, Object... primaryKey) throws SqlSessionException;
+
+    <T> int update(T entity) throws SqlSessionException;
+
+    <T> int updateByWhere(T entity,String where,Object...args) throws SqlSessionException;
 
     /**
      * -----------------------Get one or one2one m2o---------------------------------
      **/
-    ResultSet Get(String sql, Object... args) throws SqlSessionException;
+    ResultSet getBySql(String sql, Object... args) throws SqlSessionException;
 
-    <T> List<T> Get(Class<T> cls1, Class<?>[] clazz, String where, Object... args) throws SqlSessionException;
+    <T> List<T> getByJoin(Class<T> cls1, Class<?>[] clazz, String where, Object... args) throws SqlSessionException;
 
-    <T> List<T> Get(Class<T> cls, String where, Object... args) throws SqlSessionException;
+    <T> List<T> getByWhere(Class<T> cls, String where, Object... args) throws SqlSessionException;
 
-    <T> List<T> Get(T entity) throws SqlSessionException;
+    <T> List<T> get(T entity) throws SqlSessionException;
 
-    <T> List<T> Get(Class<T> cls, Object... primaryKeys) throws SqlSessionException;
+    <T> List<T> getById(Class<T> cls, Object... primaryKeys) throws SqlSessionException;
 
-    <T> List<T> Get(Class<T> cls) throws SqlSessionException;
+    <T> List<T> get(Class<T> cls) throws SqlSessionException;
 
-    <T> PageInfo GetToPage(Class<T> cls, int page, int pageSize, String where, Object... args) throws SqlSessionException;
+    <T> PageInfo getToPage(Class<T> cls, int page, int pageSize, String where, Object... args) throws SqlSessionException;
 
-    <T> PageInfo GetToPage(Class<T> cls1,Class<?>[] clazz, int page, int pageSize, String where, Object... args) throws SqlSessionException;
-    
-    /**
-     * -----------------------Get o2m---------------------------------
-     **/
-    <T> List<T> GetOne2Many(Class<T> cls1, Class<?>[] clazz, String where, Object... args)throws SqlSessionException;
+    <T> PageInfo getJoinToPage(Class<T> cls1,Class<?>[] clazz, int page, int pageSize, String where, Object... args) throws SqlSessionException;
+
     /**
      * -----------------------Commit and rollback---------------------------------
      **/
-    void Commit()throws SqlSessionException;
+    void commit()throws SqlSessionException;
 
-    void Rollback() throws SqlSessionException;
+    void rollback() throws SqlSessionException;
     /**
      * -----------------------Close---------------------------------
      **/
 
-    void Stop() throws SqlSessionException;
+    void stop() throws SqlSessionException;
 
-    void Close() throws SqlSessionException;
+    void close() throws SqlSessionException;
 
 }

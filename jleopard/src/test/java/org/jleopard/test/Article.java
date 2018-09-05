@@ -2,8 +2,9 @@ package org.jleopard.test;
 
 import java.util.List;
 
-import org.jleopard.core.EnumPrimary;
+import org.jleopard.core.EnumId;
 import org.jleopard.core.annotation.Column;
+import org.jleopard.core.annotation.OneToMany;
 import org.jleopard.core.annotation.Table;
 
 /**
@@ -16,8 +17,8 @@ import org.jleopard.core.annotation.Table;
 @Table
 public class Article {
 	
-	@Column(isPrimary=EnumPrimary.AUTOINCREMENT)
-	private Long id;
+	@Column(id=EnumId.AUTOINCREMENT)
+	private long id;
 	
 	@Column
 	private String title;
@@ -25,17 +26,17 @@ public class Article {
 	@Column
 	private Byte status;
 	
-	@Column(relation=User.class)
+	@Column(join=User.class)
 	private User user_id;
 	
-	@Column(relation=Reply.class)
+	@OneToMany(join=Reply.class,column="article_id")
 	private List<Reply> replys;
 
 	public Article() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Article(Long id, String title, Byte status, User user_id) {
+	public Article(long id, String title, Byte status, User user_id) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -44,11 +45,11 @@ public class Article {
 	}
 
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -86,8 +87,12 @@ public class Article {
 
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", title=" + title + ", status=" + status + ", user_id=" + user_id + "]";
+		return "Article{" +
+				"id=" + id +
+				", title='" + title + '\'' +
+				", status=" + status +
+				", user_id=" + user_id +
+				", replys=" + replys +
+				'}';
 	}
-	
-	
 }

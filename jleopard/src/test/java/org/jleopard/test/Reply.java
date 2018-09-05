@@ -1,6 +1,6 @@
 package org.jleopard.test;
 
-import org.jleopard.core.EnumPrimary;
+import org.jleopard.core.EnumId;
 import org.jleopard.core.annotation.Column;
 import org.jleopard.core.annotation.Table;
 
@@ -14,12 +14,15 @@ import org.jleopard.core.annotation.Table;
 @Table
 public class Reply {
 	
-	@Column(isPrimary = EnumPrimary.YES)
+	@Column(id = EnumId.YES)
 	private Long id;
 	@Column
 	private String content;
-	@Column(relation = User.class)
+
+	@Column(join = User.class)
 	private User user_id;
+
+	@Column(join=Article.class)
 	private Article article_id;
 	
 	public Reply() {
@@ -57,7 +60,14 @@ public class Reply {
 	public void setArticle_id(Article article_id) {
 		this.article_id = article_id;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Reply{" +
+				"id=" + id +
+				", content='" + content + '\'' +
+				", user_id=" + user_id +
+				", article_id=" + article_id +
+				'}';
+	}
 }

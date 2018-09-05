@@ -1,6 +1,6 @@
 package org.jleopard.test;
 
-import org.jleopard.core.EnumPrimary;
+import org.jleopard.core.EnumId;
 import org.jleopard.core.annotation.Column;
 import org.jleopard.core.annotation.Table;
 
@@ -14,7 +14,7 @@ import org.jleopard.core.annotation.Table;
 @Table("user")
 public class User {
 	
-	@Column(isPrimary=EnumPrimary.YES)
+	@Column(id=EnumId.YES)
 	private String id;
 	@Column
 	private String name;

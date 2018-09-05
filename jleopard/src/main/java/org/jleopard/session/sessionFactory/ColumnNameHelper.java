@@ -14,7 +14,7 @@ import org.jleopard.util.StringUtil;
  * Find a way for success and not make excuses for failure.
  *  获取字段名辅助类
  */
-public class ColumnNameHelper {
+public final class ColumnNameHelper {
 
     public static String getColumnName(Field field){
         Column column=field.getDeclaredAnnotation(Column.class);

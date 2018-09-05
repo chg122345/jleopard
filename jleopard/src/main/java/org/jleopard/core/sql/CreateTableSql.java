@@ -68,7 +68,7 @@ public class CreateTableSql implements Sql {
 			Column column = field.getDeclaredAnnotation(Column.class);
 			if (FieldUtil.isPrimaryKey(column) == 0) {
 				String foreignKeyName = ColumnNameHelper.getColumnName(field); // 外键名
-				Class<?> clazz = column.relation(); // 外键类
+				Class<?> clazz = column.join(); // 外键类
 				if (clazz != Object.class) {
 					String fpkName = CollectionUtil.isNotEmpty(FieldUtil.getPrimaryKeys(clazz))
 							? FieldUtil.getPrimaryKeys(clazz).get(0)
@@ -77,7 +77,7 @@ public class CreateTableSql implements Sql {
 					SQL.append(foreignKeyName).append(" ").append(JavaTypeUtil.getSqlType(fpkType)).append(" ")
 							.append("NOT NULL").append(",").append(PathUtils.LINE);
 					// endSql="key ("+foreignKeyName+")";
-					String joinSql = "CONSTRAINT FOREIGN KEY(" + foreignKeyName + ") REFERENCE "
+					String joinSql = "CONSTRAINT FOREIGN KEY(" + foreignKeyName + ") REFERENCES "
 							+ TableUtil.getTableName(clazz) + "(" + fpkName
 							+ ") ON DELETE CASCADE ON UPDATE CASCADE, \n";
 					endSql.append(joinSql);

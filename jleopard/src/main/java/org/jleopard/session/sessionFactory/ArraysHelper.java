@@ -22,6 +22,7 @@ import org.jleopard.util.ArrayUtil;
  *  辅助类 判断获取值并拼接sql...
  */
 final class ArraysHelper {
+
 private static final Log LOG=LogFactory.getLog(SessionDirectImpl.class);
     public static String getSql(Object[] values){
         if (ArrayUtil.isEmpty(values)){
