@@ -1,15 +1,15 @@
 package org.jleopard.generator;
 
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
+import org.jleopard.core.util.ConfiguationUtil;
 import org.jleopard.core.util.TableUtil;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.session.Configuration;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -28,18 +28,6 @@ public final class GeneratorFactory {
     private Configuration configuration;
     private DataSource dataSource;
     private Connection conn;
-    private volatile static GeneratorFactory generatorFactory;
-
-    public static GeneratorFactory getGeneratorFactory(Configuration configuration){
-        if (generatorFactory==null){
-            synchronized (GeneratorFactory.class){
-                if (generatorFactory==null){
-                    generatorFactory = new GeneratorFactory(configuration);
-                }
-            }
-        }
-        return generatorFactory;
-    }
 
     private GeneratorFactory(Configuration configuration) {
     	this.configuration = configuration;
@@ -71,5 +59,25 @@ public final class GeneratorFactory {
             tableToJavaBean.tableToBean(conn,tableName,generatorPackage,generatorProject);
         }
         LOG.info("Success ! 工程目标路径 : "+generatorProject+generatorPackage);
+    }
+
+    public static class Builder {
+
+        private volatile static GeneratorFactory generatorFactory;
+
+        public static GeneratorFactory build(Configuration configuration){
+            if (generatorFactory==null){
+                synchronized (GeneratorFactory.class){
+                    if (generatorFactory==null){
+                        generatorFactory = new GeneratorFactory(configuration);
+                    }
+                }
+            }
+            return generatorFactory;
+        }
+
+        public static GeneratorFactory build(String xmlPath){
+            return build(ConfiguationUtil.getConfiguration(xmlPath));
+        }
     }
 }

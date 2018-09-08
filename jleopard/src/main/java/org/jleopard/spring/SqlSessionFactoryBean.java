@@ -33,11 +33,11 @@ public class SqlSessionFactoryBean {
 	}
 	
 	public SessionFactory getSessionFactory() {
-		return SessionFactory.getSessionFactory(this.getConfiguration());
+		return SessionFactory.Builder.build(this.getConfiguration());
 	}
 
 	public GeneratorFactory getGeneratorFactory() {
-		return GeneratorFactory.getGeneratorFactory(this.getConfiguration());
+		return GeneratorFactory.Builder.build(this.getConfiguration());
 	}
 
 	public DataSource getDataSource() {

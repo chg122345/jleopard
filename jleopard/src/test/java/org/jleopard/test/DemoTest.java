@@ -3,15 +3,7 @@ package org.jleopard.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jleopard.core.Factory;
-import org.jleopard.core.sql.CreateTableSql;
-import org.jleopard.core.sql.DeleteSql;
-import org.jleopard.core.sql.DeleteSqlMore;
-import org.jleopard.core.sql.InsertSql;
 import org.jleopard.core.sql.JoinSql;
-import org.jleopard.core.sql.SelectSql;
-import org.jleopard.core.sql.SelectSqlMore;
-import org.jleopard.core.sql.UpdateSql;
 import org.jleopard.exception.SqlSessionException;
 import org.jleopard.session.SqlSession;
 import org.jleopard.session.sessionFactory.SessionFactory;
@@ -50,7 +42,7 @@ public class DemoTest {
 //	        System.out.println("Sql value："+insert.getPkValue());
 		
 	//	System.out.println((User.class == Object.class));
-	        SessionFactory factory= Factory.getSessionFactory("classpath:config.xml");
+	        SessionFactory factory= SessionFactory.Builder.build("classpath:config.xml");
 	        SqlSession session=factory.openSession();
 	        try {
 	        //	System.out.println(session.getToPage(User.class,1,2,"where name = ?","leopard").getList());

@@ -1,7 +1,7 @@
 package org.jleopard.session.sessionFactory;
 
 
-
+import org.jleopard.core.util.ConfiguationUtil;
 import org.jleopard.session.Configuration;
 import org.jleopard.session.SqlSession;
 
@@ -20,13 +20,6 @@ public final class SessionFactory {
 
     private Configuration configuration;
 
-    private volatile static SessionFactory sessionFactory;
-
-    public static SessionFactory getSessionFactory(Configuration configuration) {
-            sessionFactory = new SessionFactory(configuration);
-        return sessionFactory;
-    }
-
     private SessionFactory(Configuration configuration) {
         this.configuration = configuration;
     }
@@ -35,5 +28,18 @@ public final class SessionFactory {
         return new SessionDirectImpl(configuration);
     }
 
+    public static class Builder {
+
+        private volatile static SessionFactory sessionFactory;
+
+        public static SessionFactory build(Configuration configuration) {
+            sessionFactory = new SessionFactory(configuration);
+            return sessionFactory;
+        }
+
+        public static SessionFactory build(String xmlPath){
+            return build(ConfiguationUtil.getConfiguration(xmlPath));
+        }
+    }
 
 }
