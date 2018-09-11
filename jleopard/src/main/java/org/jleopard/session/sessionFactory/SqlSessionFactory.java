@@ -16,11 +16,11 @@ import org.jleopard.session.SqlSession;
  * 加载全局配置
  * @see SessionDirectImpl
  */
-public final class SessionFactory {
+public final class SqlSessionFactory {
 
     private Configuration configuration;
 
-    private SessionFactory(Configuration configuration) {
+    private SqlSessionFactory(Configuration configuration) {
         this.configuration = configuration;
     }
 
@@ -30,14 +30,14 @@ public final class SessionFactory {
 
     public static class Builder {
 
-        private volatile static SessionFactory sessionFactory;
+        private volatile static SqlSessionFactory sessionFactory;
 
-        public static SessionFactory build(Configuration configuration) {
-            sessionFactory = new SessionFactory(configuration);
+        public static SqlSessionFactory build(Configuration configuration) {
+            sessionFactory = new SqlSessionFactory(configuration);
             return sessionFactory;
         }
 
-        public static SessionFactory build(String xmlPath){
+        public static SqlSessionFactory build(String xmlPath){
             return build(ConfiguationUtil.getConfiguration(xmlPath));
         }
     }

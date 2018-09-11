@@ -6,7 +6,7 @@ import java.util.List;
 import org.jleopard.core.sql.JoinSql;
 import org.jleopard.exception.SqlSessionException;
 import org.jleopard.session.SqlSession;
-import org.jleopard.session.sessionFactory.SessionFactory;
+import org.jleopard.session.sessionFactory.SqlSessionFactory;
 
 /**
  * @Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -42,7 +42,7 @@ public class DemoTest {
 //	        System.out.println("Sql value："+insert.getPkValue());
 		
 	//	System.out.println((User.class == Object.class));
-	        SessionFactory factory= SessionFactory.Builder.build("classpath:config.xml");
+	        SqlSessionFactory factory= SqlSessionFactory.Builder.build("classpath:config.xml");
 	        SqlSession session=factory.openSession();
 	        try {
 	        //	System.out.println(session.getToPage(User.class,1,2,"where name = ?","leopard").getList());

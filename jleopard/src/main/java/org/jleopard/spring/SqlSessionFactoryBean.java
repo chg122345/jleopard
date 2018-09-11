@@ -4,7 +4,7 @@ import javax.sql.DataSource;
 
 import org.jleopard.generator.GeneratorFactory;
 import org.jleopard.session.Configuration;
-import org.jleopard.session.sessionFactory.SessionFactory;
+import org.jleopard.session.sessionFactory.SqlSessionFactory;
 
 /**
  * @Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -32,8 +32,8 @@ public class SqlSessionFactoryBean {
 		
 	}
 	
-	public SessionFactory getSessionFactory() {
-		return SessionFactory.Builder.build(this.getConfiguration());
+	public SqlSessionFactory getSessionFactory() {
+		return SqlSessionFactory.Builder.build(this.getConfiguration());
 	}
 
 	public GeneratorFactory getGeneratorFactory() {
