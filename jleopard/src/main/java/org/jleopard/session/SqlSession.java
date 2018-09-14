@@ -2,6 +2,7 @@ package org.jleopard.session;
 
 
 import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.List;
 
 import org.jleopard.exception.SqlSessionException;
@@ -53,7 +54,7 @@ public interface SqlSession {
 
     <T> List<T> getByJoin(Class<T> cls1, Class<?>[] clazz, String where, Object... args) throws SqlSessionException;
 
-    <T> List<T> getByWhere(Class<T> cls, String where, Object... args) throws SqlSessionException;
+    <T> Collection<T> getByWhere(Class<T> cls, String where, Object... args) throws SqlSessionException;
 
     <T> List<T> get(T entity) throws SqlSessionException;
 

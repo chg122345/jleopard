@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jleopard-configuration  PUBLIC "-// jleopard.org//DTD Config 1.0//EN"
+	"http://www.jleopard.org/dtd/jleopard.dtd">
+<jleopard-configuration>
+<!--数据源配置 id固定为dataSource-->
+	<dataSource class="org.jleopard.jdbc.BaseDataSource" id="dataSource">
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/jlTest?characterEncoding=UTF-8"/>
+		<property name="username" value="root"/>
+		<property name="password" value="chg122345"/>
+	</dataSource>
+	<config>
+		<!--实体对象所在包 如：org.jleopard.demo.entity-->
+		<entityScan value="org.jleopard.test"></entityScan>
+		<useGeneratedKeys value="false"></useGeneratedKeys>
+		<useColumnLabel value="false"/>
+		<autoCommit/>
+		<dev value="true"></dev>
+	</config>
+	<!--逆向工程配置  包要配置为完整的路径 maven工程和web工程项目路径不同-->
+	<generator>
+       		<target package="org.jleopard.demo.entity" project="/src/main/java/"/>
+	</generator>
+	
+</jleopard-configuration>

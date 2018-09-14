@@ -16,14 +16,12 @@ import org.jleopard.core.util.TableUtil;
 import org.jleopard.exception.SqlSessionException;
 import org.jleopard.session.SqlSession;
 import org.jleopard.util.CollectionUtil;
-import org.jleopard.util.StringUtil;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
  * <p>
  * DateTime 2018/4/10
  * <p>
- * A novice on the road, please give me a suggestion. 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
  * <p>
  * 对查询出的对象赋值
@@ -191,7 +189,7 @@ final class EntityHelper {
                     // 处理一对多关系字段
                     for (Map.Entry<String, Class<?>> jft : FieldUtil.getJoinAndForeignKeys(cls1).entrySet()) { // 是一对多关系
                         if (jct.getValue() == jft.getValue()) {
-                            Collection list = session.getByWhere(jft.getValue(), jft.getKey() + " = ?", res.getObject(tableName1 + "." + idColName));
+                            Collection<?> list = session.getByWhere(jft.getValue(), jft.getKey() + " = ?", res.getObject(tableName1 + "." + idColName));
                             if (CollectionUtil.isNotEmpty(list)) {
                                 write.invoke(entity, list);
                             } else {

@@ -81,7 +81,7 @@ public class TableToJavaBean {
         importPackage(md, columnCount, sb);
         sb.append("import org.jleopard.core.annotation.*;");
         sb.append(LINE);
-        sb.append("import org.jleopard.core.EnumPrimary;");
+        sb.append("import org.jleopard.core.EnumId;");
         sb.append(LINE);
         sb.append(LINE);
         generatorInfo(sb);
@@ -157,7 +157,7 @@ public class TableToJavaBean {
             String fieldName=StringUtil.underlineToCamelhump(columnName.toLowerCase());
             sb.append("@Column");
             if(columnName.equals(primaryKeyName)){
-                sb.append("(").append("value=").append("\"").append(columnName).append("\"").append(",").append("isPrimary = EnumPrimary.YES").append(")");
+                sb.append("(").append("value=").append("\"").append(columnName).append("\"").append(",").append("id = EnumId.YES").append(")");
             }else{
                 sb.append("(").append("\"").append(columnName).append("\"").append(")");
             }

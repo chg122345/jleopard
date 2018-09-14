@@ -10,9 +10,8 @@ import org.jleopard.bean.property.PropsInfo;
  * <p>
  * DateTime 2018/4/12
  * <p>
- * A novice on the road, please give me a suggestion.
- * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
+ * <p>
  *  存储bean 信息..
  */
 public class BeanInfo {

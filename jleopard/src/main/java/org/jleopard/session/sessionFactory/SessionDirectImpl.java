@@ -15,6 +15,7 @@ import org.jleopard.util.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +31,7 @@ import java.util.Set;
  */
 final class SessionDirectImpl implements SqlSession {
 
-    private static final Log LOG = LogFactory.getLog(SessionDirectImpl.class);
+    private static final Log log = LogFactory.getLog(SessionDirectImpl.class);
     private Configuration configuration;
     private DataSource dataSource;
     private Connection conn;
@@ -41,7 +42,7 @@ final class SessionDirectImpl implements SqlSession {
 
     private void open() {
         if (conn == null) {
-            LOG.error(" 获取数据库连接失败....");
+            log.error(" 获取数据库连接失败....");
             throw new SessionException("获取数据库连接失败... or session 已经关闭...");
         } else {
             try {
@@ -65,13 +66,13 @@ final class SessionDirectImpl implements SqlSession {
         try {
             this.conn = dataSource.getConnection();
         } catch (SQLException e1) {
-            LOG.error("获取数据库连接失败...");
+            log.error("获取数据库连接失败...");
             throw new SessionException("获取数据库连接失败...", e1);
         }
         Set<Class<?>> set = ClassUtil.getClassSetByPackagename(configuration.getEntityPackage());
         List<String> list = TableUtil.showAllTableName(conn);
         if (CollectionUtil.isEmpty(set)) {
-            LOG.error("获取到的实体类为空...");
+            log.error("获取到的实体类为空...");
             throw new SessionException("获取到的实体类为空...");
         }
         set.stream().forEach(cls -> {
@@ -82,7 +83,7 @@ final class SessionDirectImpl implements SqlSession {
                     stm = conn.createStatement();
                     stm.executeUpdate(sql);
                 } catch (SQLException e) {
-                    LOG.error(cls + "创建表时出错...", e);
+                    log.error(cls + "创建表时出错...", e);
                     e.printStackTrace();
                 }
             }
@@ -125,7 +126,7 @@ final class SessionDirectImpl implements SqlSession {
     @Override
     public <T> int saveMore(List<T> list) throws SqlSessionException {
         if (CollectionUtil.isEmpty(list)) {
-            LOG.warn(" 传入的 list 对象为空...");
+            log.warn(" 传入的 list 对象为空...");
             return 0;
         }
         int result = 0;
@@ -229,7 +230,7 @@ final class SessionDirectImpl implements SqlSession {
         UpdateSql updatesql = new UpdateSql(entity);
         List pks = FieldUtil.getPrimaryKeys(entity.getClass());
         if (CollectionUtil.isEmpty(pks)) {
-            LOG.error(entity + " 没有找到唯一标识主键...");
+            log.error(entity + " 没有找到唯一标识主键...");
             throw new NotFoundFieldException(entity + " 没有找到唯一标识主键...");
         }
         StringBuilder SQL = new StringBuilder();
@@ -267,7 +268,7 @@ final class SessionDirectImpl implements SqlSession {
         UpdateSql<T> updatesql = new UpdateSql<T>(entity);
         List<String> pks = FieldUtil.getPrimaryKeys(entity.getClass());
         if (CollectionUtil.isEmpty(pks)) {
-            LOG.error(entity + " 没有找到唯一标识主键...");
+            log.error(entity + " 没有找到唯一标识主键...");
             throw new NotFoundFieldException(entity + " 没有找到唯一标识主键...");
         }
         StringBuilder SQL = new StringBuilder();
@@ -296,7 +297,7 @@ final class SessionDirectImpl implements SqlSession {
         UpdateSql<T> updatesql = new UpdateSql<T>(entity);
         List<String> pks = FieldUtil.getPrimaryKeys(entity.getClass());
         if (CollectionUtil.isEmpty(pks)) {
-            LOG.error(entity + " 没有找到唯一标识主键...");
+            log.error(entity + " 没有找到唯一标识主键...");
             throw new NotFoundFieldException(entity + " 没有找到唯一标识主键...");
         }
         StringBuilder SQL = new StringBuilder();
@@ -395,7 +396,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @Override
-    public <T> List<T> getByWhere(Class<T> cls, String where, Object... args) throws SqlSessionException {
+    public <T> Collection<T> getByWhere(Class<T> cls, String where, Object... args) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
         StringBuilder SQL = new StringBuilder();
@@ -475,7 +476,7 @@ final class SessionDirectImpl implements SqlSession {
         StringBuilder SQL = new StringBuilder();
         List pks = FieldUtil.getPrimaryKeys(cls);
         if (CollectionUtil.isEmpty(pks)) {
-            LOG.error(cls + " 没有找到唯一标识主键...");
+            log.error(cls + " 没有找到唯一标识主键...");
             throw new NotFoundFieldException(cls + " 没有找到唯一标识主键...");
         }
         SQL.append(selectsql.getSql()).append(PathUtils.LINE).append(" WHERE").append(" ").append(pks.get(0))
@@ -622,7 +623,9 @@ final class SessionDirectImpl implements SqlSession {
     @Override
     public void commit() throws SqlSessionException {
         try {
-            conn.commit();
+        	if (!conn.getAutoCommit()) {
+        		 conn.commit();
+        	}
         } catch (SQLException e) {
             throw new SqlSessionException("事务提交出错了...", e);
         }

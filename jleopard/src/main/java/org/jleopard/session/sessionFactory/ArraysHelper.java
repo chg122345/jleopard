@@ -15,10 +15,8 @@ import org.jleopard.util.ArrayUtil;
  * <p>
  * DateTime 2018/4/8
  * <p>
- * A novice on the road, please give me a suggestion.
- * 众里寻他千百度，蓦然回首，那人却在，灯火阑珊处。
  * Find a way for success and not make excuses for failure.
- *
+ * <p>
  *  辅助类 判断获取值并拼接sql...
  */
 final class ArraysHelper {
