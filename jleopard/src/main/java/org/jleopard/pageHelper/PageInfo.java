@@ -1,6 +1,6 @@
 package org.jleopard.pageHelper;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -25,7 +25,7 @@ public class PageInfo {
 
     private int pageEndRow = 0; // 每页显示数据的终止数
 
-    private List<?> list;   //查出的信息
+    private Collection<?> list;   //查出的信息
 
 
     public PageInfo(int totalRows, int pageSize) {
@@ -64,7 +64,7 @@ public class PageInfo {
         this.page = page;
     }
 
-    public void setList(List<?> list) {
+    public void setList(Collection<?> list) {
         this.list = list;
     }
 
@@ -93,7 +93,7 @@ public class PageInfo {
         return pageEndRow;
     }
 
-    public List<?> getList() {
+    public Collection<?> getList() {
         return list;
     }
 }

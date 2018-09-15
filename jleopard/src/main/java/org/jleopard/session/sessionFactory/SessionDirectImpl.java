@@ -124,13 +124,13 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @Override
-    public <T> int saveMore(List<T> list) throws SqlSessionException {
-        if (CollectionUtil.isEmpty(list)) {
+    public <T> int saveMore(Collection<T> collection) throws SqlSessionException {
+        if (CollectionUtil.isEmpty(collection)) {
             log.warn(" 传入的 list 对象为空...");
             return 0;
         }
         int result = 0;
-        for (Object object : list) {
+        for (Object object : collection) {
             int temp = this.save(object);
             if (temp > 0) {
                 result++;
@@ -432,7 +432,7 @@ final class SessionDirectImpl implements SqlSession {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
-    public <T> List<T> get(T entity) throws SqlSessionException {
+    public <T> Collection<T> get(T entity) throws SqlSessionException {
         this.open();
         SelectSql selectsql = new SelectSql(entity);
         String sql = selectsql.getSql();
@@ -470,7 +470,7 @@ final class SessionDirectImpl implements SqlSession {
      */
     @SuppressWarnings("rawtypes")
     @Override
-    public <T> List<T> getById(Class<T> cls, Object... primaryKeys) throws SqlSessionException {
+    public <T> Collection<T> getById(Class<T> cls, Object... primaryKeys) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
         StringBuilder SQL = new StringBuilder();
@@ -506,7 +506,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SessionException
      */
     @Override
-    public <T> List<T> get(Class<T> cls) throws SqlSessionException {
+    public <T> Collection<T> get(Class<T> cls) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
         Map<String, String> C_F = FieldUtil.getColumnFieldName(cls);
