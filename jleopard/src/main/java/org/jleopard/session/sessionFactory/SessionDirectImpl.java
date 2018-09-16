@@ -15,10 +15,7 @@ import org.jleopard.util.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -119,7 +116,7 @@ final class SessionDirectImpl implements SqlSession {
     /**
      * 一次添加多个对象进数据库
      *
-     * @param list 把要操作的对象添用一个list封装完整
+     * @param collection 把要操作的对象添用一个list封装完整
      * @return 数据库变化的 row 数
      * @throws SqlSessionException
      */

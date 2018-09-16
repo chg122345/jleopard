@@ -92,7 +92,7 @@ public class CreateTableSql implements Sql {
 					}
 				}
 
-			} else if (FieldUtil.isPrimaryKey(column) == 1) {
+			} else if (FieldUtil.isPrimaryKey(column) == 1 || FieldUtil.isPrimaryKey(column) == 3) {
 				SQL.append(ColumnNameHelper.getColumnName(field)).append(" ")
 						.append(JavaTypeUtil.getSqlType(field.getType())).append(" ").append("PRIMARY KEY").append(" ")
 						.append("NOT NULL").append(",").append(PathUtils.LINE);

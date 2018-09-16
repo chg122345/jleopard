@@ -17,8 +17,8 @@ import org.jleopard.core.annotation.Table;
 @Table
 public class Article {
 	
-	@Column(id=EnumId.AUTOINCREMENT)
-	private long id;
+	@Column(id=EnumId.UUID)
+	private String id;
 	
 	@Column
 	private String title;
@@ -36,7 +36,7 @@ public class Article {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Article(long id, String title, Byte status, User user_id) {
+	public Article(String id, String title, Byte status, User user_id) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -45,11 +45,11 @@ public class Article {
 	}
 
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

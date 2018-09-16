@@ -3,6 +3,7 @@ package org.jleopard.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jleopard.core.sql.InsertSql;
 import org.jleopard.core.sql.JoinSql;
 import org.jleopard.exception.SqlSessionException;
 import org.jleopard.session.SqlSession;
@@ -29,13 +30,13 @@ public class DemoTest {
 	        List<Reply> list = new ArrayList<>();
 	        list.add(r);
 	        Article a = new Article();
-	        a.setId(Long.valueOf(101));
+	        a.setId("10000");
 	        a.setTitle("这是标题");
 	        a.setStatus(Byte.valueOf("1"));
 	        a.setUser_id(user);
 	        a.setReplys(list);
 			r.setArticle_id(a);
-	        JoinSql insert = new JoinSql(Article.class, new Class<?>[]{User.class,Reply.class});
+	        InsertSql insert = new InsertSql(a);
 	        System.out.println("Sql 语句："+insert.getSql());
 //	        JoinSql jsql = new JoinSql(Article.class, Reply.class,User.class,Post.class);
 //	        System.out.println(jsql.getSql());
@@ -46,7 +47,8 @@ public class DemoTest {
 	        SqlSession session=factory.openSession();
 	        try {
 	        //	System.out.println(session.getToPage(User.class,1,2,"where name = ?","leopard").getList());
-	        	System.out.println(session.getByJoin(Article.class, new Class<?>[]{User.class},"article.id=?",101));
+	        	//System.out.println(session.getByJoin(Article.class, new Class<?>[]{User.class},"article.id=?",101));
+				session.save(a);
 	        	session.commit();
 	           /* PageInfo pg=session.Get(Article.class,User.class,1,9);
 	            List<Article> list=(List<Article>) pg.getList();

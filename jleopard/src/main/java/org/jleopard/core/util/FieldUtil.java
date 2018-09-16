@@ -4,14 +4,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 import org.jleopard.core.EnumId;
 import org.jleopard.core.annotation.Column;
 import org.jleopard.core.annotation.OneToMany;
@@ -35,52 +29,92 @@ public class FieldUtil {
     private static final Log log = LogFactory.getLog(FieldUtil.class);
 
     /**
-     * 获取 字段名 值 主用于insert delete (2018-4-18 添加外键的值)
+     * 获取 字段名 值 主用于insert (2018-9-16 根据主键类型修改主键的值的值)
      *
      * @param entity
-     * @return Map<String                               ,                               Object> key :对应的字段名 value : 相对应的值
+     * @return Map<String , Object> key :对应的字段名 value : 相对应的值
      */
-    public static Map<String, Object> getAllColumnName_Value(Object entity) {
+    public static Map<String, Object> getColumnName_Value(Object entity) {
         Map<String, Object> c_v = new LinkedHashMap<>();
-        String columnName;
-        Object fieldValue;
         Class<?> cls = entity.getClass();
         Field[] fields = cls.getDeclaredFields();
         for (Field field : fields) {
             if (!field.isAnnotationPresent(Column.class) || Collection.class.isAssignableFrom(field.getType())) {
                 continue; // 没有注解 集合属性 不是我们要的对象 ignore
             }
-            try {
-                PropertyDescriptor pd = new PropertyDescriptor(field.getName(), cls);
-                Method method = pd.getReadMethod();
-                if (TableUtil.isTable(field.getType())) { // 判断是否为我们所需的对象类
-                    fieldValue = method.invoke(entity);
-                    if (fieldValue == null) {
-                        continue;
-                    } else {
-                        String fname = CollectionUtil.isNotEmpty(FieldUtil.getPrimaryKeys(field.getType()))
-                                ? FieldUtil.getPrimaryKeys(field.getType()).get(0)
-                                : null;
-                        fieldValue = getAllColumnName_Value(fieldValue).get(fname); // 外连接表的主键值
-                    }
-                } else {
-                    fieldValue = method.invoke(entity);
-                }
-                if (fieldValue == null || "".equals(fieldValue)
-                        || (fieldValue instanceof Integer && (Integer) fieldValue == 0)
-                        || (fieldValue instanceof Long && (Long) fieldValue == 0)
-                        || (fieldValue instanceof Double && (Double) fieldValue == 0.0)) {
-                    continue; // 空值 不是我们所要的对象 ignore
-                }
-                columnName = ColumnNameHelper.getColumnName(field);
-                // System.out.println(columnName+" ");
-                c_v.put(columnName, fieldValue); // 取到我们需要的打包
-            } catch (Exception e) {
-                log.error("getAllFieldName_Value  获取值失败..." + e);
-                throw new RuntimeException("getAllFieldName_Value  获取值失败..." + e);
+            Column column = field.getDeclaredAnnotation(Column.class);
+            if (isPrimaryKey(column) == 2) {
+                continue; // 是自增主键 不要
+            }
+            if (isPrimaryKey(column) == 3) {
+                // UUID生成主键
+                String columnName = ColumnNameHelper.getColumnName(field);
+                c_v.put(columnName, UUID.randomUUID().toString().replaceAll("-", ""));
+            } else {
+                valueFilter(entity, c_v, cls, field);
             }
         }
         return c_v;
+    }
+
+    /**
+     * 获取 字段名 值 主用于insert delete (2018-4-18 添加外键的值)
+     *
+     * @param entity
+     * @return Map<String , Object> key :对应的字段名 value : 相对应的值
+     */
+    public static Map<String, Object> getAllColumnName_Value(Object entity) {
+        Map<String, Object> c_v = new LinkedHashMap<>();
+        Class<?> cls = entity.getClass();
+        Field[] fields = cls.getDeclaredFields();
+        for (Field field : fields) {
+            if (!field.isAnnotationPresent(Column.class) || Collection.class.isAssignableFrom(field.getType())) {
+                continue; // 没有注解 集合属性 不是我们要的对象 ignore
+            }
+            valueFilter(entity, c_v, cls, field);
+        }
+        return c_v;
+    }
+
+    /**
+     * 过滤空值 0
+     * @param entity
+     * @param c_v
+     * @param cls
+     * @param field
+     */
+    private static void valueFilter(Object entity, Map<String, Object> c_v, Class<?> cls, Field field) {
+        Object fieldValue;
+        String columnName;
+        try {
+            PropertyDescriptor pd = new PropertyDescriptor(field.getName(), cls);
+            Method method = pd.getReadMethod();
+            if (TableUtil.isTable(field.getType())) { // 判断是否为我们所需的对象类
+                fieldValue = method.invoke(entity);
+                if (fieldValue == null) {
+                    return;
+                } else {
+                    String fname = CollectionUtil.isNotEmpty(FieldUtil.getPrimaryKeys(field.getType()))
+                            ? FieldUtil.getPrimaryKeys(field.getType()).get(0)
+                            : null;
+                    fieldValue = getAllColumnName_Value(fieldValue).get(fname); // 外连接表的主键值
+                }
+            } else {
+                fieldValue = method.invoke(entity);
+            }
+            if (fieldValue == null || "".equals(fieldValue)
+                    || (fieldValue instanceof Integer && (Integer) fieldValue == 0)
+                    || (fieldValue instanceof Long && (Long) fieldValue == 0)
+                    || (fieldValue instanceof Double && (Double) fieldValue == 0.0)) {
+                return;
+            }
+            columnName = ColumnNameHelper.getColumnName(field);
+            // System.out.println(columnName+" ");
+            c_v.put(columnName, fieldValue); // 取到我们需要的打包
+        } catch (Exception e) {
+            log.error("getAllFieldName_Value  获取值失败..." + e);
+            throw new RuntimeException("getAllFieldName_Value  获取值失败..." + e);
+        }
     }
 
     /**
@@ -92,13 +126,6 @@ public class FieldUtil {
     public static Map<String, Object> getExceptPK_ColumnName_Value(Object entity) {
         Map<String, Object> c_v = new LinkedHashMap<>();
         Class<?> cls = entity.getClass();
-        String columnName;
-        Object fieldValue;
-        try {
-        } catch (Exception e) {
-            log.error("getAllFieldName_Value  实例化失败..", e);
-            e.printStackTrace();
-        }
         Field[] fields = cls.getDeclaredFields();
         for (Field field : fields) {
             if (!field.isAnnotationPresent(Column.class) || Collection.class.isAssignableFrom(field.getType())) {
@@ -108,32 +135,8 @@ public class FieldUtil {
             if (isPrimaryKey(column) > 0) {
                 continue; // 是主键 不要
             }
-            try {
-                PropertyDescriptor pd = new PropertyDescriptor(field.getName(), cls);
-                Method readMethod = pd.getReadMethod();
-                if (TableUtil.isTable(field.getType())) { // 判断是否为我们所需的对象类
-                    fieldValue = readMethod.invoke(entity);
-                    fieldValue = getAllColumnName_Value(fieldValue)
-                            .get(CollectionUtil.isNotEmpty(FieldUtil.getPrimaryKeys(field.getType()))
-                                    ? FieldUtil.getPrimaryKeys(field.getType()).get(0)
-                                    : null); // 外连接表的主键值
-                } else {
-                    fieldValue = readMethod.invoke(entity);
-                }
-                if (fieldValue == null || "".equals(fieldValue)
-                        || (fieldValue instanceof Integer && (Integer) fieldValue == 0)
-                        || (fieldValue instanceof Long && (Long) fieldValue == 0)
-                        || (fieldValue instanceof Double && (Double) fieldValue == 0.0)) {
-                    continue; // 空值 不是我们所要的对象 ignore
-                }
-                columnName = ColumnNameHelper.getColumnName(field);
-                c_v.put(columnName, fieldValue); // 取到我们需要的打包
-            } catch (Exception e) {
-                log.error("getAllFieldName_Value  获取值失败...");
-                throw new RuntimeException("getAllFieldName_Value  获取值失败..." + e);
-            }
+            valueFilter(entity, c_v, cls, field);
         }
-
         return c_v;
     }
 
@@ -313,7 +316,12 @@ public class FieldUtil {
     }
 
 
-    public static  Map<String, Class<?>> getJoinColumnAndType(Class<?> cls){
+    /**
+     * 获取关联的列名和字段类型
+     * @param cls
+     * @return
+     */
+    public static Map<String, Class<?>> getJoinColumnAndType(Class<?> cls) {
         Map<String, Class<?>> ct = new HashMap<>();
         Field[] fields = cls.getDeclaredFields();
         for (Field field : fields) {
@@ -324,8 +332,9 @@ public class FieldUtil {
         }
         return ct;
     }
+
     /**
-     * 获取o2m关联信息 （k->关联的表外键字段名 v->关联的类
+     * 获取o2m关联信息 （k->关联的表外键字段名 v->关联的类)
      *
      * @param cls
      * @return
@@ -353,7 +362,12 @@ public class FieldUtil {
         return tf;
     }
 
-    private static Class<?> getJoinClass(Field field){
+    /**
+     * 获取关联外键的表对应实体类
+     * @param field
+     * @return
+     */
+    private static Class<?> getJoinClass(Field field) {
         OneToMany o2m = field.getDeclaredAnnotation(OneToMany.class);
         Class<?> clazz = o2m.join();
         if (clazz == Object.class) {
@@ -367,11 +381,12 @@ public class FieldUtil {
         }
         return clazz;
     }
+
     /**
      * 判断是否为主键 返回类型
      *
      * @param column
-     * @return 0: 不是主键 1 : 普通主键 2 : 自增主键
+     * @return (0: 不是主键) (1 : 普通主键) (2 : 自增主键) (3 : uuid生成主键)
      */
     public static int isPrimaryKey(Column column) {
         if (column == null) {
@@ -382,8 +397,10 @@ public class FieldUtil {
                 return EnumId.NO.getCode();
             case YES:
                 return EnumId.YES.getCode();
-            case AUTOINCREMENT:
-                return EnumId.AUTOINCREMENT.getCode();
+            case AUTO:
+                return EnumId.AUTO.getCode();
+            case UUID:
+                return EnumId.UUID.getCode();
             default:
                 return 0;
         }

@@ -43,7 +43,7 @@ public class InsertSql<T> implements Sql, CloumnNames, CloumnValue {
 	 *
 	 */
 	public InsertSql(T entity) {
-		Map<String, Object> map = FieldUtil.getAllColumnName_Value(entity);
+		Map<String, Object> map = FieldUtil.getColumnName_Value(entity);
 		Map<String, Field> columnField = FieldUtil.getAllColumnName_Field(entity.getClass());
 		if (MapUtil.isEmpty(map)) {
 			log.error("取到的对象值为空...");

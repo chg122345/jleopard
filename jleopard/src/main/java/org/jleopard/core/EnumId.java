@@ -9,7 +9,7 @@ package org.jleopard.core;
  */
 public enum EnumId {
 
-	NO(0, "非主键"), YES(1, "普通主键"), AUTOINCREMENT(2, "自增主键");
+	NO(0, "非主键"), YES(1, "普通主键"), AUTO(2, "自增主键"),UUID(3,"自动生成UUID");
 
 	private int code;
 	private String id;
