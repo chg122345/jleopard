@@ -14,6 +14,7 @@ import org.jleopard.session.SqlSession;
 import org.jleopard.util.*;
 
 import javax.sql.DataSource;
+import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
 
@@ -194,7 +195,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @Override
-    public <T> int delete(Class<T> cls, Object... primaryKeys) throws SqlSessionException {
+    public <T> int delete(Class<T> cls, Serializable... primaryKeys) throws SqlSessionException {
         this.open();
         DeleteSqlMore deletesql = new DeleteSqlMore(cls);
         StringBuilder SQL = new StringBuilder();
@@ -222,7 +223,7 @@ final class SessionDirectImpl implements SqlSession {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
-    public <T> int update(T entity, Object... primaryKey) throws SqlSessionException {
+    public <T> int update(T entity, Serializable... primaryKey) throws SqlSessionException {
         this.open();
         UpdateSql updatesql = new UpdateSql(entity);
         List pks = FieldUtil.getPrimaryKeys(entity.getClass());
@@ -467,7 +468,7 @@ final class SessionDirectImpl implements SqlSession {
      */
     @SuppressWarnings("rawtypes")
     @Override
-    public <T> Collection<T> getById(Class<T> cls, Object... primaryKeys) throws SqlSessionException {
+    public <T> Collection<T> getById(Class<T> cls, Serializable... primaryKeys) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
         StringBuilder SQL = new StringBuilder();

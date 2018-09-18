@@ -1,6 +1,7 @@
 package org.jleopard.session;
 
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.util.Collection;
 
@@ -33,14 +34,14 @@ public interface SqlSession {
      **/
     <T> int delete(T entity) throws SqlSessionException;
 
-    <T> int delete(Class<T> cls, Object... primaryKeys) throws SqlSessionException;
+    <T> int delete(Class<T> cls, Serializable... primaryKeys) throws SqlSessionException;
 
 
     /**
      * -----------------------Update---------------------------------
      **/
 
-    <T> int update(T entity, Object... primaryKey) throws SqlSessionException;
+    <T> int update(T entity, Serializable... primaryKey) throws SqlSessionException;
 
     <T> int update(T entity) throws SqlSessionException;
 
@@ -57,7 +58,7 @@ public interface SqlSession {
 
     <T> Collection<T> get(T entity) throws SqlSessionException;
 
-    <T> Collection<T> getById(Class<T> cls, Object... primaryKeys) throws SqlSessionException;
+    <T> Collection<T> getById(Class<T> cls, Serializable... primaryKeys) throws SqlSessionException;
 
     <T> Collection<T> get(Class<T> cls) throws SqlSessionException;
 
