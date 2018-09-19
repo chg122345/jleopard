@@ -39,7 +39,7 @@ public final class GeneratorFactory {
      *   执行逆向工程
      * @throws SQLException
      */
-    public void openGenerator() throws SQLException {
+    public void run() throws SQLException {
       this.conn = dataSource.getConnection();
         if(conn==null){
             LOG.error("获取数据库连接失败..");

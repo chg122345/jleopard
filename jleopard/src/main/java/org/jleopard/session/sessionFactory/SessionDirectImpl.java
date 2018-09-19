@@ -290,7 +290,7 @@ final class SessionDirectImpl implements SqlSession {
      * 自定义更新数据
      */
     @Override
-    public <T> int updateByWhere(T entity, String where, Object... args) throws SqlSessionException {
+    public <T> int updateByWhere(T entity, String where, Serializable... args) throws SqlSessionException {
         this.open();
         UpdateSql<T> updatesql = new UpdateSql<T>(entity);
         List<String> pks = FieldUtil.getPrimaryKeys(entity.getClass());
@@ -354,7 +354,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @Override
-    public <T> List<T> getByJoin(Class<T> cls1, Class<?>[] clazz, String where, Object... args)
+    public <T> List<T> getByJoin(Class<T> cls1, Class<?>[] clazz, String where, Serializable... args)
             throws SqlSessionException {
         this.open();
         Sql joinSql = new JoinSql(cls1, clazz);
@@ -394,7 +394,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws SqlSessionException
      */
     @Override
-    public <T> Collection<T> getByWhere(Class<T> cls, String where, Object... args) throws SqlSessionException {
+    public <T> Collection<T> getByWhere(Class<T> cls, String where, Serializable... args) throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
         StringBuilder SQL = new StringBuilder();
@@ -532,7 +532,7 @@ final class SessionDirectImpl implements SqlSession {
      * @throws Exception
      */
     @Override
-    public <T> PageInfo getToPage(Class<T> cls, int page, int pageSize, String where, Object... args)
+    public <T> PageInfo getToPage(Class<T> cls, int page, int pageSize, String where, Serializable... args)
             throws SqlSessionException {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
@@ -577,7 +577,7 @@ final class SessionDirectImpl implements SqlSession {
 
     @Override
     public <T> PageInfo getJoinToPage(Class<T> cls1, Class<?>[] clazz, int page, int pageSize, String where,
-                                      Object... args) throws SqlSessionException {
+                                      Serializable... args) throws SqlSessionException {
         this.open();
         Sql joinSql = new JoinSql(cls1, clazz);
         try {

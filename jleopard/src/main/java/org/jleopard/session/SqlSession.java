@@ -45,16 +45,16 @@ public interface SqlSession {
 
     <T> int update(T entity) throws SqlSessionException;
 
-    <T> int updateByWhere(T entity,String where,Object...args) throws SqlSessionException;
+    <T> int updateByWhere(T entity,String where,Serializable...args) throws SqlSessionException;
 
     /**
      * -----------------------Get one or one2one m2o---------------------------------
      **/
     ResultSet getBySql(String sql, Object... args) throws SqlSessionException;
 
-    <T> Collection<T> getByJoin(Class<T> cls1, Class<?>[] clazz, String where, Object... args) throws SqlSessionException;
+    <T> Collection<T> getByJoin(Class<T> cls1, Class<?>[] clazz, String where, Serializable... args) throws SqlSessionException;
 
-    <T> Collection<T> getByWhere(Class<T> cls, String where, Object... args) throws SqlSessionException;
+    <T> Collection<T> getByWhere(Class<T> cls, String where, Serializable... args) throws SqlSessionException;
 
     <T> Collection<T> get(T entity) throws SqlSessionException;
 
@@ -62,9 +62,9 @@ public interface SqlSession {
 
     <T> Collection<T> get(Class<T> cls) throws SqlSessionException;
 
-    <T> PageInfo getToPage(Class<T> cls, int page, int pageSize, String where, Object... args) throws SqlSessionException;
+    <T> PageInfo getToPage(Class<T> cls, int page, int pageSize, String where, Serializable... args) throws SqlSessionException;
 
-    <T> PageInfo getJoinToPage(Class<T> cls1,Class<?>[] clazz, int page, int pageSize, String where, Object... args) throws SqlSessionException;
+    <T> PageInfo getJoinToPage(Class<T> cls1,Class<?>[] clazz, int page, int pageSize, String where, Serializable... args) throws SqlSessionException;
 
     /**
      * -----------------------Commit and rollback---------------------------------

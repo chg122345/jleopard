@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1ce6e30-c2b7-4789-8913-808f94358037" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/jleopard/core/Wrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_46.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/jleopard/core/TableProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jleopard.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jleopard.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/jleopard/generator/GeneratorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jleopard/generator/GeneratorFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jleopard/session/SqlSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jleopard/session/SqlSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/SessionDirectImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/SessionDirectImpl.java" afterDir="false" />
     </list>
@@ -35,8 +33,8 @@
     <session id="350194122">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
-          <entry key="project.open.time.1" value="1" />
+          <entry key="project.closed" value="13" />
+          <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.2" value="2" />
@@ -46,7 +44,7 @@
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.86" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -56,7 +54,7 @@
           <entry key="classpath" value="1" />
           <entry key="dtd" value="4" />
           <entry key="iml" value="1" />
-          <entry key="java" value="166" />
+          <entry key="java" value="171" />
           <entry key="log" value="3" />
           <entry key="pom" value="2" />
           <entry key="properties" value="1" />
@@ -69,7 +67,7 @@
           <entry key="DTD" value="4" />
           <entry key="Eclipse" value="1" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="166" />
+          <entry key="JAVA" value="171" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="Properties" value="1" />
           <entry key="XML" value="15" />
@@ -78,8 +76,8 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dtd" value="25" />
-          <entry key="dummy" value="3" />
-          <entry key="java" value="3182" />
+          <entry key="dummy" value="13" />
+          <entry key="java" value="3334" />
           <entry key="properties" value="4" />
           <entry key="xml" value="26" />
         </counts>
@@ -87,8 +85,8 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="DTD" value="25" />
-          <entry key="JAVA" value="3182" />
-          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="JAVA" value="3334" />
+          <entry key="PLAIN_TEXT" value="13" />
           <entry key="Properties" value="4" />
           <entry key="XML" value="26" />
         </counts>
@@ -96,64 +94,30 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/Wrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#867#868#0" expanded="true" />
-                <element signature="e#960#961#0" expanded="true" />
-                <element signature="e#2067#2068#0" expanded="true" />
-                <element signature="e#2119#2120#0" expanded="true" />
-                <element signature="e#2517#2518#0" expanded="true" />
-                <element signature="e#2564#2565#0" expanded="true" />
-                <element signature="e#2631#2632#0" expanded="true" />
-                <element signature="e#2657#2658#0" expanded="true" />
-                <element signature="e#3212#3213#0" expanded="true" />
-                <element signature="e#3239#3240#0" expanded="true" />
-                <element signature="e#3686#3687#0" expanded="true" />
-                <element signature="e#3713#3714#0" expanded="true" />
-                <element signature="e#3776#3777#0" expanded="true" />
-                <element signature="e#3803#3804#0" expanded="true" />
-                <element signature="e#3884#3885#0" expanded="true" />
-                <element signature="e#3911#3912#0" expanded="true" />
-                <element signature="e#9934#9935#0" expanded="true" />
-                <element signature="e#9984#9985#0" expanded="true" />
-                <element signature="e#10302#10303#0" expanded="true" />
-                <element signature="e#10353#10354#0" expanded="true" />
-                <element signature="e#10680#10681#0" expanded="true" />
-                <element signature="e#10734#10735#0" expanded="true" />
-                <element signature="e#11083#11084#0" expanded="true" />
-                <element signature="e#11134#11135#0" expanded="true" />
-                <element signature="e#11488#11489#0" expanded="true" />
-                <element signature="e#11542#11543#0" expanded="true" />
-                <element signature="e#11881#11882#0" expanded="true" />
-                <element signature="e#11932#11933#0" expanded="true" />
-                <element signature="e#12278#12279#0" expanded="true" />
-                <element signature="e#12332#12333#0" expanded="true" />
-                <element signature="e#4553#4554#0" expanded="true" />
-                <element signature="e#4580#4581#0" expanded="true" />
-                <element signature="e#4661#4662#0" expanded="true" />
-                <element signature="e#4688#4689#0" expanded="true" />
-                <element signature="e#13980#13981#0" expanded="true" />
-                <element signature="e#14029#14030#0" expanded="true" />
-                <element signature="e#5018#5019#0" expanded="true" />
-                <element signature="e#5089#5090#0" expanded="true" />
-                <element signature="e#5265#5266#0" expanded="true" />
-                <element signature="e#5292#5293#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/SessionDirectImpl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/TableProperties.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="469" column="13" lean-forward="true" selection-start-line="469" selection-start-column="13" selection-end-line="469" selection-end-column="13" />
+            <state relative-caret-position="255">
+              <caret line="22" column="39" lean-forward="true" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+              <folding>
+                <element signature="e#449#450#0" expanded="true" />
+                <element signature="e#481#482#0" expanded="true" />
+                <element signature="e#531#532#0" expanded="true" />
+                <element signature="e#573#574#0" expanded="true" />
+                <element signature="e#606#607#0" expanded="true" />
+                <element signature="e#635#636#0" expanded="true" />
+                <element signature="e#679#680#0" expanded="true" />
+                <element signature="e#715#716#0" expanded="true" />
+                <element signature="e#761#762#0" expanded="true" />
+                <element signature="e#791#792#0" expanded="true" />
+                <element signature="e#849#850#0" expanded="true" />
+                <element signature="e#887#888#0" expanded="true" />
+                <element signature="e#933#934#0" expanded="true" />
+                <element signature="e#963#964#0" expanded="true" />
+                <element signature="e#1021#1022#0" expanded="true" />
+                <element signature="e#1059#1060#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -213,7 +177,6 @@
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/EntityHelper.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/core/Factory.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/core/util/ConfiguationUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/jleopard/generator/GeneratorFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/SessionFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/spring/SqlSessionFactoryBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/SqlSessionFactory.java" />
@@ -228,6 +191,9 @@
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/core/Wrapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/session/SqlSession.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/SessionDirectImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jleopard/generator/GeneratorFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jleopard/core/TableInfoBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jleopard/core/TableProperties.java" />
       </list>
     </option>
   </component>
@@ -287,8 +253,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -329,17 +295,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="jleopard" type="462c0819:PsiDirectoryNode" />
-              <item name="session" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jleopard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jleopard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jleopard" type="462c0819:PsiDirectoryNode" />
-              <item name="session" type="462c0819:PsiDirectoryNode" />
-              <item name="sessionFactory" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -436,18 +392,19 @@
       <workItem from="1536556597776" duration="122000" />
       <workItem from="1536669782824" duration="235000" />
       <workItem from="1537065109344" duration="4595000" />
-      <workItem from="1537234011347" duration="5970000" />
+      <workItem from="1537234011347" duration="6107000" />
+      <workItem from="1537327480601" duration="2683000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46331000" />
+    <option name="totallyTimeSpent" value="49151000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="26" width="1863" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28673637" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29003853" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -513,13 +470,6 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/sql/DeleteSqlMore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="32" column="19" lean-forward="true" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/sql/SelectSql.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -697,25 +647,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/generator/GeneratorFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/Factory.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/JavaTypeToDatabaseType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="26" column="67" lean-forward="true" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/spring/SqlSessionFactoryBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -808,10 +744,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="33" column="58" lean-forward="true" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
-          <folding>
-            <element signature="e#601#602#0" expanded="true" />
-            <element signature="e#666#667#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -836,67 +768,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/session/SqlSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="66" column="107" selection-start-line="66" selection-start-column="101" selection-end-line="66" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/Wrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#867#868#0" expanded="true" />
-            <element signature="e#960#961#0" expanded="true" />
-            <element signature="e#2067#2068#0" expanded="true" />
-            <element signature="e#2119#2120#0" expanded="true" />
-            <element signature="e#2517#2518#0" expanded="true" />
-            <element signature="e#2564#2565#0" expanded="true" />
-            <element signature="e#2631#2632#0" expanded="true" />
-            <element signature="e#2657#2658#0" expanded="true" />
-            <element signature="e#3212#3213#0" expanded="true" />
-            <element signature="e#3239#3240#0" expanded="true" />
-            <element signature="e#3686#3687#0" expanded="true" />
-            <element signature="e#3713#3714#0" expanded="true" />
-            <element signature="e#3776#3777#0" expanded="true" />
-            <element signature="e#3803#3804#0" expanded="true" />
-            <element signature="e#3884#3885#0" expanded="true" />
-            <element signature="e#3911#3912#0" expanded="true" />
-            <element signature="e#9934#9935#0" expanded="true" />
-            <element signature="e#9984#9985#0" expanded="true" />
-            <element signature="e#10302#10303#0" expanded="true" />
-            <element signature="e#10353#10354#0" expanded="true" />
-            <element signature="e#10680#10681#0" expanded="true" />
-            <element signature="e#10734#10735#0" expanded="true" />
-            <element signature="e#11083#11084#0" expanded="true" />
-            <element signature="e#11134#11135#0" expanded="true" />
-            <element signature="e#11488#11489#0" expanded="true" />
-            <element signature="e#11542#11543#0" expanded="true" />
-            <element signature="e#11881#11882#0" expanded="true" />
-            <element signature="e#11932#11933#0" expanded="true" />
-            <element signature="e#12278#12279#0" expanded="true" />
-            <element signature="e#12332#12333#0" expanded="true" />
-            <element signature="e#4553#4554#0" expanded="true" />
-            <element signature="e#4580#4581#0" expanded="true" />
-            <element signature="e#4661#4662#0" expanded="true" />
-            <element signature="e#4688#4689#0" expanded="true" />
-            <element signature="e#13980#13981#0" expanded="true" />
-            <element signature="e#14029#14030#0" expanded="true" />
-            <element signature="e#5018#5019#0" expanded="true" />
-            <element signature="e#5089#5090#0" expanded="true" />
-            <element signature="e#5265#5266#0" expanded="true" />
-            <element signature="e#5292#5293#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/spring/SqlSessionFactoryBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="17" column="34" lean-forward="true" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/session/sessionFactory/SessionDirectImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="469" column="13" lean-forward="true" selection-start-line="469" selection-start-column="13" selection-end-line="469" selection-end-column="13" />
+        <state relative-caret-position="1802">
+          <caret line="295" column="71" lean-forward="true" selection-start-line="295" selection-start-column="71" selection-end-line="295" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/session/SqlSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="54" column="91" selection-start-line="54" selection-start-column="91" selection-end-line="54" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/generator/GeneratorFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="22" column="37" lean-forward="true" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jleopard/core/TableProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="39" lean-forward="true" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+          <folding>
+            <element signature="e#449#450#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+            <element signature="e#573#574#0" expanded="true" />
+            <element signature="e#606#607#0" expanded="true" />
+            <element signature="e#635#636#0" expanded="true" />
+            <element signature="e#679#680#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <element signature="e#849#850#0" expanded="true" />
+            <element signature="e#887#888#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#963#964#0" expanded="true" />
+            <element signature="e#1021#1022#0" expanded="true" />
+            <element signature="e#1059#1060#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
