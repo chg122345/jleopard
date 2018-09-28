@@ -28,9 +28,9 @@ public class JavaTypeUtil {
           sqlType="INT";
       }else if(javaType==java.lang.Boolean.class||javaType==boolean.class){
           sqlType="BIT";
-      }else if(javaType==java.lang.Float.class){
+      }else if(javaType==java.lang.Float.class || javaType == float.class){
           sqlType="FLOAT";
-      }else if(javaType==java.lang.Double.class){
+      }else if(javaType==java.lang.Double.class || javaType == double.class){
           sqlType="DOUBLE";
       }else if(javaType==BigDecimal.class){
           sqlType="DECIMAL";

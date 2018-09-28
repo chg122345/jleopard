@@ -6,6 +6,7 @@ import java.util.List;
 import org.jleopard.core.sql.InsertSql;
 import org.jleopard.core.sql.JoinSql;
 import org.jleopard.exception.SqlSessionException;
+import org.jleopard.pageHelper.PageInfo;
 import org.jleopard.session.SqlSession;
 import org.jleopard.session.sessionFactory.SqlSessionFactory;
 
@@ -48,14 +49,14 @@ public class DemoTest {
 	        try {
 	        //	System.out.println(session.getToPage(User.class,1,2,"where name = ?","leopard").getList());
 	        	//System.out.println(session.getByJoin(Article.class, new Class<?>[]{User.class},"article.id=?",101));
-				session.save(a);
-	        	session.commit();
-	           /* PageInfo pg=session.Get(Article.class,User.class,1,9);
-	            List<Article> list=(List<Article>) pg.getList();
-	            for (Object a:list){
-	                System.out.println("结果："+a);
+				//session.save(a);
+	        	//session.commit();
+	            PageInfo pg=session.getJoinToPage(Article.class,new Class[]{User.class},1,9,"","");
+	            List<Article> lists= (List<Article>) pg.getList();
+	            for (Article ar :lists){
+	                System.out.println("结果："+ar);
 	            }
-	            System.out.println();*/
+	            System.out.println();
 	        } catch (SqlSessionException e) {
 	            e.printStackTrace();
 	        }

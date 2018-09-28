@@ -2,6 +2,7 @@ package org.jleopard.session.sessionFactory;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
@@ -189,7 +190,7 @@ final class EntityHelper {
                     // 处理一对多关系字段
                     for (Map.Entry<String, Class<?>> jft : FieldUtil.getJoinAndForeignKeys(cls1).entrySet()) { // 是一对多关系
                         if (jct.getValue() == jft.getValue()) {
-                            Collection<?> list = session.getByWhere(jft.getValue(), jft.getKey() + " = ?", res.getObject(tableName1 + "." + idColName));
+                            Collection<?> list = session.getByWhere(jft.getValue(), jft.getKey() + " = ?", (Serializable) res.getObject(tableName1 + "." + idColName));
                             if (CollectionUtil.isNotEmpty(list)) {
                                 write.invoke(entity, list);
                             } else {

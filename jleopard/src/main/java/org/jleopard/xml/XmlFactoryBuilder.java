@@ -5,7 +5,6 @@ import org.jleopard.bean.BeanInfo;
 import org.jleopard.bean.BeanInvoke;
 import org.jleopard.bean.property.PropsInfo;
 import org.jleopard.jdbc.BaseDataSource;
-import org.jleopard.jdbc.C3p0DataSource;
 import org.jleopard.logging.log.Log;
 import org.jleopard.logging.log.LogFactory;
 import org.jleopard.session.Configuration;
@@ -169,14 +168,14 @@ public class XmlFactoryBuilder {
         }
         
         private DataSource getDataSource() {
-            if (this.hasBean(BaseDataSource.class.getName())) {
+            if (this.getBean("dataSource") == null){
+                return null;
+            }
+            /*if (this.hasBean(BaseDataSource.class.getName())) {
             	BaseDataSource db = (BaseDataSource) this.getBean("dataSource");
                 return db;
-            } else if (this.hasBean(C3p0DataSource.class.getName())) {
-            	C3p0DataSource c3p0 = (C3p0DataSource) this.getBean("dataSource");
-                return  c3p0.getDataSource();
-            }
-            return null;
+            }*/
+            return (DataSource) this.getBean("dataSource");
         }
 
 

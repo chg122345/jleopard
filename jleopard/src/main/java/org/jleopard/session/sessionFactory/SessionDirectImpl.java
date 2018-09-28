@@ -1,5 +1,6 @@
 package org.jleopard.session.sessionFactory;
 
+import org.jleopard.core.annotation.Table;
 import org.jleopard.core.sql.*;
 import org.jleopard.core.util.FieldUtil;
 import org.jleopard.core.util.TableUtil;
@@ -17,6 +18,7 @@ import javax.sql.DataSource;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -67,7 +69,7 @@ final class SessionDirectImpl implements SqlSession {
             log.error("获取数据库连接失败...");
             throw new SessionException("获取数据库连接失败...", e1);
         }
-        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(configuration.getEntityPackage());
+        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(configuration.getEntityPackage()).stream().filter(clazz->clazz.isAnnotationPresent(Table.class)).collect(Collectors.toSet());
         List<String> list = TableUtil.showAllTableName(conn);
         if (CollectionUtil.isEmpty(set)) {
             log.error("获取到的实体类为空...");
@@ -299,8 +301,15 @@ final class SessionDirectImpl implements SqlSession {
             throw new NotFoundFieldException(entity + " 没有找到唯一标识主键...");
         }
         StringBuilder SQL = new StringBuilder();
-        where = where.toLowerCase().replace("where", "");
-        SQL.append(updatesql.getSql()).append(where);
+        SQL.append(updatesql.getSql());
+        if (StringUtil.isNotEmpty(where)){
+            if (where.toLowerCase().startsWith("where")) {
+                where = where.toLowerCase().replace("where", "");
+                SQL.append(where);
+            } else {
+                SQL.append(where);
+            }
+        }
         String sql = SQL.toString();
         List<Object> values = updatesql.getValues();
         try {
@@ -359,13 +368,12 @@ final class SessionDirectImpl implements SqlSession {
         this.open();
         Sql joinSql = new JoinSql(cls1, clazz);
         StringBuilder SQL = new StringBuilder();
-        if (StringUtil.isEmpty(where)) {
-            SQL.append(joinSql.getSql());
-        } else {
+        SQL.append(joinSql.getSql());
+        if (StringUtil.isNotEmpty(where)){
             if (where.toLowerCase().startsWith("where")) {
-                SQL.append(joinSql.getSql()).append(PathUtils.LINE).append(where);
+                SQL.append(PathUtils.LINE).append(where);
             } else {
-                SQL.append(joinSql.getSql()).append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
+                SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
             }
         }
         String sql = SQL.toString();
@@ -398,10 +406,13 @@ final class SessionDirectImpl implements SqlSession {
         this.open();
         Sql selectsql = new SelectSqlMore(cls);
         StringBuilder SQL = new StringBuilder();
-        if (where.toLowerCase().startsWith("where")) {
-            SQL.append(selectsql.getSql()).append(PathUtils.LINE).append(where);
-        } else {
-            SQL.append(selectsql.getSql()).append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
+        SQL.append(selectsql.getSql());
+        if (StringUtil.isNotEmpty(where)){
+            if (where.toLowerCase().startsWith("where")) {
+                SQL.append(PathUtils.LINE).append(where);
+            } else {
+                SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
+            }
         }
         String sql = SQL.toString();
         DevModelHelper.outParameter(DevModel, sql, args);
@@ -547,6 +558,7 @@ final class SessionDirectImpl implements SqlSession {
             }
             PageInfo pageInfo = new PageInfo(total, pageSize);
             StringBuilder SQL = new StringBuilder();
+            SQL.append(selectsql.getSql());
             if (page <= 1) {
                 page = 1;
             } else if (page >= pageInfo.getTotalPages()) {
@@ -554,10 +566,12 @@ final class SessionDirectImpl implements SqlSession {
             }
             pageInfo.setPage(page);
             int star = (page - 1) * pageSize;
-            if (where.toLowerCase().startsWith("where")) {
-                SQL.append(selectsql.getSql()).append(PathUtils.LINE).append(where);
-            } else {
-                SQL.append(selectsql.getSql()).append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
+            if (StringUtil.isNotEmpty(where)){
+                if (where.toLowerCase().startsWith("where")) {
+                   SQL.append(PathUtils.LINE).append(where);
+                } else {
+                    SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
+                }
             }
             SQL.append(" ").append("LIMIT").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();
@@ -590,6 +604,7 @@ final class SessionDirectImpl implements SqlSession {
             }
             PageInfo pageInfo = new PageInfo(total, pageSize);
             StringBuilder SQL = new StringBuilder();
+            SQL.append(joinSql.getSql());
             if (page <= 1) {
                 page = 1;
             } else if (page >= pageInfo.getTotalPages()) {
@@ -597,10 +612,12 @@ final class SessionDirectImpl implements SqlSession {
             }
             pageInfo.setPage(page);
             int star = (page - 1) * pageSize;
-            if (where.toLowerCase().startsWith("where")) {
-                SQL.append(joinSql.getSql()).append(PathUtils.LINE).append(where);
-            } else {
-                SQL.append(joinSql.getSql()).append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
+            if (StringUtil.isNotEmpty(where)){
+                if (where.toLowerCase().startsWith("where")) {
+                    SQL.append(PathUtils.LINE).append(where);
+                } else {
+                   SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
+                }
             }
             SQL.append(" ").append("LIMIT").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();

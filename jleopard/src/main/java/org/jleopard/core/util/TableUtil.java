@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -56,18 +57,14 @@ public class TableUtil {
 
     /**
      * 获取实体对象上@Table注解的值
-     * @param packagename  实体对象所在的包名 如:(gxf.orm.model)
+     * @param packagename  实体对象所在的包名 如:(org.jleopard.entity)
      * @return
      */
     public static List<String> getAllTableName(String packagename){
         List<String> tablenames=new ArrayList<>();
         Set<Class<?>> scls=ClassUtil.getClassSetByPackagename(packagename);
-        for(Class<?> cls:scls) {
-               if(!isTable(cls)){
-                   continue;
-               }
-            tablenames.add(getTableName(cls));
-        }
+        scls = scls.stream().filter(clazz -> clazz.isAnnotationPresent(Table.class)).collect(Collectors.toSet());
+        scls.stream().forEach(i->tablenames.add(getTableName(i)));
         return tablenames;
     }
 

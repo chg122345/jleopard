@@ -1,7 +1,5 @@
 package org.jleopard.util;
 
-import org.jleopard.core.util.TableUtil;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -107,15 +105,12 @@ public class ClassUtil {
 		return scls;
 	}
 
-	public static void doAddClass(Set<Class<?>> scls, String classname) {
+	private static void doAddClass(Set<Class<?>> scls, String classname) {
 		Class<?> cls=loadClass(classname, false);
-		// 有table注解加进去
-		if (TableUtil.isTable(cls)){
-			scls.add(cls);
-		}
+		scls.add(cls);
 	}
 
-	public static void addClass(Set<Class<?>> scls, String packagePath, String packagename) {
+	private static void addClass(Set<Class<?>> scls, String packagePath, String packagename) {
 	File[] files=new File(packagePath).listFiles(new FileFilter() {
 		
 		@Override
