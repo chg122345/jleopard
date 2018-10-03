@@ -1,5 +1,6 @@
 package org.jleopard.session.sessionFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.jleopard.logging.log.Log;
@@ -21,25 +22,27 @@ public final class DevModelHelper {
             for (Object value:values){
                 args += value + " ";
             }
-            LOG.info("当前执行的sql语句: \n \t" + sql + "\n Paramters: " + args + "\n");
+            LOG.info(String.format("当前执行的sql语句: \n \t{}\n Paramters: {}\n",sql,args));
         }
     }
     protected static void outParameter(boolean DevModel,String sql,Object[] values){
-        if(DevModel){
+        List list = Arrays.asList(values);
+        outParameter(DevModel,sql,list);
+       /* if(DevModel){
         	String args = "";
             for (Object value:values){
                 args += value + " ";
             }
-            LOG.info("当前执行的sql语句: \n \t" + sql + "\n Paramters: " + args + "\n");
-        }    
+            LOG.info(String.format("当前执行的sql语句: \n \t{}\n Paramters: {}\n",sql,args));
+        }*/
     }
 
     protected static void outParameter(boolean DevModel, String sql, Object primaryKey) {
         if(DevModel){
         	if (primaryKey == null || "".equals(primaryKey)) {
-        		LOG.info("当前执行的sql语句: \n \t" + sql + "\n");
+        		LOG.info(String.format("当前执行的sql语句: \n \t{}\n",sql));
         	}else {
-        		LOG.info("当前执行的sql语句: \n \t" + sql + "\n Paramters: " + primaryKey + "\n");
+        		LOG.info(String.format("当前执行的sql语句: \n \t{}\n Paramters: {}\n",sql,primaryKey));
         	}
         }
     }

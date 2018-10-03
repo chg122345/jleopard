@@ -3,6 +3,7 @@ package org.jleopard.util;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.Enumeration;
@@ -66,9 +67,8 @@ public class ClassUtil {
     public static Set<Class<?>> getClassSetByPackagename(String packagename){
 		Set<Class<?>> scls=new HashSet<>();
 		if(StringUtil.isEmpty(packagename)){
-			String packagePath=System.getProperty("user.dir")+PathUtils.SEPARATOR+"src";
+			String packagePath = getClassPath();
 			addClass(scls, packagePath, packagename);
-			//throw new RuntimeException(" 实体类的位置没有找到...");
 		}else {
 			URL url = getClassLoader().getResource(packagename.replace(".", "/"));
 
@@ -141,6 +141,45 @@ public class ClassUtil {
 		}
 	}
 
+
+	/**
+	 * 类型转换
+	 * @param field
+	 * @param arg
+	 * @return
+	 */
+	public static Object changeType(Field field, Object arg) {
+		String str = String.valueOf(arg);
+		if (StringUtil.isEmpty(str)) {
+			return null;
+		}
+		Class<?> type = field.getType();
+		if (type == Long.class || type == long.class) {
+			return Long.valueOf(str);
+		}
+		if (type == Integer.class || type == int.class) {
+			return Integer.valueOf(str);
+		}
+		if (type == Byte.class || type == byte.class) {
+			return Byte.valueOf(str);
+		}
+		if (type == Double.class || type == double.class) {
+			return Double.valueOf(str);
+		}
+		if (type == Float.class || type == float.class) {
+			return Float.valueOf(str);
+		}
+		if (type == java.util.Date.class) {
+			return DateUtil.parseDatetime(str);
+		}
+		if (type == java.sql.Date.class) {
+			return java.sql.Date.valueOf(str);
+		}
+		if (type == java.sql.Timestamp.class) {
+			return java.sql.Timestamp.valueOf(str);
+		}
+		return str;
+	}
 
     /**
      * 是否为 int 类型（包含 Integer 类型）

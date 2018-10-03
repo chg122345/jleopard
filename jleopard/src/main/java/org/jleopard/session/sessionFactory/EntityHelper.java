@@ -16,6 +16,7 @@ import org.jleopard.core.util.FieldUtil;
 import org.jleopard.core.util.TableUtil;
 import org.jleopard.exception.SqlSessionException;
 import org.jleopard.session.SqlSession;
+import org.jleopard.util.ClassUtil;
 import org.jleopard.util.CollectionUtil;
 
 /**
@@ -42,6 +43,7 @@ final class EntityHelper {
     protected static <T> List<T> invoke(ResultSet res, Class<T> cls, Map<String, String> C_F)
             throws SqlSessionException {
         List<T> entitys = new ArrayList<T>();
+        String fieldName = null;
         try {
             while (res.next()) {
                 T entity = cls.newInstance();
@@ -59,18 +61,21 @@ final class EntityHelper {
                                         FieldUtil.getColumnFieldName(clazz).get(FieldUtil.getPrimaryKeys(clazz).get(0)),
                                         clazz);
                                 Method write2 = pd2.getWriteMethod();
-                                Object v = InvokeTypeHelper.changeType(clazz, FieldUtil.getPrimaryKeys(clazz).get(0), fkv);
+                                fieldName = FieldUtil.getPrimaryKeys(clazz).get(0);
+                                Object v = ClassUtil.changeType(clazz.getDeclaredField(fieldName), fkv);
                                 write2.invoke(entity2, v);
                                 write.invoke(entity, entity2); // 外表值设上
                                 break;
                             } else if (fns.keySet().contains(cf.getKey())) {
                                 continue;
                             } else {
-                                write.invoke(entity, InvokeTypeHelper.changeType(cls, cf.getValue(), res.getObject(cf.getKey())));
+                                fieldName = cf.getValue();
+                                write.invoke(entity, ClassUtil.changeType(cls.getDeclaredField(fieldName), res.getObject(cf.getKey())));
                             }
                         }
                     } else {
-                        write.invoke(entity, InvokeTypeHelper.changeType(cls, cf.getValue(), res.getObject(cf.getKey())));
+                        fieldName = cf.getValue();
+                        write.invoke(entity, ClassUtil.changeType(cls.getDeclaredField(fieldName), res.getObject(cf.getKey())));
                     }
                 }
                 entitys.add(entity);
@@ -85,6 +90,8 @@ final class EntityHelper {
             throw new SqlSessionException("sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
             throw new SqlSessionException("反射调用方法或构造方法失败... ", e);
+        } catch (NoSuchFieldException e) {
+            throw new SqlSessionException("没有找到字段[" + cls + "." + fieldName + "]", e);
         }
         return entitys;
     }
@@ -116,11 +123,11 @@ final class EntityHelper {
                             for (Map.Entry<String, String> cf2 : FieldUtil.getColumnFieldName(cls2).entrySet()) {
                                 PropertyDescriptor pd2 = new PropertyDescriptor(cf2.getValue(), cls2);
                                 Method write2 = pd2.getWriteMethod();
-                                write2.invoke(entity2, InvokeTypeHelper.changeType(cls1, cf.getValue(), res.getObject(tableName2 + "." + cf2.getKey())));
+                                write2.invoke(entity2, ClassUtil.changeType(cls1.getDeclaredField(cf.getValue()), res.getObject(tableName2 + "." + cf2.getKey())));
                             }
                             write.invoke(entity, entity2); // 外表值设上
                         } else {
-                            write.invoke(entity, InvokeTypeHelper.changeType(cls1, cf.getValue(), res.getObject(tableName1 + "." + cf.getKey())));
+                            write.invoke(entity, ClassUtil.changeType(cls1.getDeclaredField(cf.getValue()), res.getObject(tableName1 + "." + cf.getKey())));
                         }
                     }
                 }
@@ -134,7 +141,7 @@ final class EntityHelper {
             throw new SqlSessionException("反射调用构造方法失败... ", e);
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了... ", e);
-        } catch (InvocationTargetException e) {
+        } catch (InvocationTargetException | NoSuchFieldException e) {
             throw new SqlSessionException("反射调用方法或构造方法失败... ", e);
         }
         return entitys;
@@ -151,6 +158,7 @@ final class EntityHelper {
             throws SqlSessionException {
         List<T> entitys = new ArrayList<T>();
         String tableName1 = TableUtil.getTableName(cls1);
+        String fieldName = null;
         try {
             while (res.next()) {
                 T entity = cls1.newInstance();
@@ -163,6 +171,7 @@ final class EntityHelper {
                     Method write = pd.getWriteMethod();
                     Map<String, Class<?>> ftMap = FieldUtil.getForeignKeys(cls1);
                     for (Class<?> cls2 : clazz) {
+
                         for (Map.Entry<String, Class<?>> ft : ftMap.entrySet()) { // 外键 外键类
                             if (cls2 == ft.getValue()) {
                                 String tableName2 = TableUtil.getTableName(cls2);
@@ -172,13 +181,19 @@ final class EntityHelper {
                                             .entrySet()) {
                                         PropertyDescriptor pd2 = new PropertyDescriptor(cf2.getValue(), cls2);
                                         Method write2 = pd2.getWriteMethod();
-                                        write2.invoke(entity2, InvokeTypeHelper.changeType(cls2, cf2.getValue(), res.getObject(tableName2 + "." + cf2.getKey())));
+                                        fieldName = cf2.getValue();
+                                        try {
+                                            write2.invoke(entity2, ClassUtil.changeType(cls2.getDeclaredField(fieldName), res.getObject(tableName2 + "." + cf2.getKey())));
+                                        } catch (NoSuchFieldException e) {
+                                            throw new SqlSessionException("没有找到字段[" + cls2 + "." + fieldName + "]", e);
+                                        }
                                     }
                                     write.invoke(entity, entity2); // 外表值设上
                                 } else if (ftMap.keySet().contains(cf.getKey())) {
                                     continue;
                                 } else {
-                                    write.invoke(entity, InvokeTypeHelper.changeType(cls1, cf.getValue(), res.getObject(tableName1 + "." + cf.getKey())));
+                                    fieldName = cf.getValue();
+                                    write.invoke(entity, ClassUtil.changeType(cls1.getDeclaredField(fieldName), res.getObject(tableName1 + "." + cf.getKey())));
                                 }
                             }
                         }
@@ -211,6 +226,8 @@ final class EntityHelper {
             throw new SqlSessionException("sql执行出错了... ", e);
         } catch (InvocationTargetException e) {
             throw new SqlSessionException("反射调用方法或构造方法失败... ", e);
+        } catch (NoSuchFieldException e) {
+            throw new SqlSessionException("没有找到字段[" + cls1 + "." + fieldName + "]", e);
         }
         return entitys;
     }
