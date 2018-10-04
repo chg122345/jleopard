@@ -74,7 +74,9 @@ public class DeleteSql<T> implements Sql, CloumnNames, CloumnValue {
 				SQL.append("AND").append(" ").append(columnNames.get(i)).append("=?").append(" ");
 			}
 		}
-		log.info(" 生成的sql语句: " + SQL.toString());
+		if (log.isDebugEnabled()){
+			log.debug(" 生成的sql语句: " + SQL.toString());
+		}
 		return SQL.toString();
 	}
 }

@@ -27,7 +27,7 @@ import org.jleopard.util.StringUtil;
  */
 public class CreateTableSql implements Sql {
 
-	private static final Log LOG = LogFactory.getLog(CreateTableSql.class);
+	private static final Log log = LogFactory.getLog(CreateTableSql.class);
 
 	private Class<?> cls;
 
@@ -37,8 +37,8 @@ public class CreateTableSql implements Sql {
 		this.cls = cls;
 		this.tableName = TableUtil.getTableName(cls);
 		if (StringUtil.isEmpty(tableName)) {
-			LOG.error(cls + " 无 @Table注解");
-			throw new SessionException(cls + " 无@Table注解...");
+			log.error(cls + " 无 @Table注解");
+			throw new SessionException("["+ cls + "] 无@Table注解...");
 		}
 
 	}

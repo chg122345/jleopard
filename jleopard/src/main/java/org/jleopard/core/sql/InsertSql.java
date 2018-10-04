@@ -93,7 +93,9 @@ public class InsertSql<T> implements Sql, CloumnNames, CloumnValue {
 		SQL.deleteCharAt(SQL.length() - 1).append(")").append(PathUtils.LINE + "\t").append("VALUES").append("(");
 		columnNames.forEach(i -> SQL.append("?").append(","));
 		SQL.deleteCharAt(SQL.length() - 1).append(")");
-		log.info(" 生成的sql语句: " + SQL.toString());
+		if (log.isDebugEnabled()){
+			log.debug(" 生成的sql语句: " + SQL.toString());
+		}
 		return SQL.toString();
 	}
 

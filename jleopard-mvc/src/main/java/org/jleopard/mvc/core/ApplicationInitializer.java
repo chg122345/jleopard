@@ -9,12 +9,19 @@
 
 package org.jleopard.mvc.core;
 
+import org.jleopard.mvc.view.View;
+import org.jleopard.mvc.view.jsp.JSPViewResolver;
+
 /**
- * 扫描的包
+ * 初始化应用配置
  */
-public interface AppContext {
+public interface ApplicationInitializer {
 
     default String getBasePackage(){
         return "";
+    }
+
+    default View getViewResolver(){
+        return new JSPViewResolver();
     }
 }

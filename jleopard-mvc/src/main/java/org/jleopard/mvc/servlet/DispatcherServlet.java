@@ -9,8 +9,7 @@
 
 package org.jleopard.mvc.servlet;
 
-import org.jleopard.mvc.DefaultAppContext;
-import org.jleopard.mvc.core.AppContext;
+import org.jleopard.mvc.core.ApplicationInitializer;
 import org.jleopard.mvc.core.annotation.*;
 import org.jleopard.mvc.core.bean.MappingInfo;
 import org.jleopard.mvc.view.View;
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  */
 public class DispatcherServlet extends HttpServlet {
 
-    private AppContext appContext;
+    private ApplicationInitializer appInitializer;
 
     private final static String VIEW_RESOLVER_BEAN_NAME = "viewResolver";
 
@@ -50,31 +50,49 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        appContext = new DefaultAppContext();
-        initHandlerMapping();
-        initBeanIoc();
-        initInject();
+        this.initAppInitializer();
+        this.initHandlerMapping();
+        this.initBeanIoc();
+        this.initInject();
     }
 
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        View view = (View) ioc.get(VIEW_RESOLVER_BEAN_NAME);
-        view.render(map,req,resp);
+        View view = appInitializer.getViewResolver();
+        view.render(map, req, resp);
     }
 
     @Override
     public void destroy() {
         super.destroy();
-        map = null;
-        ioc = null;
+        this.map.clear();
+        this.ioc.clear();
+    }
+
+
+    /**
+     * 初始化配置
+     */
+    private void initAppInitializer() {
+        Set<Class<?>> set = ClassUtil.getClassSetByPackagename("").stream().filter(i -> (i.isAnnotationPresent(Component.class) && Arrays.asList(i.getInterfaces()).contains(ApplicationInitializer.class))).collect(Collectors.toSet());
+        // 基础配置
+        for (Class<?> app : set) {
+            try {
+                this.appInitializer = (ApplicationInitializer) app.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * 初始化映射uri 和 method
      */
     private void initHandlerMapping() {
-        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appContext.getBasePackage()).stream().filter(i -> i.isAnnotationPresent(Controller.class)).collect(Collectors.toSet());
+        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appInitializer.getBasePackage()).stream().filter(i -> i.isAnnotationPresent(Controller.class)).collect(Collectors.toSet());
         set.stream().forEach(i -> {
             String var1 = "";
             Object newInstance = null;
@@ -115,7 +133,8 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     /**
-     *  获取 mapping
+     * 获取 mapping
+     *
      * @param var1
      * @param newInstance
      * @param methods
@@ -148,15 +167,15 @@ public class DispatcherServlet extends HttpServlet {
      * 初始化ioc容器
      */
     private void initBeanIoc() {
-        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appContext.getBasePackage()).stream().filter(i -> (i.isAnnotationPresent(Component.class) || i.isAnnotationPresent(Service.class))).collect(Collectors.toSet());
+        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appInitializer.getBasePackage()).stream().filter(i -> (i.isAnnotationPresent(Component.class) || i.isAnnotationPresent(Service.class))).collect(Collectors.toSet());
         set.stream().forEach(i -> {
             Component component = i.getDeclaredAnnotation(Component.class);
             Service service = i.getDeclaredAnnotation(Service.class);
             String value = null;
-            if (component != null){
+            if (component != null) {
                 value = component.value();
             }
-            if (service != null){
+            if (service != null) {
                 value = service.value();
             }
             if (StringUtil.isEmpty(value)) {

@@ -9,18 +9,33 @@
 
 package org.jleopard.mvc.core.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class BeanInfo {
 
     private String name;
 
     private Object newInstance;
+
+    public BeanInfo(String name, Object newInstance) {
+        this.name = name;
+        this.newInstance = newInstance;
+    }
+
+    public BeanInfo() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Object getNewInstance() {
+        return newInstance;
+    }
+
+    public void setNewInstance(Object newInstance) {
+        this.newInstance = newInstance;
+    }
 }

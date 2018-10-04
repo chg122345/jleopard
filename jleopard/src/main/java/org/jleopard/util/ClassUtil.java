@@ -129,11 +129,11 @@ public class ClassUtil {
 				doAddClass(scls,classname);
 			}else {
 				String subpackagepath=fname;
-				if(StringUtil.isNotEmpty(subpackagepath)) {
+				if(StringUtil.isNotEmpty(subpackagepath) && StringUtil.isNotEmpty(packagePath)) {
 					subpackagepath=packagePath+"/"+subpackagepath;
 				}
 				String subpackagename=fname;
-				if(StringUtil.isNotEmpty(subpackagename)) {
+				if(StringUtil.isNotEmpty(subpackagename) && StringUtil.isNotEmpty(packagename)) {
 					subpackagename=packagename+"."+subpackagename;
 				}
 				addClass(scls,subpackagepath,subpackagename);

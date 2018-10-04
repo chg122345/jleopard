@@ -25,7 +25,7 @@ import org.jleopard.util.PathUtils;
  */
 public class JoinSql implements Sql, CloumnNames {
 
-    private static final Log LOG = LogFactory.getLog(JoinSql.class);
+    private static final Log log = LogFactory.getLog(JoinSql.class);
 
     private String tableName1; // 表名1
 
@@ -98,7 +98,9 @@ public class JoinSql implements Sql, CloumnNames {
         StringBuilder SQL = new StringBuilder();
         String sql = String.format("SELECT %s FROM " + tableName1, COL.toString());
         SQL.append(sql).append(JOIN);
-        LOG.info("生成的sql语句：" + SQL.toString());
+        if (log.isDebugEnabled()){
+            log.debug("生成的sql语句：" + SQL.toString());
+        }
         return SQL.toString();
     }
 }

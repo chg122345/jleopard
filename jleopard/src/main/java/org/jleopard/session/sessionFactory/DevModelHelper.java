@@ -14,15 +14,16 @@ import org.jleopard.logging.log.LogFactory;
  *
  */
 public final class DevModelHelper {
-	private static final Log LOG = LogFactory.getLog(SessionDirectImpl.class);
-	
+
+    private static final Log log = LogFactory.getLog(SessionDirectImpl.class);
+
 	protected static void outParameter(boolean DevModel,String sql,@SuppressWarnings("rawtypes") List values){
         if(DevModel){
         	String args = "";
             for (Object value:values){
                 args += value + " ";
             }
-            LOG.info(String.format("当前执行的sql语句: \n \t{}\n Paramters: {}\n",sql,args));
+            log.info(String.format("当前执行的sql语句: \n \t %s \n Paramters: %s \n",sql,args));
         }
     }
     protected static void outParameter(boolean DevModel,String sql,Object[] values){
@@ -40,9 +41,9 @@ public final class DevModelHelper {
     protected static void outParameter(boolean DevModel, String sql, Object primaryKey) {
         if(DevModel){
         	if (primaryKey == null || "".equals(primaryKey)) {
-        		LOG.info(String.format("当前执行的sql语句: \n \t{}\n",sql));
+        		log.info(String.format("当前执行的sql语句: \n \t %s",sql));
         	}else {
-        		LOG.info(String.format("当前执行的sql语句: \n \t{}\n Paramters: {}\n",sql,primaryKey));
+        		log.info(String.format("当前执行的sql语句: \n \t %s \n Paramters: %s ",sql,primaryKey));
         	}
         }
     }

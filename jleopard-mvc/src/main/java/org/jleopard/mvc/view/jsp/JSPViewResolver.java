@@ -10,10 +10,13 @@
 package org.jleopard.mvc.view.jsp;
 
 import com.alibaba.fastjson.JSON;
+import org.jleopard.mvc.core.annotation.Component;
 import org.jleopard.mvc.core.bean.MappingInfo;
-import org.jleopard.mvc.util.ArgsTypeUtils;
+import org.jleopard.mvc.core.ienum.ContentType;
+import org.jleopard.mvc.core.ienum.ErrorPage;
 import org.jleopard.mvc.view.View;
 import org.jleopard.mvc.view.ViewResolverException;
+import org.jleopard.util.ClassUtil;
 import org.jleopard.util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -31,17 +34,21 @@ import static org.jleopard.mvc.core.ienum.Method.ALL;
 /**
  * JSP模板渲染
  */
+@Component("viewResolver")
 public class JSPViewResolver implements View {
 
-    private String contentType = "text/html;charset=UTF-8";
+    private String contentType = ContentType.HTML.value();
 
     private String prefix = "";
 
-    private String suffix = "";
+    private String suffix = ".jsp";
 
     public JSPViewResolver(String prefix, String suffix) {
         this.prefix = prefix;
         this.suffix = suffix;
+    }
+
+    public JSPViewResolver() {
     }
 
     @Override
@@ -50,7 +57,7 @@ public class JSPViewResolver implements View {
     }
 
     @Override
-    public void render(Map<String, ?> map, HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
+    public void render(Map<String, ?> map, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String context = req.getContextPath();
         String url = req.getRequestURI();
         String uri = url.replace(context, "").replaceAll("/+", "/");
@@ -66,6 +73,9 @@ public class JSPViewResolver implements View {
                         value = var2.invoke(var1.getNewInstance(), initMethodParam(req, resp, var2));
                         renderJson = var1.isRenderJson();
                         break;
+                    } else {
+                        renderErrorPage(405,resp);
+                        break;
                     }
                 }
             }
@@ -77,13 +87,12 @@ public class JSPViewResolver implements View {
         }
 
         if (value == null) {
-            resp.getWriter().write("404 Not Found!!");
-            resp.getWriter().close();
+            renderErrorPage(404,resp);
             return;
         }
         if (renderJson) {
             String var = JSON.toJSONString(value);
-            resp.setContentType("application/json;charset=utf-8");
+            resp.setContentType(ContentType.JSON.value());
             resp.getWriter().write(var);
             resp.getWriter().close();
         } else {
@@ -93,7 +102,7 @@ public class JSPViewResolver implements View {
                     resp.sendRedirect(uri$);
                 } else {
                     String page = this.prefix + value + this.suffix;
-                    resp.setContentType(this.getContentType());
+                    //resp.setContentType(this.getContentType());
                     req.getRequestDispatcher(page).forward(req, resp);
                 }
             } else {
@@ -102,6 +111,32 @@ public class JSPViewResolver implements View {
         }
     }
 
+
+    private void renderErrorPage(int code, HttpServletResponse resp) throws IOException {
+        resp.setContentType(this.getContentType());
+        String page;
+        switch (code) {
+            case 401:
+                page = ErrorPage.HTML_401.value();
+                break;
+            case 403:
+                page = ErrorPage.HTML_403.value();
+                break;
+            case 404:
+                page = ErrorPage.HTML_404.value();
+                break;
+            case 405:
+                page = ErrorPage.HTML_405.value();
+                break;
+            case 500:
+                page = ErrorPage.HTML_500.value();
+                break;
+            default:
+                page = ErrorPage.HTML_ERR.value();
+        }
+        resp.getWriter().write(page);
+        resp.getWriter().close();
+    }
 
     private Object[] initMethodParam(HttpServletRequest req, HttpServletResponse resp, Method var2) {
         Class<?>[] paraTypes = var2.getParameterTypes();
@@ -112,28 +147,28 @@ public class JSPViewResolver implements View {
             if (var$ == HttpServletRequest.class) {
                 paraValues[i] = req;
                 continue;
-            }else if (var$ == HttpServletResponse.class) {
+            } else if (var$ == HttpServletResponse.class) {
                 paraValues[i] = resp;
                 continue;
-            }else if (var$ == HttpSession.class) {
+            } else if (var$ == HttpSession.class) {
                 paraValues[i] = req.getSession();
                 continue;
-            }else if (var$ == String.class) {
-                for (Map.Entry<String,String[]> param : paraMap.entrySet()){
+            } else if (var$ == String.class) {
+                for (Map.Entry<String, String[]> param : paraMap.entrySet()) {
                     String value = Arrays.toString(param.getValue()).replaceAll("\\[|\\]", "").replaceAll("\\s", ",");
                     paraValues[i] = value;
                 }
                 continue;
-            }else {  //封装类型
+            } else {  //封装类型
                 Field[] fields = var$.getDeclaredFields();
                 Object instance = null;
                 try {
-                    instance= var$.newInstance();
-                    for (Field field :fields){
+                    instance = var$.newInstance();
+                    for (Field field : fields) {
                         String value = req.getParameter(field.getName());
-                        if (StringUtil.isNotEmpty(value)){
+                        if (StringUtil.isNotEmpty(value)) {
                             field.setAccessible(true);
-                            field.set(instance, ArgsTypeUtils.changeType(field,value));
+                            field.set(instance, ClassUtil.changeType(field, value));
                         }
                     }
                 } catch (Exception e) {
@@ -143,5 +178,25 @@ public class JSPViewResolver implements View {
             }
         }
         return paraValues;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 }

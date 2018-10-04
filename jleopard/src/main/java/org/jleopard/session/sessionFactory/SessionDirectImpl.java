@@ -38,7 +38,7 @@ final class SessionDirectImpl implements SqlSession {
     private PreparedStatement pstm;
     private Statement stm;
     private ResultSet res;
-    private boolean DevModel;
+    private boolean devModel;
 
     private void open() {
         if (conn == null) {
@@ -62,7 +62,7 @@ final class SessionDirectImpl implements SqlSession {
     public SessionDirectImpl(Configuration configuration) {
         this.configuration = configuration;
         this.dataSource = configuration.getDataSource();
-        this.DevModel = configuration.isDev();
+        this.devModel = configuration.isDev();
         try {
             this.conn = dataSource.getConnection();
         } catch (SQLException e1) {
@@ -112,7 +112,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (SQLException e) {
             throw new SqlSessionException(" sql执行出错了...", e);
         } finally {
-            DevModelHelper.outParameter(DevModel, sql, values);
+            DevModelHelper.outParameter(devModel, sql, values);
         }
     }
 
@@ -159,7 +159,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了...", e);
         } finally {
-            DevModelHelper.outParameter(DevModel, sql, args);
+            DevModelHelper.outParameter(devModel, sql, args);
         }
     }
 
@@ -184,7 +184,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了... ", e);
         } finally {
-            DevModelHelper.outParameter(DevModel, sql, values);
+            DevModelHelper.outParameter(devModel, sql, values);
         }
     }
 
@@ -203,7 +203,7 @@ final class SessionDirectImpl implements SqlSession {
         StringBuilder SQL = new StringBuilder();
         SQL.append(deletesql.getSql()).append(" ").append(ArraysHelper.getSql(primaryKeys));
         String sql = SQL.toString();
-        DevModelHelper.outParameter(DevModel, sql, primaryKeys);
+        DevModelHelper.outParameter(devModel, sql, primaryKeys);
         try {
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(primaryKeys)) {
@@ -253,9 +253,9 @@ final class SessionDirectImpl implements SqlSession {
             values.add(primaryKey);
             return pstm.executeUpdate();
         } catch (SQLException e) {
-            throw new SqlSessionException("sql执行出错了... ", e);
+            throw new SqlSessionException("sql执行出错了",e);
         } finally {
-            DevModelHelper.outParameter(DevModel, sql, values);
+            DevModelHelper.outParameter(devModel, sql, values);
         }
     }
 
@@ -284,7 +284,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了... ", e);
         } finally {
-            DevModelHelper.outParameter(DevModel, sql, values);
+            DevModelHelper.outParameter(devModel, sql, values);
         }
     }
 
@@ -323,7 +323,7 @@ final class SessionDirectImpl implements SqlSession {
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了... ", e);
         } finally {
-            DevModelHelper.outParameter(DevModel, sql, values);
+            DevModelHelper.outParameter(devModel, sql, values);
         }
     }
 
@@ -338,7 +338,7 @@ final class SessionDirectImpl implements SqlSession {
     @Override
     public ResultSet getBySql(String sql, Object... args) throws SqlSessionException {
         this.open();
-        DevModelHelper.outParameter(DevModel, sql, args);
+        DevModelHelper.outParameter(devModel, sql, args);
         try {
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(args)) {
@@ -377,7 +377,7 @@ final class SessionDirectImpl implements SqlSession {
             }
         }
         String sql = SQL.toString();
-        DevModelHelper.outParameter(DevModel, sql, args);
+        DevModelHelper.outParameter(devModel, sql, args);
         try {
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(args)) {
@@ -387,7 +387,6 @@ final class SessionDirectImpl implements SqlSession {
         } catch (SQLException e) {
             throw new SqlSessionException("sql执行出错了....", e);
         }
-        System.out.println("sql->" + sql);
         return EntityHelper.invoke(res, this, cls1, clazz);
     }
 
@@ -415,7 +414,7 @@ final class SessionDirectImpl implements SqlSession {
             }
         }
         String sql = SQL.toString();
-        DevModelHelper.outParameter(DevModel, sql, args);
+        DevModelHelper.outParameter(devModel, sql, args);
         try {
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(args)) {
@@ -447,7 +446,7 @@ final class SessionDirectImpl implements SqlSession {
         String sql = selectsql.getSql();
         // sql = sql + " LIMIT 1";
         List<Object> values = selectsql.getValues();
-        DevModelHelper.outParameter(DevModel, sql, values);
+        DevModelHelper.outParameter(devModel, sql, values);
         try {
             pstm = conn.prepareStatement(sql);
             pstmSetListValues(pstm, values);
@@ -491,7 +490,7 @@ final class SessionDirectImpl implements SqlSession {
         SQL.append(selectsql.getSql()).append(PathUtils.LINE).append(" WHERE").append(" ").append(pks.get(0))
                 .append(" ").append(ArraysHelper.getSql(primaryKeys));
         String sql = SQL.toString();
-        DevModelHelper.outParameter(DevModel, sql, primaryKeys);
+        DevModelHelper.outParameter(devModel, sql, primaryKeys);
         try {
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(primaryKeys)) {
@@ -520,11 +519,10 @@ final class SessionDirectImpl implements SqlSession {
         Sql selectsql = new SelectSqlMore(cls);
         Map<String, String> C_F = FieldUtil.getColumnFieldName(cls);
         String sql = selectsql.getSql();
-        DevModelHelper.outParameter(DevModel, sql, "");
+        DevModelHelper.outParameter(devModel, sql, "");
         try {
             stm = conn.createStatement();
             res = stm.executeQuery(sql);
-            System.out.println(sql);
         } catch (SQLException e) {
             throw new SqlSessionException(" sql执行出错了... ", e);
         }
@@ -575,7 +573,7 @@ final class SessionDirectImpl implements SqlSession {
             }
             SQL.append(" ").append("LIMIT").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();
-            DevModelHelper.outParameter(DevModel, sql, args);
+            DevModelHelper.outParameter(devModel, sql, args);
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(args)) {
                 pstmSetArrayValues(pstm, args);
@@ -621,7 +619,7 @@ final class SessionDirectImpl implements SqlSession {
             }
             SQL.append(" ").append("LIMIT").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();
-            DevModelHelper.outParameter(DevModel, sql, args);
+            DevModelHelper.outParameter(devModel, sql, args);
             pstm = conn.prepareStatement(sql);
             if (ArrayUtil.isNotEmpty(args)) {
                 pstmSetArrayValues(pstm, args);

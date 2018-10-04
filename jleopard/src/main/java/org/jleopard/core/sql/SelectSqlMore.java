@@ -65,7 +65,9 @@ public class SelectSqlMore implements Sql {
 		}
 		SQL.deleteCharAt(SQL.length() - 1).append(" ").append("FROM").append(" ").append(tableName)
 				.append(PathUtils.LINE);
-		log.info(" 生成的sql语句: " + SQL.toString());
+		if (log.isDebugEnabled()){
+			log.debug(" 生成的sql语句: " + SQL.toString());
+		}
 		return SQL.toString();
 	}
 

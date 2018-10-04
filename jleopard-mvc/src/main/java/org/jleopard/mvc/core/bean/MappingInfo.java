@@ -9,17 +9,9 @@
 
 package org.jleopard.mvc.core.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.lang.reflect.Method;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class MappingInfo {
 
     private String url;
@@ -32,4 +24,54 @@ public class MappingInfo {
 
     private boolean renderJson;
 
+    public MappingInfo() {
+    }
+
+    public MappingInfo(String url, org.jleopard.mvc.core.ienum.Method imed, Object newInstance, Method method, boolean renderJson) {
+        this.url = url;
+        this.imed = imed;
+        this.newInstance = newInstance;
+        this.method = method;
+        this.renderJson = renderJson;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public org.jleopard.mvc.core.ienum.Method getImed() {
+        return imed;
+    }
+
+    public void setImed(org.jleopard.mvc.core.ienum.Method imed) {
+        this.imed = imed;
+    }
+
+    public Object getNewInstance() {
+        return newInstance;
+    }
+
+    public void setNewInstance(Object newInstance) {
+        this.newInstance = newInstance;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+
+    public boolean isRenderJson() {
+        return renderJson;
+    }
+
+    public void setRenderJson(boolean renderJson) {
+        this.renderJson = renderJson;
+    }
 }

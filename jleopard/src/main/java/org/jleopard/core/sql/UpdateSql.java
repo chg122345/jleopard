@@ -82,7 +82,9 @@ public class UpdateSql<T> implements Sql, CloumnNames, CloumnValue {
 			SQL.append(columnNames.get(i)).append("=?").append(",");
 		}
 		SQL.deleteCharAt(SQL.length() - 1).append(PathUtils.LINE).append("   WHERE").append(" ");
-		log.info(" 生成的sql语句: " + SQL.toString());
+		if (log.isDebugEnabled()){
+			log.debug(" 生成的sql语句: " + SQL.toString());
+		}
 		return SQL.toString();
 	}
 }
