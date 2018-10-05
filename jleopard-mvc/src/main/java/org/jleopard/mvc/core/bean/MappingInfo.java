@@ -9,7 +9,10 @@
 
 package org.jleopard.mvc.core.bean;
 
+import org.jleopard.mvc.inter.Interceptor;
+
 import java.lang.reflect.Method;
+import java.util.Set;
 
 
 public class MappingInfo {
@@ -24,15 +27,15 @@ public class MappingInfo {
 
     private boolean renderJson;
 
-    public MappingInfo() {
-    }
+    private Set<Class<? extends Interceptor>> interceptors;
 
-    public MappingInfo(String url, org.jleopard.mvc.core.ienum.Method imed, Object newInstance, Method method, boolean renderJson) {
+    public MappingInfo(String url, org.jleopard.mvc.core.ienum.Method imed, Object newInstance, Method method, boolean renderJson, Set<Class<? extends Interceptor>> interceptors) {
         this.url = url;
         this.imed = imed;
         this.newInstance = newInstance;
         this.method = method;
         this.renderJson = renderJson;
+        this.interceptors = interceptors;
     }
 
     public String getUrl() {
@@ -73,5 +76,13 @@ public class MappingInfo {
 
     public void setRenderJson(boolean renderJson) {
         this.renderJson = renderJson;
+    }
+
+    public Set<Class<? extends Interceptor>> getInterceptors() {
+        return interceptors;
+    }
+
+    public void setInterceptors(Set<Class<? extends Interceptor>> interceptors) {
+        this.interceptors = interceptors;
     }
 }

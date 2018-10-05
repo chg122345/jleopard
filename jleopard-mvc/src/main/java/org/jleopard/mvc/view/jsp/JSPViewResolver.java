@@ -14,9 +14,12 @@ import org.jleopard.mvc.core.annotation.Component;
 import org.jleopard.mvc.core.bean.MappingInfo;
 import org.jleopard.mvc.core.ienum.ContentType;
 import org.jleopard.mvc.core.ienum.ErrorPage;
+import org.jleopard.mvc.inter.Interceptor;
+import org.jleopard.mvc.inter.InterceptorRegistration;
 import org.jleopard.mvc.view.View;
 import org.jleopard.mvc.view.ViewResolverException;
 import org.jleopard.util.ClassUtil;
+import org.jleopard.util.CollectionUtil;
 import org.jleopard.util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -28,6 +31,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 
 import static org.jleopard.mvc.core.ienum.Method.ALL;
 
@@ -68,13 +72,25 @@ public class JSPViewResolver implements View {
             for (Map.Entry<String, ?> $var : map.entrySet()) {
                 if (uri.equals($var.getKey())) {
                     MappingInfo var1 = (MappingInfo) $var.getValue();
+                    Set<Class<? extends Interceptor>> interceptors = var1.getInterceptors();
                     Method var2 = var1.getMethod();
                     if ((var1.getImed() == ALL) || method.equalsIgnoreCase(var1.getImed().getValue())) {
+                        if (CollectionUtil.isNotEmpty(interceptors)) {
+                            for (Class<? extends Interceptor> inter : interceptors) {
+                                InterceptorRegistration registration = new InterceptorRegistration();
+                                Method m1 = inter.getDeclaredMethod("preHandle", HttpServletRequest.class, HttpServletResponse.class, InterceptorRegistration.class);
+                                boolean invoke = (boolean) m1.invoke(inter.newInstance(),req, resp, registration);
+                                if (! invoke) {
+                                    renderErrorPage(403, resp);
+                                    break;
+                                }
+                            }
+                        }
                         value = var2.invoke(var1.getNewInstance(), initMethodParam(req, resp, var2));
                         renderJson = var1.isRenderJson();
                         break;
                     } else {
-                        renderErrorPage(405,resp);
+                        renderErrorPage(405, resp);
                         break;
                     }
                 }
@@ -87,7 +103,7 @@ public class JSPViewResolver implements View {
         }
 
         if (value == null) {
-            renderErrorPage(404,resp);
+            renderErrorPage(404, resp);
             return;
         }
         if (renderJson) {

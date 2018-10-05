@@ -12,7 +12,11 @@ package org.jleopard.mvc.servlet;
 import org.jleopard.mvc.core.ApplicationInitializer;
 import org.jleopard.mvc.core.annotation.*;
 import org.jleopard.mvc.core.bean.MappingInfo;
+import org.jleopard.mvc.inter.Before;
+import org.jleopard.mvc.inter.Clear;
+import org.jleopard.mvc.inter.Interceptor;
 import org.jleopard.mvc.view.View;
+import org.jleopard.util.ArrayUtil;
 import org.jleopard.util.ClassUtil;
 import org.jleopard.util.StringUtil;
 
@@ -103,6 +107,12 @@ public class DispatcherServlet extends HttpServlet {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+            Set<Class<? extends Interceptor>> inters = null;
+            Before before = i.getDeclaredAnnotation(Before.class);
+            if (before != null){
+                Class<? extends Interceptor>[] value = before.value();
+                inters = Arrays.stream(value).collect(Collectors.toSet());
+            }
             String key;
             Controller controller = i.getDeclaredAnnotation(Controller.class);
             key = controller.value();
@@ -123,10 +133,10 @@ public class DispatcherServlet extends HttpServlet {
                     } else {
                         var1 = var$;
                     }
-                    addMapping(var1, newInstance, methods);
+                    addMapping(var1, newInstance, methods,inters);
                 }
             } else {
-                addMapping(var1, newInstance, methods);
+                addMapping(var1, newInstance, methods,inters);
             }
 
         });
@@ -139,10 +149,20 @@ public class DispatcherServlet extends HttpServlet {
      * @param newInstance
      * @param methods
      */
-    private void addMapping(String var1, Object newInstance, Method[] methods) {
+    private void addMapping(String var1, Object newInstance, Method[] methods,Set<Class<? extends Interceptor>> inters) {
         String var2;
         for (Method method : methods) {
             if (method.isAnnotationPresent(RequestMapping.class)) {
+                Before before= method.getDeclaredAnnotation(Before.class);
+                Clear clear = method.getDeclaredAnnotation(Clear.class);
+                if (before != null){
+                    Class<? extends Interceptor>[] value = before.value();
+                    inters = Arrays.stream(value).collect(Collectors.toSet());
+                }
+                if (clear != null){
+                    Class<? extends Interceptor>[] value = clear.value();
+                    inters.removeAll(Arrays.stream(value).collect(Collectors.toSet()));
+                }
                 RequestMapping requestMapping$ = method.getDeclaredAnnotation(RequestMapping.class);
                 String[] var4 = requestMapping$.value();
                 boolean renderJson = false;
@@ -156,7 +176,7 @@ public class DispatcherServlet extends HttpServlet {
                         var2 = var$1;
                     }
                     String url = var1 + var2;
-                    MappingInfo mappingInfo = new MappingInfo(url, requestMapping$.method(), newInstance, method, renderJson);
+                    MappingInfo mappingInfo = new MappingInfo(url, requestMapping$.method(), newInstance, method, renderJson,inters);
                     map.put(url, mappingInfo);
                 }
             }

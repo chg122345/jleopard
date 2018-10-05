@@ -1,7 +1,7 @@
 package org.jleopard.mvc;
 
 
-import org.jleopard.mvc.core.ApplicationInitializer;
+import java.util.regex.Pattern;
 
 
 /**
@@ -9,9 +9,11 @@ import org.jleopard.mvc.core.ApplicationInitializer;
  */
 public class AppTest {
 
-    private static ApplicationInitializer appContext = new DefaultAppContext();
 
     public static void main(String[] args) {
-        System.out.println(appContext.getBasePackage());
+
+        String pattern = "/user/.?";
+        String content = "/user/2/55";
+        System.out.println(Pattern.matches(pattern,content));
     }
 }
