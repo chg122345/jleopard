@@ -10,12 +10,18 @@
 package org.jleopard.mvc.view.jsp;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.jleopard.mvc.core.annotation.Component;
 import org.jleopard.mvc.core.bean.MappingInfo;
 import org.jleopard.mvc.core.ienum.ContentType;
 import org.jleopard.mvc.core.ienum.ErrorPage;
 import org.jleopard.mvc.inter.Interceptor;
 import org.jleopard.mvc.inter.InterceptorRegistration;
+import org.jleopard.mvc.upload.MultipartFile;
+import org.jleopard.mvc.upload.UploadFile;
 import org.jleopard.mvc.view.View;
 import org.jleopard.mvc.view.ViewResolverException;
 import org.jleopard.util.ClassUtil;
@@ -26,12 +32,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.Parameter;
+import java.util.*;
 
 import static org.jleopard.mvc.core.ienum.Method.ALL;
 
@@ -79,14 +86,15 @@ public class JSPViewResolver implements View {
                             for (Class<? extends Interceptor> inter : interceptors) {
                                 InterceptorRegistration registration = new InterceptorRegistration();
                                 Method m1 = inter.getDeclaredMethod("preHandle", HttpServletRequest.class, HttpServletResponse.class, InterceptorRegistration.class);
-                                boolean invoke = (boolean) m1.invoke(inter.newInstance(),req, resp, registration);
-                                if (! invoke) {
+                                boolean invoke = (boolean) m1.invoke(inter.newInstance(), req, resp, registration);
+                                if (!invoke) {
                                     renderErrorPage(403, resp);
                                     break;
                                 }
                             }
                         }
-                        value = var2.invoke(var1.getNewInstance(), initMethodParam(req, resp, var2));
+                        Map<String, String[]> parameterMap = req.getParameterMap();
+                        value = var2.invoke(var1.getNewInstance(), initMethodParam(req, resp,parameterMap,var2));
                         renderJson = var1.isRenderJson();
                         break;
                     } else {
@@ -118,7 +126,6 @@ public class JSPViewResolver implements View {
                     resp.sendRedirect(uri$);
                 } else {
                     String page = this.prefix + value + this.suffix;
-                    //resp.setContentType(this.getContentType());
                     req.getRequestDispatcher(page).forward(req, resp);
                 }
             } else {
@@ -154,10 +161,39 @@ public class JSPViewResolver implements View {
         resp.getWriter().close();
     }
 
-    private Object[] initMethodParam(HttpServletRequest req, HttpServletResponse resp, Method var2) {
+    private Object[] initMethodParam(HttpServletRequest req, HttpServletResponse resp,Map<String, String[]> paraMap, Method var2) throws FileUploadException {
         Class<?>[] paraTypes = var2.getParameterTypes();
-        Map<String, String[]> paraMap = req.getParameterMap();
         Object[] paraValues = new Object[paraTypes.length];
+        List<MultipartFile> list = new ArrayList<>();
+        boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+        if (isMultipart) {
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            List<FileItem> items = upload.parseRequest(req);
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    String fieldName=item.getFieldName();
+                    String value = null;
+                    try {
+                        value = item.getString("UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    paraMap = new HashMap();
+                    String[] curParam = paraMap.get(fieldName);
+                    if (curParam == null) {
+                        paraMap.put(fieldName, new String[]{value});
+                    } else {
+                        String[] newParam = StringUtil.addStringToArray(curParam, value);
+                        paraMap.put(fieldName, newParam);
+                    }
+                } else {
+                    MultipartFile uploadFile = new UploadFile(item);
+                    list.add(uploadFile);
+                }
+            }
+        }
+
         for (int i = 0; i < paraTypes.length; i++) {
             Class<?> var$ = paraTypes[i];
             if (var$ == HttpServletRequest.class) {
@@ -169,11 +205,15 @@ public class JSPViewResolver implements View {
             } else if (var$ == HttpSession.class) {
                 paraValues[i] = req.getSession();
                 continue;
-            } else if (var$ == String.class) {
+            } else if (var$ == String.class && !paraMap.isEmpty()) {
                 for (Map.Entry<String, String[]> param : paraMap.entrySet()) {
                     String value = Arrays.toString(param.getValue()).replaceAll("\\[|\\]", "").replaceAll("\\s", ",");
                     paraValues[i] = value;
                 }
+                continue;
+            } else if (var$ == MultipartFile.class) {
+                // 文件
+               paraValues[i] = list.get(0);
                 continue;
             } else {  //封装类型
                 Field[] fields = var$.getDeclaredFields();

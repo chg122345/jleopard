@@ -117,6 +117,18 @@ public class StringUtil {
         return str;
     }
 
+
+    public static String[] addStringToArray(String[] array, String str) {
+        if (ArrayUtil.isEmpty(array)) {
+            return new String[]{str};
+        } else {
+            String[] newArr = new String[array.length + 1];
+            System.arraycopy(array, 0, newArr, 0, array.length);
+            newArr[array.length] = str;
+            return newArr;
+        }
+    }
+
     /**
      * 转为显示命名方式（如：Foo Bar）
      */
