@@ -309,6 +309,8 @@ final class SessionDirectImpl implements SqlSession {
             } else {
                 SQL.append(where);
             }
+        }else {
+            args = null;
         }
         String sql = SQL.toString();
         List<Object> values = updatesql.getValues();
@@ -375,6 +377,8 @@ final class SessionDirectImpl implements SqlSession {
             } else {
                 SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
             }
+        }else {
+            args = null;
         }
         String sql = SQL.toString();
         DevModelHelper.outParameter(devModel, sql, args);
@@ -412,6 +416,8 @@ final class SessionDirectImpl implements SqlSession {
             } else {
                 SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
             }
+        }else {
+            args = null;
         }
         String sql = SQL.toString();
         DevModelHelper.outParameter(devModel, sql, args);
@@ -570,6 +576,8 @@ final class SessionDirectImpl implements SqlSession {
                 } else {
                     SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
                 }
+            }else {
+                args = null;
             }
             SQL.append(" ").append("LIMIT").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();
@@ -616,6 +624,8 @@ final class SessionDirectImpl implements SqlSession {
                 } else {
                    SQL.append(PathUtils.LINE).append(" WHERE").append(" ").append(where);
                 }
+            }else {
+                args = null;
             }
             SQL.append(" ").append("LIMIT").append(" ").append(star).append(",").append(pageSize);
             String sql = SQL.toString();
@@ -703,14 +713,17 @@ final class SessionDirectImpl implements SqlSession {
      **/
     @SuppressWarnings("rawtypes")
     private void pstmSetListValues(PreparedStatement pstm, List values) throws SQLException {
-        for (int i = 0; i < values.size(); ++i) {
-            pstm.setObject(i + 1, values.get(i));
+        if (CollectionUtil.isNotEmpty(values)){
+            pstmSetArrayValues(pstm,values.toArray());
+
         }
     }
 
     private void pstmSetArrayValues(PreparedStatement pstm, Object[] args) throws SQLException {
-        for (int i = 0; i < args.length; ++i) {
-            pstm.setObject(i + 1, args[i]);
+        if (ArrayUtil.isNotEmpty(args)){
+            for (int i = 0; i < args.length; ++i) {
+                pstm.setObject(i + 1, args[i]);
+            }
         }
     }
 }
