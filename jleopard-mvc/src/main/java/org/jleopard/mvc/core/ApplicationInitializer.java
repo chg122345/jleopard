@@ -11,17 +11,23 @@ package org.jleopard.mvc.core;
 
 import org.jleopard.mvc.view.ViewResolver;
 import org.jleopard.mvc.view.jsp.JSPViewResolver;
+import org.jleopard.session.Configuration;
+import org.jleopard.session.sessionFactory.SqlSessionFactory;
 
 /**
  * 初始化应用配置
  */
 public interface ApplicationInitializer {
 
-    default String getBasePackage(){
+    default String basePackage(){
         return "";
     }
 
-    default ViewResolver getViewResolver(){
+    default ViewResolver viewResolver(){
         return new JSPViewResolver();
+    }
+
+    default SqlSessionFactory sqlSessionFactory(Configuration configuration){
+        return null;
     }
 }

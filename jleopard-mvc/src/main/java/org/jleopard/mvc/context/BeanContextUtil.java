@@ -12,7 +12,7 @@ package org.jleopard.mvc.context;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ApplicationContext {
+public class BeanContextUtil {
 
     private static Map<String, Object> ioc = new ConcurrentHashMap<>(255);
 
@@ -22,5 +22,13 @@ public class ApplicationContext {
 
     public static Object getBeanByName(String beanName){
         return ioc.get(beanName);
+    }
+
+    public static void clearBean(){
+        ioc.clear();
+    }
+
+    public static Map<String, Object> getIoc() {
+        return ioc;
     }
 }

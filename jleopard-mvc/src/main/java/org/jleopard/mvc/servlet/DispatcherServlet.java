@@ -9,6 +9,7 @@
 
 package org.jleopard.mvc.servlet;
 
+import org.jleopard.mvc.context.BeanContextUtil;
 import org.jleopard.mvc.core.ApplicationInitializer;
 import org.jleopard.mvc.core.annotation.*;
 import org.jleopard.mvc.core.bean.MappingInfo;
@@ -17,7 +18,7 @@ import org.jleopard.mvc.inter.Clear;
 import org.jleopard.mvc.inter.Interceptor;
 import org.jleopard.mvc.view.View;
 import org.jleopard.mvc.view.ViewResolver;
-import org.jleopard.util.ArrayUtil;
+import org.jleopard.session.Configuration;
 import org.jleopard.util.ClassUtil;
 import org.jleopard.util.StringUtil;
 
@@ -32,7 +33,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -44,10 +44,9 @@ public class DispatcherServlet extends HttpServlet {
 
     private final static String VIEW_RESOLVER_BEAN_NAME = "viewResolver";
 
+    private final static String SQL_SESSION_FACTORY_BEAN_NAME = "sqlSessionFactory";
+
     private Map<String, MappingInfo> map = new HashMap<>();
-
-    private Map<String, Object> ioc = new ConcurrentHashMap<>(255);
-
 
     public DispatcherServlet() {
     }
@@ -64,7 +63,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ViewResolver resolver = appInitializer.getViewResolver();
+        ViewResolver resolver = appInitializer.viewResolver();
         View view = resolver.resolveView();
         view.render(map, req, resp);
     }
@@ -73,7 +72,7 @@ public class DispatcherServlet extends HttpServlet {
     public void destroy() {
         super.destroy();
         this.map.clear();
-        this.ioc.clear();
+        BeanContextUtil.clearBean();
     }
 
 
@@ -92,13 +91,14 @@ public class DispatcherServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        BeanContextUtil.registerBean(SQL_SESSION_FACTORY_BEAN_NAME,appInitializer.sqlSessionFactory(new Configuration()));
     }
 
     /**
      * 初始化映射uri 和 method
      */
     private void initHandlerMapping() {
-        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appInitializer.getBasePackage()).stream().filter(i -> i.isAnnotationPresent(Controller.class)).collect(Collectors.toSet());
+        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appInitializer.basePackage()).stream().filter(i -> i.isAnnotationPresent(Controller.class)).collect(Collectors.toSet());
         set.stream().forEach(i -> {
             String var1 = "";
             Object newInstance = null;
@@ -121,7 +121,7 @@ public class DispatcherServlet extends HttpServlet {
             if (StringUtil.isEmpty(key)) {
                 key = StringUtil.firstToLower(i.getSimpleName());
             }
-            ioc.put(key, newInstance);
+            BeanContextUtil.registerBean(key, newInstance);
             Method[] methods = i.getDeclaredMethods();
             if (i.isAnnotationPresent(RequestMapping.class)) {
                 RequestMapping requestMapping = i.getDeclaredAnnotation(RequestMapping.class);
@@ -189,7 +189,7 @@ public class DispatcherServlet extends HttpServlet {
      * 初始化ioc容器
      */
     private void initBeanIoc() {
-        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appInitializer.getBasePackage()).stream().filter(i -> (i.isAnnotationPresent(Component.class) || i.isAnnotationPresent(Service.class))).collect(Collectors.toSet());
+        Set<Class<?>> set = ClassUtil.getClassSetByPackagename(appInitializer.basePackage()).stream().filter(i -> (i.isAnnotationPresent(Component.class) || i.isAnnotationPresent(Service.class))).collect(Collectors.toSet());
         set.stream().forEach(i -> {
             Component component = i.getDeclaredAnnotation(Component.class);
             Service service = i.getDeclaredAnnotation(Service.class);
@@ -204,7 +204,7 @@ public class DispatcherServlet extends HttpServlet {
                 value = StringUtil.firstToLower(i.getSimpleName());
             }
             try {
-                ioc.put(value, i.newInstance());
+                BeanContextUtil.registerBean(value, i.newInstance());
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -217,6 +217,7 @@ public class DispatcherServlet extends HttpServlet {
      * 依赖注入
      */
     private void initInject() {
+        Map<String, Object> ioc = BeanContextUtil.getIoc();
         for (Map.Entry<String, Object> i : ioc.entrySet()) {
             Object target = i.getValue();
             Class<?> clazz = target.getClass();
