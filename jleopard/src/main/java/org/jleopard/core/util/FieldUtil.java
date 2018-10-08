@@ -32,7 +32,7 @@ public class FieldUtil {
      * 获取 字段名 值 主用于insert (2018-9-16 根据主键类型修改主键的值的值)
      *
      * @param entity
-     * @return Map<String , Object> key :对应的字段名 value : 相对应的值
+     * @return Map<String                                                               ,                                                               Object> key :对应的字段名 value : 相对应的值
      */
     public static Map<String, Object> getColumnName_Value(Object entity) {
         Map<String, Object> c_v = new LinkedHashMap<>();
@@ -61,7 +61,7 @@ public class FieldUtil {
      * 获取 字段名 值 主用于insert delete (2018-4-18 添加外键的值)
      *
      * @param entity
-     * @return Map<String , Object> key :对应的字段名 value : 相对应的值
+     * @return Map<String                                                               ,                                                               Object> key :对应的字段名 value : 相对应的值
      */
     public static Map<String, Object> getAllColumnName_Value(Object entity) {
         Map<String, Object> c_v = new LinkedHashMap<>();
@@ -78,6 +78,7 @@ public class FieldUtil {
 
     /**
      * 过滤空值 0
+     *
      * @param entity
      * @param c_v
      * @param cls
@@ -102,19 +103,35 @@ public class FieldUtil {
             } else {
                 fieldValue = method.invoke(entity);
             }
-            if (fieldValue == null || "".equals(fieldValue)
-                    || (fieldValue instanceof Integer && (Integer) fieldValue == 0)
-                    || (fieldValue instanceof Long && (Long) fieldValue == 0)
-                    || (fieldValue instanceof Double && (Double) fieldValue == 0.0)) {
-                return;
+            if (!isEmpty(fieldValue)) {
+                columnName = ColumnNameHelper.getColumnName(field);
+                // System.out.println(columnName+" ");
+                c_v.put(columnName, fieldValue); // 取到我们需要的打包
             }
-            columnName = ColumnNameHelper.getColumnName(field);
-            // System.out.println(columnName+" ");
-            c_v.put(columnName, fieldValue); // 取到我们需要的打包
         } catch (Exception e) {
             log.error("getAllFieldName_Value  获取值失败..." + e);
             throw new RuntimeException("getAllFieldName_Value  获取值失败..." + e);
         }
+    }
+
+    private static boolean isEmpty(Object obj) {
+        Class<?> clazz = obj.getClass();
+        if (null == obj) {
+            return true;
+        }
+        if ((clazz == int.class || clazz == byte.class || clazz == short.class) && 0 == (int) obj) {
+            return true;
+        }
+        if (clazz == long.class && 0L == (long) obj) {
+            return true;
+        }
+        if (clazz == float.class && 0.0f == (float) obj) {
+            return true;
+        }
+        if (clazz == double.class && 0.0d == (double) obj) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -318,6 +335,7 @@ public class FieldUtil {
 
     /**
      * 获取关联的列名和字段类型
+     *
      * @param cls
      * @return
      */
@@ -364,6 +382,7 @@ public class FieldUtil {
 
     /**
      * 获取关联外键的表对应实体类
+     *
      * @param field
      * @return
      */
@@ -386,7 +405,7 @@ public class FieldUtil {
      * 判断是否为主键 返回类型
      *
      * @param column
-     * @return (0: 不是主键) (1 : 普通主键) (2 : 自增主键) (3 : uuid生成主键)
+     * @return (0 : 不是主键) (1 : 普通主键) (2 : 自增主键) (3 : uuid生成主键)
      */
     public static int isPrimaryKey(Column column) {
         if (column == null) {

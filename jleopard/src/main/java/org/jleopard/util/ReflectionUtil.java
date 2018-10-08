@@ -1,11 +1,11 @@
 package org.jleopard.util;
 
+import org.jleopard.logging.log.Log;
+import org.jleopard.logging.log.LogFactory;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.jleopard.logging.log.Log;
-import org.jleopard.logging.log.LogFactory;
 
 /**
  * 对象实例化
