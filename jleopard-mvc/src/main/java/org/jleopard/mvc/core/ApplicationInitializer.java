@@ -9,7 +9,7 @@
 
 package org.jleopard.mvc.core;
 
-import org.jleopard.mvc.view.View;
+import org.jleopard.mvc.view.ViewResolver;
 import org.jleopard.mvc.view.jsp.JSPViewResolver;
 
 /**
@@ -21,7 +21,7 @@ public interface ApplicationInitializer {
         return "";
     }
 
-    default View getViewResolver(){
+    default ViewResolver getViewResolver(){
         return new JSPViewResolver();
     }
 }

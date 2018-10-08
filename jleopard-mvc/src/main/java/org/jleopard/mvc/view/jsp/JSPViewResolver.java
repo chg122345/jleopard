@@ -9,5 +9,27 @@
 
 package org.jleopard.mvc.view.jsp;
 
-public class JSPViewResolver {
+import org.jleopard.mvc.view.View;
+import org.jleopard.mvc.view.ViewResolver;
+
+public class JSPViewResolver implements ViewResolver {
+
+    private View view;
+
+
+    @Override
+    public View resolveView(){
+        return this.view;
+    }
+
+    public JSPViewResolver(View view) {
+        this.view = view;
+    }
+    public JSPViewResolver() {
+        this.view = new JSPView();
+    }
+
+    public void setView(View view) {
+        this.view = view;
+    }
 }

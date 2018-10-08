@@ -16,6 +16,7 @@ import org.jleopard.mvc.inter.Before;
 import org.jleopard.mvc.inter.Clear;
 import org.jleopard.mvc.inter.Interceptor;
 import org.jleopard.mvc.view.View;
+import org.jleopard.mvc.view.ViewResolver;
 import org.jleopard.util.ArrayUtil;
 import org.jleopard.util.ClassUtil;
 import org.jleopard.util.StringUtil;
@@ -63,7 +64,8 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        View view = appInitializer.getViewResolver();
+        ViewResolver resolver = appInitializer.getViewResolver();
+        View view = resolver.resolveView();
         view.render(map, req, resp);
     }
 

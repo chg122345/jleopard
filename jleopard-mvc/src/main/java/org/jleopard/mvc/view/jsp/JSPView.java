@@ -14,7 +14,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.jleopard.mvc.core.annotation.Component;
 import org.jleopard.mvc.core.bean.MappingInfo;
 import org.jleopard.mvc.core.ienum.ContentType;
 import org.jleopard.mvc.core.ienum.ErrorPage;
@@ -22,8 +21,10 @@ import org.jleopard.mvc.inter.Interceptor;
 import org.jleopard.mvc.inter.InterceptorRegistration;
 import org.jleopard.mvc.upload.MultipartFile;
 import org.jleopard.mvc.upload.UploadFile;
+import org.jleopard.mvc.util.MethodUtil;
 import org.jleopard.mvc.view.View;
 import org.jleopard.mvc.view.ViewResolverException;
+import org.jleopard.util.ArrayUtil;
 import org.jleopard.util.ClassUtil;
 import org.jleopard.util.CollectionUtil;
 import org.jleopard.util.StringUtil;
@@ -32,12 +33,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.*;
 
 import static org.jleopard.mvc.core.ienum.Method.ALL;
@@ -45,8 +44,7 @@ import static org.jleopard.mvc.core.ienum.Method.ALL;
 /**
  * JSP模板渲染
  */
-@Component("viewResolver")
-public class JSPViewResolver implements View {
+public class JSPView implements View {
 
     private String contentType = ContentType.HTML.value();
 
@@ -54,12 +52,12 @@ public class JSPViewResolver implements View {
 
     private String suffix = ".jsp";
 
-    public JSPViewResolver(String prefix, String suffix) {
+    public JSPView(String prefix, String suffix) {
         this.prefix = prefix;
         this.suffix = suffix;
     }
 
-    public JSPViewResolver() {
+    public JSPView() {
     }
 
     @Override
@@ -88,13 +86,13 @@ public class JSPViewResolver implements View {
                                 Method m1 = inter.getDeclaredMethod("preHandle", HttpServletRequest.class, HttpServletResponse.class, InterceptorRegistration.class);
                                 boolean invoke = (boolean) m1.invoke(inter.newInstance(), req, resp, registration);
                                 if (!invoke) {
+                                    resp.setStatus(403);
                                     renderErrorPage(403, resp);
                                     break;
                                 }
                             }
                         }
-                        Map<String, String[]> parameterMap = req.getParameterMap();
-                        value = var2.invoke(var1.getNewInstance(), initMethodParam(req, resp,parameterMap,var2));
+                        value = var2.invoke(var1.getNewInstance(), initMethodParam(req, resp, var2));
                         renderJson = var1.isRenderJson();
                         break;
                     } else {
@@ -106,11 +104,13 @@ public class JSPViewResolver implements View {
         } catch (Exception e) {
             e.printStackTrace();
             resp.setStatus(500);
-            resp.getWriter().write("500 Exception:\r\n" + Arrays.toString(e.getStackTrace()).replaceAll("\\[|\\]", "").replaceAll("\\s", "\r\n"));
-            resp.getWriter().close();
+            /*resp.getWriter().write("500 Exception:\r\n" + Arrays.toString(e.getStackTrace()).replaceAll("\\[|\\]", "").replaceAll("\\s", "\r\n"));
+            resp.getWriter().close();*/
+            renderErrorPage(505,resp);
         }
 
         if (value == null) {
+            resp.setStatus(404);
             renderErrorPage(404, resp);
             return;
         }
@@ -161,25 +161,23 @@ public class JSPViewResolver implements View {
         resp.getWriter().close();
     }
 
-    private Object[] initMethodParam(HttpServletRequest req, HttpServletResponse resp,Map<String, String[]> paraMap, Method var2) throws FileUploadException {
+    private Object[] initMethodParam(HttpServletRequest req, HttpServletResponse resp, Method var2) throws FileUploadException,UnsupportedEncodingException {
+        Map<String, String[]> paraMap = req.getParameterMap();
+
         Class<?>[] paraTypes = var2.getParameterTypes();
+        Map<Integer,String> paraNamesMap = MethodUtil.getParamaterNames(var2);
         Object[] paraValues = new Object[paraTypes.length];
         List<MultipartFile> list = new ArrayList<>();
         boolean isMultipart = ServletFileUpload.isMultipartContent(req);
         if (isMultipart) {
+            paraMap = new HashMap();
             DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload upload = new ServletFileUpload(factory);
             List<FileItem> items = upload.parseRequest(req);
             for (FileItem item : items) {
                 if (item.isFormField()) {
-                    String fieldName=item.getFieldName();
-                    String value = null;
-                    try {
-                        value = item.getString("UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    paraMap = new HashMap();
+                    String fieldName = item.getFieldName();
+                    String value = item.getString("UTF-8");
                     String[] curParam = paraMap.get(fieldName);
                     if (curParam == null) {
                         paraMap.put(fieldName, new String[]{value});
@@ -193,7 +191,7 @@ public class JSPViewResolver implements View {
                 }
             }
         }
-
+        MultipartFile[] multipartFiles = new MultipartFile[list.size()];
         for (int i = 0; i < paraTypes.length; i++) {
             Class<?> var$ = paraTypes[i];
             if (var$ == HttpServletRequest.class) {
@@ -206,25 +204,34 @@ public class JSPViewResolver implements View {
                 paraValues[i] = req.getSession();
                 continue;
             } else if (var$ == String.class && !paraMap.isEmpty()) {
-                for (Map.Entry<String, String[]> param : paraMap.entrySet()) {
-                    String value = Arrays.toString(param.getValue()).replaceAll("\\[|\\]", "").replaceAll("\\s", ",");
+                String paraName = paraNamesMap.get(i);
+                if (StringUtil.isNotEmpty(paraName)){
+                    String[] vales = paraMap.get(paraName);
+                    String value = Arrays.toString(vales).replaceAll("\\[|\\]", "").replaceAll("\\s", ",");
                     paraValues[i] = value;
+                    continue;
                 }
-                continue;
             } else if (var$ == MultipartFile.class) {
                 // 文件
-               paraValues[i] = list.get(0);
+                paraValues[i] = CollectionUtil.isNotEmpty(list) ? list.get(0) : null;
+                continue;
+            } else if (var$ == multipartFiles.getClass()) {
+                // 多文件
+                paraValues[i] = list.toArray(multipartFiles);
                 continue;
             } else {  //封装类型
                 Field[] fields = var$.getDeclaredFields();
-                Object instance = null;
+                Object instance ;
                 try {
                     instance = var$.newInstance();
                     for (Field field : fields) {
-                        String value = req.getParameter(field.getName());
-                        if (StringUtil.isNotEmpty(value)) {
-                            field.setAccessible(true);
-                            field.set(instance, ClassUtil.changeType(field, value));
+                        String[] strings = paraMap.get(field.getName());
+                        if (ArrayUtil.isNotEmpty(strings)) {
+                            String value = Arrays.toString(strings).replaceAll("\\[|\\]", "").replaceAll("\\s", ",");
+                            if (StringUtil.isNotEmpty(value)) {
+                                field.setAccessible(true);
+                                field.set(instance, ClassUtil.changeType(field, value));
+                            }
                         }
                     }
                 } catch (Exception e) {

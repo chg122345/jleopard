@@ -9,8 +9,6 @@
 
 package org.jleopard.mvc.view;
 
-import java.util.Locale;
-
 public interface ViewResolver {
-    View resolveViewName(String arg, Locale locale) throws Exception;
+    View resolveView();
 }
