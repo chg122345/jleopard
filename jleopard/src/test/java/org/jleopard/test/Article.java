@@ -24,7 +24,7 @@ public class Article {
 	private String title;
 	
 	@Column
-	private Byte status;
+	private byte status;
 	
 	@Column(join=User.class)
 	private User user_id;
@@ -36,7 +36,7 @@ public class Article {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Article(String id, String title, Byte status, User user_id) {
+	public Article(String id, String title, byte status, User user_id) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -61,11 +61,11 @@ public class Article {
 		this.title = title;
 	}
 
-	public Byte getStatus() {
+	public byte getStatus() {
 		return status;
 	}
 
-	public void setStatus(Byte status) {
+	public void setStatus(byte status) {
 		this.status = status;
 	}
 

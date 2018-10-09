@@ -1,11 +1,5 @@
 package org.jleopard.core.util;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.util.*;
-
 import org.jleopard.core.EnumId;
 import org.jleopard.core.annotation.Column;
 import org.jleopard.core.annotation.OneToMany;
@@ -16,6 +10,12 @@ import org.jleopard.session.sessionFactory.ColumnNameHelper;
 import org.jleopard.util.ArrayUtil;
 import org.jleopard.util.CollectionUtil;
 import org.jleopard.util.StringUtil;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.util.*;
 
 /**
  * Copyright (c) 2018, Chen_9g 陈刚 (80588183@qq.com).
@@ -103,7 +103,7 @@ public class FieldUtil {
             } else {
                 fieldValue = method.invoke(entity);
             }
-            if (fieldValue == null || !isNotEmpty(fieldValue)) {
+            if (fieldValue == null || "".equals(fieldValue) || !isNotEmpty(fieldValue)) {
                 return;
             }
             columnName = ColumnNameHelper.getColumnName(field);
@@ -116,11 +116,8 @@ public class FieldUtil {
     }
 
     private static boolean isNotEmpty(Object obj) {
-        Class<?> clazz = obj.getClass();
         boolean temp = true;
-        if ((clazz == int.class || clazz == byte.class || clazz == short.class) && 0 == (int) obj) {
-            temp = false;
-        } else if ((clazz == long.class && 0L == (long) obj) || (clazz == float.class && 0.0f == (float) obj) || (clazz == double.class && 0.0d == (double) obj)) {
+        if ((obj instanceof Integer && 0 == (Integer) obj) || (obj instanceof Short && 0 == (Short) obj) || (obj instanceof Long && 0L == (Long) obj) || (obj instanceof Float && 0.0f == (Float) obj) || (obj instanceof Double && 0.0d == (Double) obj)) {
             temp = false;
         }
         return temp;

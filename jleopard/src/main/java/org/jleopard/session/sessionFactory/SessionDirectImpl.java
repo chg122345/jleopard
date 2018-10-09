@@ -655,11 +655,11 @@ final class SessionDirectImpl implements SqlSession {
     }
 
     @Override
-    public void rollback() throws SqlSessionException {
+    public void rollback(){
         try {
             conn.rollback();
         } catch (SQLException e) {
-            throw new SqlSessionException("事物回滚出错了...", e);
+            log.error("回滚异常",e);
         }
     }
 

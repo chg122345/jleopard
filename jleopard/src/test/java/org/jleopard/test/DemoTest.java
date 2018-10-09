@@ -61,4 +61,18 @@ public class DemoTest {
 	            e.printStackTrace();
 	        }
 	}
+
+	/*public static void main(String[] args) {
+		Article a = new Article();
+		a.setId("10000");
+		a.setTitle("这是标题");
+		//a.setStatus(Byte.valueOf("1"));
+		InsertSql insert = new InsertSql(a);
+		System.out.println("Sql 语句："+insert.getSql());
+		System.out.println(insert.getValues());
+		long b = 0;
+		System.out.println(b);
+		Object ob = b;
+		System.out.println(ob.getClass());
+	}*/
 }

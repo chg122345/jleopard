@@ -71,7 +71,7 @@ public interface SqlSession {
      **/
     void commit()throws SqlSessionException;
 
-    void rollback() throws SqlSessionException;
+    void rollback();
     /**
      * -----------------------Close---------------------------------
      **/
