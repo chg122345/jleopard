@@ -1,7 +1,7 @@
 # Jleopard-MVC
 #### bug提交(jleopard@126.com)
 * 版本
-	* [x] <a href="#v1" target="_self">v1.0.0</a>
+	* [x] <a href="#v1" target="_self">v1.0.0</a> 2018-10-09发布maven仓库
 
 
 	
@@ -27,7 +27,7 @@
 	      </servlet-mapping>
   		```
     * [x] `Spring MVC`风格化
-        1.使用`@Controller`注解标记
+        1. 使用`@Controller`注解标记
 		2. 请求映射方法自定义 `@RequestMapping(value = "",method = Method.POST)`(默认允许所有请求方法)
 		3. 自动初始化方法内参数(复杂类型自动匹配字段名赋值,简单类型用`@RequestParam`注解，上传文件用`MultipartFile`接收)
 		4. 支持返回json数据，只需标注`@RenderJson`注解即可
