@@ -9,10 +9,12 @@
 
 package org.jleopard.mvc.core.ienum;
 
+import java.io.Serializable;
+
 /**
  * 请求方法
  */
-public enum Method {
+public enum Method implements Serializable {
     ALL(0,"all"),GET(1,"get"),POST(2,"post"),PUT(3,"put"),DELETE(4,"delete");
 
     private int code;

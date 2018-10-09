@@ -19,9 +19,7 @@ import java.util.Set;
 
 public class MappingInfo {
 
-    private String url;
-
-    private org.jleopard.mvc.core.ienum.Method imed;
+    private Action action; // uri method
 
     private Object newInstance;
 
@@ -31,29 +29,20 @@ public class MappingInfo {
 
     private Set<Class<? extends Interceptor>> interceptors;
 
-    public MappingInfo(String url, org.jleopard.mvc.core.ienum.Method imed, Object newInstance, Method method, boolean renderJson, Set<Class<? extends Interceptor>> interceptors) {
-        this.url = url;
-        this.imed = imed;
+    public MappingInfo(Action action, Object newInstance, Method method, boolean renderJson, Set<Class<? extends Interceptor>> interceptors) {
+        this.action = action;
         this.newInstance = newInstance;
         this.method = method;
         this.renderJson = renderJson;
         this.interceptors = interceptors;
     }
 
-    public String getUrl() {
-        return url;
+    public Action getAction() {
+        return action;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public org.jleopard.mvc.core.ienum.Method getImed() {
-        return imed;
-    }
-
-    public void setImed(org.jleopard.mvc.core.ienum.Method imed) {
-        this.imed = imed;
+    public void setAction(Action action) {
+        this.action = action;
     }
 
     public Object getNewInstance() {

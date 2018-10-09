@@ -9,10 +9,14 @@
 
 package org.jleopard.mvc.view;
 
+import org.apache.commons.fileupload.FileUploadException;
+import org.jleopard.mvc.core.bean.Action;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public interface View {
@@ -21,5 +25,5 @@ public interface View {
         return "text/html;charset=UTF-8";
     }
 
-    void render(Map<String, ?> var1, HttpServletRequest var2, HttpServletResponse var3) throws ServletException,IOException;
+    void render(Map<Action, ?> var1, HttpServletRequest var2, HttpServletResponse var3) throws ServletException, IOException;
 }

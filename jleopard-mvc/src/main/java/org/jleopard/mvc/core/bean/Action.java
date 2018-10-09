@@ -9,5 +9,52 @@
 
 package org.jleopard.mvc.core.bean;
 
-public class Action {
+import org.jleopard.mvc.core.ienum.Method;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Action implements Serializable {
+
+    private String uri;
+
+    private Method method;
+
+    public Action() {
+    }
+
+    public Action(String uri, Method method) {
+        this.uri = uri;
+        this.method = method;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Action action = (Action) o;
+        return Objects.equals(uri, action.uri) &&
+                method == action.method;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uri, method);
+    }
 }

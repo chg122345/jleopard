@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.jleopard.mvc.core.bean.Action;
 import org.jleopard.mvc.core.bean.MappingInfo;
 import org.jleopard.mvc.core.ienum.ContentType;
 import org.jleopard.mvc.core.ienum.ErrorPage;
@@ -38,8 +39,6 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-
-import static org.jleopard.mvc.core.ienum.Method.ALL;
 
 /**
  * JSP模板渲染
@@ -66,74 +65,81 @@ public class JSPView implements View {
     }
 
     @Override
-    public void render(Map<String, ?> map, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void render(Map<Action, ?> map, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String context = req.getContextPath();
         String url = req.getRequestURI();
         String uri = url.replace(context, "").replaceAll("/+", "/");
         String method = req.getMethod();
+        org.jleopard.mvc.core.ienum.Method mappingMethod = getMethod(method);
+        Action action = new Action(uri, mappingMethod);
         Object value = null;
         boolean renderJson = false;
-        try {
-            for (Map.Entry<String, ?> $var : map.entrySet()) {
-                if (uri.equals($var.getKey())) {
-                    MappingInfo var1 = (MappingInfo) $var.getValue();
-                    Set<Class<? extends Interceptor>> interceptors = var1.getInterceptors();
-                    Method var2 = var1.getMethod();
-                    if ((var1.getImed() == ALL) || method.equalsIgnoreCase(var1.getImed().getValue())) {
-                        if (CollectionUtil.isNotEmpty(interceptors)) {
-                            for (Class<? extends Interceptor> inter : interceptors) {
-                                InterceptorRegistration registration = new InterceptorRegistration();
-                                Method m1 = inter.getDeclaredMethod("preHandle", HttpServletRequest.class, HttpServletResponse.class, InterceptorRegistration.class);
-                                boolean invoke = (boolean) m1.invoke(inter.newInstance(), req, resp, registration);
-                                if (!invoke) {
-                                    resp.setStatus(403);
-                                    renderErrorPage(403, resp);
-                                    break;
-                                }
-                            }
-                        }
-                        value = var2.invoke(var1.getNewInstance(), initMethodParam(req, resp, var2));
-                        renderJson = var1.isRenderJson();
-                        break;
-                    } else {
-                        renderErrorPage(405, resp);
-                        break;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            resp.setStatus(500);
-            /*resp.getWriter().write("500 Exception:\r\n" + Arrays.toString(e.getStackTrace()).replaceAll("\\[|\\]", "").replaceAll("\\s", "\r\n"));
-            resp.getWriter().close();*/
-            renderErrorPage(505,resp);
+        MappingInfo mappingInfo = (MappingInfo) map.get(action);
+        if (mappingInfo == null) {
+            action = new Action(uri, org.jleopard.mvc.core.ienum.Method.ALL);
+            mappingInfo = (MappingInfo) map.get(action);
         }
-
-        if (value == null) {
+        if (mappingInfo == null) {  // 没有找到映射方法 404
             resp.setStatus(404);
             renderErrorPage(404, resp);
             return;
         }
-        if (renderJson) {
-            String var = JSON.toJSONString(value);
-            resp.setContentType(ContentType.JSON.value());
-            resp.getWriter().write(var);
-            resp.getWriter().close();
-        } else {
-            if (value instanceof String) {
-                if (((String) value).startsWith("redirect:")) {
-                    String uri$ = ((String) value).replace("redirect:", "");
-                    resp.sendRedirect(uri$);
-                } else {
-                    String page = this.prefix + value + this.suffix;
-                    req.getRequestDispatcher(page).forward(req, resp);
+        Set<Class<? extends Interceptor>> interceptors = mappingInfo.getInterceptors();
+        try {
+            if (CollectionUtil.isNotEmpty(interceptors)) {
+                for (Class<? extends Interceptor> inter : interceptors) {
+                    InterceptorRegistration registration = new InterceptorRegistration();
+                    Method m1 = inter.getDeclaredMethod("preHandle", HttpServletRequest.class, HttpServletResponse.class, InterceptorRegistration.class);
+                    boolean invoke = (boolean) m1.invoke(inter.newInstance(), req, resp, registration);
+                    if (!invoke) {
+                        resp.setStatus(403);
+                        renderErrorPage(403, resp);
+                        break;
+                    }
                 }
+            }
+            Method method$ = mappingInfo.getMethod();
+            value = method$.invoke(mappingInfo.getNewInstance(), initMethodParam(req, resp, method$));
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setStatus(500);
+            renderErrorPage(500, resp);
+        }
+        renderJson = mappingInfo.isRenderJson();
+        if (value != null) {
+            if (renderJson) {
+                String var = JSON.toJSONString(value);
+                resp.setContentType(ContentType.JSON.value());
+                resp.getWriter().write(var);
+                resp.getWriter().close();
             } else {
-                throw new ViewResolverException("请求方法没有 @RenderJson注解");
+                if (value instanceof String) {
+                    if (((String) value).startsWith("redirect:")) {
+                        String uri$ = ((String) value).replace("redirect:", "");
+                        resp.sendRedirect(uri$);
+                    } else {
+                        String page = this.prefix + value + this.suffix;
+                        req.getRequestDispatcher(page).forward(req, resp);
+                    }
+                } else {
+                    throw new ViewResolverException("请求方法没有 @RenderJson注解");
+                }
             }
         }
     }
 
+    private org.jleopard.mvc.core.ienum.Method getMethod(String requestMethod) {
+        if (requestMethod.equalsIgnoreCase("get")) {
+            return org.jleopard.mvc.core.ienum.Method.GET;
+        } else if (requestMethod.equalsIgnoreCase("post")) {
+            return org.jleopard.mvc.core.ienum.Method.POST;
+        } else if (requestMethod.equalsIgnoreCase("put")) {
+            return org.jleopard.mvc.core.ienum.Method.PUT;
+        } else if (requestMethod.equalsIgnoreCase("delete")) {
+            return org.jleopard.mvc.core.ienum.Method.DELETE;
+        }
+        return null;
+    }
 
     private void renderErrorPage(int code, HttpServletResponse resp) throws IOException {
         resp.setContentType(this.getContentType());
@@ -161,11 +167,11 @@ public class JSPView implements View {
         resp.getWriter().close();
     }
 
-    private Object[] initMethodParam(HttpServletRequest req, HttpServletResponse resp, Method var2) throws FileUploadException,UnsupportedEncodingException {
+    private Object[] initMethodParam(HttpServletRequest req, HttpServletResponse resp, Method var2) throws FileUploadException, UnsupportedEncodingException {
         Map<String, String[]> paraMap = req.getParameterMap();
 
         Class<?>[] paraTypes = var2.getParameterTypes();
-        Map<Integer,String> paraNamesMap = MethodUtil.getParamaterNames(var2);
+        Map<Integer, String> paraNamesMap = MethodUtil.getParamaterNames(var2);
         Object[] paraValues = new Object[paraTypes.length];
         List<MultipartFile> list = new ArrayList<>();
         boolean isMultipart = ServletFileUpload.isMultipartContent(req);
@@ -205,10 +211,44 @@ public class JSPView implements View {
                 continue;
             } else if (var$ == String.class && !paraMap.isEmpty()) {
                 String paraName = paraNamesMap.get(i);
-                if (StringUtil.isNotEmpty(paraName)){
-                    String[] vales = paraMap.get(paraName);
-                    String value = Arrays.toString(vales).replaceAll("\\[|\\]", "").replaceAll("\\s", ",");
+                if (StringUtil.isNotEmpty(paraName)) {
+                    String value = getvalue(paraMap, paraName);
                     paraValues[i] = value;
+                    continue;
+                }
+            } else if (var$ == Integer.class && !paraMap.isEmpty()) {
+                String paraName = paraNamesMap.get(i);
+                if (StringUtil.isNotEmpty(paraName)) {
+                    String value = getvalue(paraMap, paraName);
+                    paraValues[i] = Integer.valueOf(value);
+                    continue;
+                }
+            } else if (var$ == Long.class && !paraMap.isEmpty()) {
+                String paraName = paraNamesMap.get(i);
+                if (StringUtil.isNotEmpty(paraName)) {
+                    String value = getvalue(paraMap, paraName);
+                    paraValues[i] = Long.valueOf(value);
+                    continue;
+                }
+            } else if (var$ == Double.class && !paraMap.isEmpty()) {
+                String paraName = paraNamesMap.get(i);
+                if (StringUtil.isNotEmpty(paraName)) {
+                    String value = getvalue(paraMap, paraName);
+                    paraValues[i] = Double.valueOf(value);
+                    continue;
+                }
+            } else if (var$ == Float.class && !paraMap.isEmpty()) {
+                String paraName = paraNamesMap.get(i);
+                if (StringUtil.isNotEmpty(paraName)) {
+                    String value = getvalue(paraMap, paraName);
+                    paraValues[i] = Float.valueOf(value);
+                    continue;
+                }
+            } else if (var$ == Byte.class && !paraMap.isEmpty()) {
+                String paraName = paraNamesMap.get(i);
+                if (StringUtil.isNotEmpty(paraName)) {
+                    String value = getvalue(paraMap, paraName);
+                    paraValues[i] = Byte.valueOf(value);
                     continue;
                 }
             } else if (var$ == MultipartFile.class) {
@@ -221,7 +261,7 @@ public class JSPView implements View {
                 continue;
             } else {  //封装类型
                 Field[] fields = var$.getDeclaredFields();
-                Object instance ;
+                Object instance;
                 try {
                     instance = var$.newInstance();
                     for (Field field : fields) {
@@ -241,6 +281,11 @@ public class JSPView implements View {
             }
         }
         return paraValues;
+    }
+
+    private String getvalue(Map<String, String[]> paraMap, String paraName) {
+        String[] vales = paraMap.get(paraName);
+        return Arrays.toString(vales).replaceAll("\\[|\\]", "").replaceAll("\\s", ",");
     }
 
     public void setContentType(String contentType) {

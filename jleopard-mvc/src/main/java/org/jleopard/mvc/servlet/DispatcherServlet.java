@@ -12,6 +12,7 @@ package org.jleopard.mvc.servlet;
 import org.jleopard.mvc.context.BeanContextUtil;
 import org.jleopard.mvc.core.ApplicationInitializer;
 import org.jleopard.mvc.core.annotation.*;
+import org.jleopard.mvc.core.bean.Action;
 import org.jleopard.mvc.core.bean.MappingInfo;
 import org.jleopard.mvc.inter.Before;
 import org.jleopard.mvc.inter.Clear;
@@ -20,6 +21,7 @@ import org.jleopard.mvc.view.View;
 import org.jleopard.mvc.view.ViewResolver;
 import org.jleopard.session.Configuration;
 import org.jleopard.util.ClassUtil;
+import org.jleopard.util.CollectionUtil;
 import org.jleopard.util.StringUtil;
 
 import javax.servlet.ServletException;
@@ -29,10 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -42,11 +41,11 @@ public class DispatcherServlet extends HttpServlet {
 
     private ApplicationInitializer appInitializer;
 
-    private final static String VIEW_RESOLVER_BEAN_NAME = "viewResolver";
+    private final static String DEFAULT_SERVLET_NAME = "default";
 
     private final static String SQL_SESSION_FACTORY_BEAN_NAME = "sqlSessionFactory";
 
-    private Map<String, MappingInfo> map = new HashMap<>();
+    private Map<Action, MappingInfo> map = new HashMap<>();
 
     public DispatcherServlet() {
     }
@@ -63,6 +62,15 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       /* String url = req.getRequestURI();
+        if (url.contains("."))){
+            RequestDispatcher rd = getServletContext().getNamedDispatcher(DEFAULT_SERVLET_NAME);
+            if (rd == null) {
+                throw new IllegalStateException("A RequestDispatcher could not be located for the default servlet '" + DEFAULT_SERVLET_NAME + "'");
+            } else {
+                rd.forward(req, resp);
+            }
+        }*/
         ViewResolver resolver = appInitializer.viewResolver();
         View view = resolver.resolveView();
         view.render(map, req, resp);
@@ -91,7 +99,7 @@ public class DispatcherServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        BeanContextUtil.registerBean(SQL_SESSION_FACTORY_BEAN_NAME,appInitializer.sqlSessionFactory(new Configuration()));
+        BeanContextUtil.registerBean(SQL_SESSION_FACTORY_BEAN_NAME, appInitializer.sqlSessionFactory(new Configuration()));
     }
 
     /**
@@ -109,9 +117,9 @@ public class DispatcherServlet extends HttpServlet {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            Set<Class<? extends Interceptor>> inters = null;
+            Set<Class<? extends Interceptor>> inters = new HashSet<>();
             Before before = i.getDeclaredAnnotation(Before.class);
-            if (before != null){
+            if (before != null) {
                 Class<? extends Interceptor>[] value = before.value();
                 inters = Arrays.stream(value).collect(Collectors.toSet());
             }
@@ -135,12 +143,11 @@ public class DispatcherServlet extends HttpServlet {
                     } else {
                         var1 = var$;
                     }
-                    addMapping(var1, newInstance, methods,inters);
+                    addMapping(var1, newInstance, methods, inters);
                 }
             } else {
-                addMapping(var1, newInstance, methods,inters);
+                addMapping(var1, newInstance, methods, inters);
             }
-
         });
     }
 
@@ -151,19 +158,23 @@ public class DispatcherServlet extends HttpServlet {
      * @param newInstance
      * @param methods
      */
-    private void addMapping(String var1, Object newInstance, Method[] methods,Set<Class<? extends Interceptor>> inters) {
+    private void addMapping(String var1, Object newInstance, Method[] methods, final Set<Class<? extends Interceptor>> inters) {
         String var2;
         for (Method method : methods) {
             if (method.isAnnotationPresent(RequestMapping.class)) {
-                Before before= method.getDeclaredAnnotation(Before.class);
-                Clear clear = method.getDeclaredAnnotation(Clear.class);
-                if (before != null){
-                    Class<? extends Interceptor>[] value = before.value();
-                    inters = Arrays.stream(value).collect(Collectors.toSet());
+                Set<Class<? extends Interceptor>> methodInters = new HashSet<>();
+                if (CollectionUtil.isNotEmpty(inters)) {
+                    methodInters.addAll(inters);
                 }
-                if (clear != null){
+                Before before = method.getDeclaredAnnotation(Before.class);
+                Clear clear = method.getDeclaredAnnotation(Clear.class);
+                if (before != null) {
+                    Class<? extends Interceptor>[] value = before.value();
+                    methodInters.addAll(Arrays.stream(value).collect(Collectors.toSet()));
+                }
+                if (clear != null && CollectionUtil.isNotEmpty(methodInters)) {
                     Class<? extends Interceptor>[] value = clear.value();
-                    inters.removeAll(Arrays.stream(value).collect(Collectors.toSet()));
+                    methodInters.removeAll(Arrays.stream(value).collect(Collectors.toSet()));
                 }
                 RequestMapping requestMapping$ = method.getDeclaredAnnotation(RequestMapping.class);
                 String[] var4 = requestMapping$.value();
@@ -178,8 +189,9 @@ public class DispatcherServlet extends HttpServlet {
                         var2 = var$1;
                     }
                     String url = var1 + var2;
-                    MappingInfo mappingInfo = new MappingInfo(url, requestMapping$.method(), newInstance, method, renderJson,inters);
-                    map.put(url, mappingInfo);
+                    Action action = new Action(url, requestMapping$.method());
+                    MappingInfo mappingInfo = new MappingInfo(action, newInstance, method, renderJson, methodInters);
+                    map.put(action, mappingInfo);
                 }
             }
         }
